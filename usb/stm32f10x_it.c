@@ -21,7 +21,6 @@
 #include "usb_istr.h"
 #include "hw_config.h"
 #include "platform_config.h"
-#include "stm32_eval.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -137,16 +136,6 @@ void PendSV_Handler(void)
 {
 }
 
-/*******************************************************************************
-* Function Name  : SysTick_Handler
-* Description    : This function handles SysTick Handler.
-* Input          : None
-* Output         : None
-* Return         : None
-*******************************************************************************/
-void SysTick_Handler(void)
-{
-}
 
 /******************************************************************************/
 /*            STM32F10x Peripherals Interrupt Handlers                        */
@@ -176,17 +165,19 @@ void USB_LP_CAN1_RX0_IRQHandler(void)
 *******************************************************************************/
 void EVAL_COM1_IRQHandler(void)
 {
-  if (USART_GetITStatus(EVAL_COM1, USART_IT_RXNE) != RESET)
-  {
-    /* Send the received data to the PC Host*/
-    USART_To_USB_Send_Data();
-  }
+	// TODO: AB remove
 
-  /* If overrun condition occurs, clear the ORE flag and recover communication */
-  if (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_ORE) != RESET)
-  {
-    (void)USART_ReceiveData(EVAL_COM1);
-  }
+//  if (USART_GetITStatus(EVAL_COM1, USART_IT_RXNE) != RESET)
+//  {
+//    /* Send the received data to the PC Host*/
+//    USART_To_USB_Send_Data();
+//  }
+//
+//  /* If overrun condition occurs, clear the ORE flag and recover communication */
+//  if (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_ORE) != RESET)
+//  {
+//    (void)USART_ReceiveData(EVAL_COM1);
+//  }
 }
 
 

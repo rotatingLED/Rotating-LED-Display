@@ -36,6 +36,29 @@
 #ifdef __cplusplus
  extern "C" {
 #endif 
+
+
+
+
+
+
+
+
+
+
+
+ // TODO: stimmt diese Adresse?
+ /* Flash refisters base address */
+ #define FLASH_BASE            ((u32)0x40022000)
+
+
+
+
+
+
+
+
+
   
 /** @addtogroup Library_configuration_section
   * @{

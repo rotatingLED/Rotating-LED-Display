@@ -155,17 +155,38 @@ SRC += src/errdisplay.c
 
 
 SRC += usb/hw_config.c
-SRC += usb/usb_init.c
-SRC += usb/usb_prop.c
-SRC += usb/usb_pwr.c
-SRC += usb/usb_sil.c
-SRC += usb/usb_regs.c
+SRC += usb/otgd_fs_cal.c
+SRC += usb/otgd_fs_dev.c
+SRC += usb/otgd_fs_int.c
+SRC += usb/otgd_fs_pcd.c
+SRC += usb/stm32f10x_it.c
+SRC += usb/system_stm32f10x.c
 SRC += usb/usb_core.c
 SRC += usb/usb_desc.c
+SRC += usb/usb_endp.c
+SRC += usb/usb_init.c
+SRC += usb/usb_int.c
+SRC += usb/usb_istr.c
+SRC += usb/usb_mem.c
+SRC += usb/usb_prop.c
+SRC += usb/usb_pwr.c
+SRC += usb/usb_regs.c
+SRC += usb/usb_sil.c
+
+
+
 
 ## CMSIS for STM32
 SRC += $(CMSISCOREDIR)/core_cm3.c
-SRC += $(CMSISDEVDIR)/system_stm32f10x.c
+
+
+
+# TODO: ENTFERNEN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# TODO: ENTFERNEN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# TODO: ENTFERNEN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# TODO: ENTFERNEN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+#SRC += $(CMSISDEVDIR)/system_stm32f10x.c
 ## used parts of the STM-Library
 SRC += $(STMSPDSRCDIR)/stm32f10x_usart.c
 SRC += $(STMSPDSRCDIR)/stm32f10x_flash.c

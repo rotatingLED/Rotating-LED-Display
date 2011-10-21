@@ -31,7 +31,6 @@
 #define GPIO_Pin_LED1                       GPIO_Pin_13
 
 
-// USB Config
 #define USB_DISCONNECT                      GPIOD
 #define USB_DISCONNECT_PIN                  GPIO_Pin_9
 #define RCC_APB2Periph_GPIO_DISCONNECT      RCC_APB2Periph_GPIOD

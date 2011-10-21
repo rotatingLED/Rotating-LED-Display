@@ -17,16 +17,18 @@
 #define __ERRDISPLAY_H__
 
 typedef enum {
-	ERROR_INIT_SYSCLOCK_FAILED = 1,
-	ERROR_EXIT = 2,
-	ERROR_HEAP_STACK_COLLISION = 3,
-	ERROR_ASSERTION_FAILED = 4
+	ERROR_INIT_SYSCLOCK_FAILED = 1,  // 0001
+	ERROR_EXIT = 2,                  // 0010
+	ERROR_HEAP_STACK_COLLISION = 3,  // 0011
+	ERROR_ASSERTION_FAILED = 4,      // 0100
+	ERROR_DEFAULT_HANDLER_CALLED = 5 // 0101
 
 } ErrorCodes;
 
 // error led connection
 #define ERROR_STATE_LED_PORT GPIOC
 #define ERROR_STATE_LED_PIN GPIO_Pin_13
+
 
 /**
  * Display an error code on Display, never returns

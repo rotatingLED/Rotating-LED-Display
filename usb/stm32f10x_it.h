@@ -1,9 +1,9 @@
 /******************** (C) COPYRIGHT 2011 STMicroelectronics ********************
-* File Name          : hw_config.h
+* File Name          : stm32f10x_it.h
 * Author             : MCD Application Team
 * Version            : V3.3.0
 * Date               : 21-March-2011
-* Description        : Hardware Configuration & Setup
+* Description        : This file contains the headers of the interrupt handlers.
 ********************************************************************************
 * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
 * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
@@ -14,37 +14,43 @@
 *******************************************************************************/
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __HW_CONFIG_H
-#define __HW_CONFIG_H
+#ifndef __STM32F10x_IT_H
+#define __STM32F10x_IT_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "usb_type.h"
+#include "stm32f10x.h"
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
-/* Exported define -----------------------------------------------------------*/
-#define MASS_MEMORY_START     0x04002000
-#define BULK_MAX_PACKET_SIZE  0x00000040
-#define LED_ON                0xF0
-#define LED_OFF               0xFF
-
-#define USART_RX_DATA_SIZE   2048
 /* Exported functions ------------------------------------------------------- */
-void Set_System(void);
-void Set_USBClock(void);
-void Enter_LowPowerMode(void);
-void Leave_LowPowerMode(void);
-void USB_Interrupts_Config(void);
-void USB_Cable_Config (FunctionalState NewState);
-void USART_Config_Default(void);
-bool USART_Config(void);
-void USB_To_USART_Send_Data(uint8_t* data_buffer, uint8_t Nb_bytes);
-void USART_To_USB_Send_Data(void);
-void Handle_USBAsynchXfer (void);
-void Get_SerialNum(void);
 
-/* External variables --------------------------------------------------------*/
+void NMI_Handler(void);
+void HardFault_Handler(void);
+void MemManage_Handler(void);
+void BusFault_Handler(void);
+void UsageFault_Handler(void);
+void SVC_Handler(void);
+void DebugMon_Handler(void);
+void PendSV_Handler(void);
+void SysTick_Handler(void);
 
-#endif  /*__HW_CONFIG_H*/
+#ifndef STM32F10X_CL
+void USB_LP_CAN1_RX0_IRQHandler(void);
+#endif /* STM32F10X_CL */
+
+#if defined (USE_STM3210B_EVAL) || defined (USE_STM3210E_EVAL)
+void USART1_IRQHandler(void);
+#endif /* USE_STM3210B_EVAL or USE_STM3210E_EVAL */
+
+#ifdef USE_STM3210C_EVAL
+void USART2_IRQHandler(void);
+#endif /* USE_STM3210C_EVAL */
+
+#ifdef STM32F10X_CL
+void OTG_FS_IRQHandler(void);
+#endif /* STM32F10X_CL */
+
+#endif /* __STM32F10x_IT_H */
+
 /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/

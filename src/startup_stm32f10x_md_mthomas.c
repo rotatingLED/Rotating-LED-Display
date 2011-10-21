@@ -28,19 +28,21 @@
  */
 
 /* Modified by Martin Thomas
-   - to take VECT_TAB_RAM setting into account, also see the linker-script
-   - to avoid warning "ISO C forbids initialization between function pointer and 'void *'".
-   - added optional startup-delay to avoid unwanted operations while connecting with
-     debugger/programmer
-   - tested with the GNU arm-eabi toolchain as in CS G++ lite Q1/2009-161
-   - minor modification in .data copy to avoid copy while "run from RAM"
-     during debugging
-*/
+ - to take VECT_TAB_RAM setting into account, also see the linker-script
+ - to avoid warning "ISO C forbids initialization between function pointer and 'void *'".
+ - added optional startup-delay to avoid unwanted operations while connecting with
+ debugger/programmer
+ - tested with the GNU arm-eabi toolchain as in CS G++ lite Q1/2009-161
+ - minor modification in .data copy to avoid copy while "run from RAM"
+ during debugging
+ */
+
+#include "errdisplay.h"
 
 /* Includes ------------------------------------------------------------------*/
 /* Private typedef -----------------------------------------------------------*/
 /* Private typedef -----------------------------------------------------------*/
-typedef void( *const intfunc )( void );
+typedef void(* const intfunc)(void);
 
 /* Private define ------------------------------------------------------------*/
 #define WEAK __attribute__ ((weak))
@@ -48,7 +50,7 @@ typedef void( *const intfunc )( void );
 /* Private macro -------------------------------------------------------------*/
 extern unsigned long _etext;
 /* start address for the initialization values of the .data section.
-defined in linker script */
+ defined in linker script */
 extern unsigned long _sidata;
 
 /* start address for the .data section. defined in linker script */
@@ -74,16 +76,15 @@ void __Init_Data_and_BSS(void);
 void Default_Handler(void);
 
 /* External function prototypes ----------------------------------------------*/
-extern int main(void);                /* Application's main function */
-extern void SystemInit(void);         /* STM's system init */
-extern void __libc_init_array(void);  /* calls CTORS of static objects */
-
+extern int main(void); /* Application's main function */
+extern void SystemInit(void); /* STM's system init */
+extern void __libc_init_array(void); /* calls CTORS of static objects */
 
 /*******************************************************************************
-*
-*            Forward declaration of the default fault handlers.
-*
-*******************************************************************************/
+ *
+ *            Forward declaration of the default fault handlers.
+ *
+ *******************************************************************************/
 //mthomas void WEAK Reset_Handler(void);
 void WEAK NMI_Handler(void);
 void WEAK HardFault_Handler(void);
@@ -143,29 +144,29 @@ void WEAK USBWakeUp_IRQHandler(void);
 
 /* Private functions ---------------------------------------------------------*/
 /******************************************************************************
-*
-* mthomas: If been built with VECT_TAB_RAM this creates two tables:
-* (1) a minimal table (stack-pointer, reset-vector) used during startup
-*     before relocation of the vector table using SCB_VTOR
-* (2) a full table which is copied to RAM and used after vector relocation
-*     (NVIC_SetVectorTable)
-* If been built without VECT_TAB_RAM the following comment from STM is valid:
-* The minimal vector table for a Cortex M3.  Note that the proper constructs
-* must be placed on this to ensure that it ends up at physical address
-* 0x0000.0000.
-*
-******************************************************************************/
+ *
+ * mthomas: If been built with VECT_TAB_RAM this creates two tables:
+ * (1) a minimal table (stack-pointer, reset-vector) used during startup
+ *     before relocation of the vector table using SCB_VTOR
+ * (2) a full table which is copied to RAM and used after vector relocation
+ *     (NVIC_SetVectorTable)
+ * If been built without VECT_TAB_RAM the following comment from STM is valid:
+ * The minimal vector table for a Cortex M3.  Note that the proper constructs
+ * must be placed on this to ensure that it ends up at physical address
+ * 0x0000.0000.
+ *
+ ******************************************************************************/
 
 #ifdef VECT_TAB_RAM
 __attribute__ ((section(".isr_vectorsflash")))
 void (* const g_pfnVectorsStartup[])(void) =
 {
-    (intfunc)((unsigned long)&_estack), /* The initial stack pointer during startup */
-    Reset_Handler,             /* The reset handler during startup */
-    HardFault_Handler,          /* Hard Fault Handler */
-    MemManage_Handler,          /* MPU Fault Handler */
-    BusFault_Handler,           /* Bus Fault Handler */
-    UsageFault_Handler,         /* Usage Fault Handler */
+	(intfunc)((unsigned long)&_estack), /* The initial stack pointer during startup */
+	Reset_Handler, /* The reset handler during startup */
+	HardFault_Handler, /* Hard Fault Handler */
+	MemManage_Handler, /* MPU Fault Handler */
+	BusFault_Handler, /* Bus Fault Handler */
+	UsageFault_Handler, /* Usage Fault Handler */
 };
 __attribute__ ((section(".isr_vectorsram")))
 void (* g_pfnVectors[])(void) =
@@ -173,72 +174,70 @@ void (* g_pfnVectors[])(void) =
 __attribute__ ((section(".isr_vectorsflash")))
 void (* const g_pfnVectors[])(void) =
 #endif /* VECT_TAB_RAM */
-{
-    (intfunc)((unsigned long)&_estack), /* The stack pointer after relocation */
-    Reset_Handler,              /* Reset Handler */
-    NMI_Handler,                /* NMI Handler */
-    HardFault_Handler,          /* Hard Fault Handler */
-    MemManage_Handler,          /* MPU Fault Handler */
-    BusFault_Handler,           /* Bus Fault Handler */
-    UsageFault_Handler,         /* Usage Fault Handler */
-    0,                          /* Reserved */
-    0,                          /* Reserved */
-    0,                          /* Reserved */
-    0,                          /* Reserved */
-    SVC_Handler,                /* SVCall Handler */
-    DebugMon_Handler,           /* Debug Monitor Handler */
-    0,                          /* Reserved */
-    PendSV_Handler,             /* PendSV Handler */
-    SysTick_Handler,            /* SysTick Handler */
+		{ (intfunc) ((unsigned long) &_estack), /* The stack pointer after relocation */
+		Reset_Handler, /* Reset Handler */
+		NMI_Handler, /* NMI Handler */
+		HardFault_Handler, /* Hard Fault Handler */
+		MemManage_Handler, /* MPU Fault Handler */
+		BusFault_Handler, /* Bus Fault Handler */
+		UsageFault_Handler, /* Usage Fault Handler */
+		0, /* Reserved */
+		0, /* Reserved */
+		0, /* Reserved */
+		0, /* Reserved */
+		SVC_Handler, /* SVCall Handler */
+		DebugMon_Handler, /* Debug Monitor Handler */
+		0, /* Reserved */
+		PendSV_Handler, /* PendSV Handler */
+		SysTick_Handler, /* SysTick Handler */
 
-    /* External Interrupts */
-    WWDG_IRQHandler,            /* Window Watchdog */
-    PVD_IRQHandler,             /* PVD through EXTI Line detect */
-    TAMPER_IRQHandler,          /* Tamper */
-    RTC_IRQHandler,             /* RTC */
-    FLASH_IRQHandler,           /* Flash */
-    RCC_IRQHandler,             /* RCC */
-    EXTI0_IRQHandler,           /* EXTI Line 0 */
-    EXTI1_IRQHandler,           /* EXTI Line 1 */
-    EXTI2_IRQHandler,           /* EXTI Line 2 */
-    EXTI3_IRQHandler,           /* EXTI Line 3 */
-    EXTI4_IRQHandler,           /* EXTI Line 4 */
-    DMA1_Channel1_IRQHandler,   /* DMA1 Channel 1 */
-    DMA1_Channel2_IRQHandler,   /* DMA1 Channel 2 */
-    DMA1_Channel3_IRQHandler,   /* DMA1 Channel 3 */
-    DMA1_Channel4_IRQHandler,   /* DMA1 Channel 4 */
-    DMA1_Channel5_IRQHandler,   /* DMA1 Channel 5 */
-    DMA1_Channel6_IRQHandler,   /* DMA1 Channel 6 */
-    DMA1_Channel7_IRQHandler,   /* DMA1 Channel 7 */
-    ADC1_2_IRQHandler,          /* ADC1 & ADC2 */
-    USB_HP_CAN1_TX_IRQHandler,  /* USB High Priority or CAN1 TX */
-    USB_LP_CAN1_RX0_IRQHandler, /* USB Low  Priority or CAN1 RX0 */
-    CAN1_RX1_IRQHandler,        /* CAN1 RX1 */
-    CAN1_SCE_IRQHandler,        /* CAN1 SCE */
-    EXTI9_5_IRQHandler,         /* EXTI Line 9..5 */
-    TIM1_BRK_IRQHandler,        /* TIM1 Break */
-    TIM1_UP_IRQHandler,         /* TIM1 Update */
-    TIM1_TRG_COM_IRQHandler,    /* TIM1 Trigger and Commutation */
-    TIM1_CC_IRQHandler,         /* TIM1 Capture Compare */
-    TIM2_IRQHandler,            /* TIM2 */
-    TIM3_IRQHandler,            /* TIM3 */
-    TIM4_IRQHandler,            /* TIM4 */
-    I2C1_EV_IRQHandler,         /* I2C1 Event */
-    I2C1_ER_IRQHandler,         /* I2C1 Error */
-    I2C2_EV_IRQHandler,         /* I2C2 Event */
-    I2C2_ER_IRQHandler,         /* I2C2 Error */
-    SPI1_IRQHandler,            /* SPI1 */
-    SPI2_IRQHandler,            /* SPI2 */
-    USART1_IRQHandler,          /* USART1 */
-    USART2_IRQHandler,          /* USART2 */
-    USART3_IRQHandler,          /* USART3 */
-    EXTI15_10_IRQHandler,       /* EXTI Line 15..10 */
-    RTCAlarm_IRQHandler,        /* RTC Alarm through EXTI Line */
-    USBWakeUp_IRQHandler,       /* USB Wakeup from suspend */
-    0,0,0,0,0,0,0,
-    (intfunc)0xF108F85F          /* @0x108. This is for boot in RAM mode for
-                                   STM32F10x Medium Density devices. */
-};
+		/* External Interrupts */
+		WWDG_IRQHandler, /* Window Watchdog */
+		PVD_IRQHandler, /* PVD through EXTI Line detect */
+		TAMPER_IRQHandler, /* Tamper */
+		RTC_IRQHandler, /* RTC */
+		FLASH_IRQHandler, /* Flash */
+		RCC_IRQHandler, /* RCC */
+		EXTI0_IRQHandler, /* EXTI Line 0 */
+		EXTI1_IRQHandler, /* EXTI Line 1 */
+		EXTI2_IRQHandler, /* EXTI Line 2 */
+		EXTI3_IRQHandler, /* EXTI Line 3 */
+		EXTI4_IRQHandler, /* EXTI Line 4 */
+		DMA1_Channel1_IRQHandler, /* DMA1 Channel 1 */
+		DMA1_Channel2_IRQHandler, /* DMA1 Channel 2 */
+		DMA1_Channel3_IRQHandler, /* DMA1 Channel 3 */
+		DMA1_Channel4_IRQHandler, /* DMA1 Channel 4 */
+		DMA1_Channel5_IRQHandler, /* DMA1 Channel 5 */
+		DMA1_Channel6_IRQHandler, /* DMA1 Channel 6 */
+		DMA1_Channel7_IRQHandler, /* DMA1 Channel 7 */
+		ADC1_2_IRQHandler, /* ADC1 & ADC2 */
+		USB_HP_CAN1_TX_IRQHandler, /* USB High Priority or CAN1 TX */
+		USB_LP_CAN1_RX0_IRQHandler, /* USB Low  Priority or CAN1 RX0 */
+		CAN1_RX1_IRQHandler, /* CAN1 RX1 */
+		CAN1_SCE_IRQHandler, /* CAN1 SCE */
+		EXTI9_5_IRQHandler, /* EXTI Line 9..5 */
+		TIM1_BRK_IRQHandler, /* TIM1 Break */
+		TIM1_UP_IRQHandler, /* TIM1 Update */
+		TIM1_TRG_COM_IRQHandler, /* TIM1 Trigger and Commutation */
+		TIM1_CC_IRQHandler, /* TIM1 Capture Compare */
+		TIM2_IRQHandler, /* TIM2 */
+		TIM3_IRQHandler, /* TIM3 */
+		TIM4_IRQHandler, /* TIM4 */
+		I2C1_EV_IRQHandler, /* I2C1 Event */
+		I2C1_ER_IRQHandler, /* I2C1 Error */
+		I2C2_EV_IRQHandler, /* I2C2 Event */
+		I2C2_ER_IRQHandler, /* I2C2 Error */
+		SPI1_IRQHandler, /* SPI1 */
+		SPI2_IRQHandler, /* SPI2 */
+		USART1_IRQHandler, /* USART1 */
+		USART2_IRQHandler, /* USART2 */
+		USART3_IRQHandler, /* USART3 */
+		EXTI15_10_IRQHandler, /* EXTI Line 15..10 */
+		RTCAlarm_IRQHandler, /* RTC Alarm through EXTI Line */
+		USBWakeUp_IRQHandler, /* USB Wakeup from suspend */
+		0, 0, 0, 0, 0, 0, 0, (intfunc) 0xF108F85F /* @0x108. This is for boot in RAM mode for
+		 STM32F10x Medium Density devices. */
+		};
 
 /**
  * @brief  This is the code that gets called when the processor first
@@ -247,69 +246,68 @@ void (* const g_pfnVectors[])(void) =
  *          supplied main() routine is called.
  * @param  None
  * @retval : None
-*/
+ */
 
-void Reset_Handler(void)
-{
+void Reset_Handler(void) {
 
 #ifdef STARTUP_DELAY
-  volatile unsigned long i;
-  for (i=0;i<500000;i++) { ; }
+	volatile unsigned long i;
+	for (i = 0; i < 500000; i++) {
+		;
+	}
 #endif
 
-  /* Initialize data and bss */
-  __Init_Data_and_BSS();
+	/* Initialize data and bss */
+	__Init_Data_and_BSS();
 
-  /* Call CTORS of static objects, not needed for "pure C": */
-  /* __libc_init_array(); */
-  /* if ( __libc_init_array )
-    __libc_init_array()
-  } */
-  
-  /* Setup the microcontroller system. Initialize the Embedded Flash Interface,
-     initialize the PLL and update the SystemFrequency variable. */
-  SystemInit();
+	/* Call CTORS of static objects, not needed for "pure C": */
+	/* __libc_init_array(); */
+	/* if ( __libc_init_array )
+	 __libc_init_array()
+	 } */
 
-  /* Call the application's entry point.*/
-  main();
+	/* Setup the microcontroller system. Initialize the Embedded Flash Interface,
+	 initialize the PLL and update the SystemFrequency variable. */
+	SystemInit();
 
-  while(1) { ; }
+	/* Call the application's entry point.*/
+	main();
+
+	while (1) {
+		;
+	}
 }
 
 /**
  * @brief  initializes data and bss sections
  * @param  None
  * @retval : None
-*/
+ */
 
-void __Init_Data_and_BSS(void)
-{
-  unsigned long *pulSrc, *pulDest;
+void __Init_Data_and_BSS(void) {
+	unsigned long *pulSrc, *pulDest;
 
-  /* Copy the data segment initializers from flash to SRAM */
-  pulSrc  = &_sidata;
-  pulDest = &_sdata;
-  if ( pulSrc != pulDest )
-  {
-    for(; pulDest < &_edata; )
-    {
-      *(pulDest++) = *(pulSrc++);
-    }
-  }
-  /* Zero fill the bss segment. */
-  for(pulDest = &_sbss; pulDest < &_ebss; )
-  {
-    *(pulDest++) = 0;
-  }
+	/* Copy the data segment initializers from flash to SRAM */
+	pulSrc = &_sidata;
+	pulDest = &_sdata;
+	if (pulSrc != pulDest) {
+		for (; pulDest < &_edata;) {
+			*(pulDest++) = *(pulSrc++);
+		}
+	}
+	/* Zero fill the bss segment. */
+	for (pulDest = &_sbss; pulDest < &_ebss;) {
+		*(pulDest++) = 0;
+	}
 }
 
 /*******************************************************************************
-*
-* Provide weak aliases for each Exception handler to the Default_Handler.
-* As they are weak aliases, any function with the same name will override
-* this definition.
-*
-*******************************************************************************/
+ *
+ * Provide weak aliases for each Exception handler to the Default_Handler.
+ * As they are weak aliases, any function with the same name will override
+ * this definition.
+ *
+ *******************************************************************************/
 #pragma weak MMI_Handler = Default_Handler
 #pragma weak MemManage_Handler = Default_Handler
 #pragma weak BusFault_Handler = Default_Handler
@@ -369,14 +367,11 @@ void __Init_Data_and_BSS(void)
  *
  * @param  None
  * @retval : None
-*/
+ */
 
-void Default_Handler(void)
-{
-  /* Go into an infinite loop. */
-  while (1)
-  {
-  }
+void Default_Handler(void) {
+	/* Go into an infinite loop. */
+	errdisplay_displayErr(ERROR_DEFAULT_HANDLER_CALLED);
 }
 
 /******************* (C) COPYRIGHT 2009 STMicroelectronics *****END OF FILE****/
