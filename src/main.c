@@ -81,6 +81,39 @@ int main(void) {
 
 	while (1) {
 	}
+  // Turn on/off LED(s)
+  register int i=0;
+  register int j=0;
+  while(1){
+    i++;
+    /*GPIOD->ODR = 0x0400;
+
+    GPIOC->ODR = 0xffff;
+    //sleep(2000);
+    GPIOC->ODR = 0x0000;*/
+    //sleep(2000);
+    //GPIOC->ODR = 0xFBFF;
+    //GPIOD->ODR = 0x0000;
+    /*
+    //mine:
+    GPIOC->ODR = dummy[++i];
+    dummy[0] = dummy2[0];
+    dummy[1] = dummy2[1];
+    dummy[2] = dummy2[2];
+    //dummy[3] = dummy2[3];
+    GPIOC->ODR = dummy[++i];
+    GPIOC->ODR = dummy[++i];
+    GPIOC->ODR = dummy[++i];
+    GPIOC->ODR = 0xffff;
+    GPIOC->ODR = 0x0000;
+    i = 0;
+
+    //GPIOD->ODR = 0xFFFF;
+    /*GPIOC->BRR = GPIO_Pin_All;
+    GPIOC->BSRR = GPIO_Pin_All;
+    GPIOC->BRR = GPIO_Pin_All;
+    GPIOC->BSRR = GPIO_Pin_All;*/
+  }
 }
 
 /*******************************************************************************
@@ -137,11 +170,18 @@ void GPIO_Configuration(void) {
 	GPIO_InitStructure.GPIO_Pin = GPIO_RxPin;
 	GPIO_Init(GPIOx, &GPIO_InitStructure);
 
-	/* Configure GPIO for LEDs as Output push-pull */
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_LED1;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-	GPIO_Init(GPIO_LED, &GPIO_InitStructure);
+  /* Configure GPIO for LEDs as Output push-pull */
+  // GPIO C
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+
+  // GPIO D
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_Init(GPIOD, &GPIO_InitStructure);
 
 #if defined(USE_MINI_STM32)
 	/* touch-controller's CS (PA4), SD-Card's CS (PB6) and DataFlash CS (PB7) high = unselect */
