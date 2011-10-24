@@ -24,14 +24,14 @@ const uint8_t Virtual_Com_Port_DeviceDescriptor[] =
     USB_DEVICE_DESCRIPTOR_TYPE,     /* bDescriptorType */
     0x00,
     0x02,   /* bcdUSB = 2.00 */
-    0x02,   /* bDeviceClass: CDC */
+    0x00,   /* bDeviceClass: CDC -> originally 02, but changed */
     0x00,   /* bDeviceSubClass */
     0x00,   /* bDeviceProtocol */
     0x40,   /* bMaxPacketSize0 */
-    0x83,
-    0x04,   /* idVendor = 0x0483 */
+    0xff,
+    0xff,   /* idVendor = 0x0483 -> 0xffff added by david halter -> undefined */
     0x40,
-    0x57,   /* idProduct = 0x7540 */
+    0x57,   /* idProduct = 0x5740 */
     0x00,
     0x02,   /* bcdDevice = 2.00 */
     1,              /* Index of string descriptor describing manufacturer */
@@ -59,9 +59,9 @@ const uint8_t Virtual_Com_Port_ConfigDescriptor[] =
     0x00,   /* bInterfaceNumber: Number of Interface */
     0x00,   /* bAlternateSetting: Alternate setting */
     0x01,   /* bNumEndpoints: One endpoints used */
-    0x02,   /* bInterfaceClass: Communication Interface Class */
-    0x02,   /* bInterfaceSubClass: Abstract Control Model */
-    0x01,   /* bInterfaceProtocol: Common AT commands */
+    0x03,         /* bInterfaceClass: HID */
+    0x00,         /* bInterfaceSubClass : 1=BOOT, 0=no boot */
+    0x00,         /* nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse */
     0x00,   /* iInterface: */
     /*Header Functional Descriptor*/
     0x05,   /* bLength: Endpoint Descriptor size */
@@ -143,9 +143,11 @@ const uint8_t Virtual_Com_Port_StringProduct[VIRTUAL_COM_PORT_SIZ_STRING_PRODUCT
   {
     VIRTUAL_COM_PORT_SIZ_STRING_PRODUCT,          /* bLength */
     USB_STRING_DESCRIPTOR_TYPE,        /* bDescriptorType */
-    /* Product name: "STM32 Virtual COM Port" */
-    'L', 0, 'E', 0, 'D', 0, ' ', 0, 'D', 0, 'i', 0, 's', 0, 'p', 0,
-    'l', 0, 'a', 0, 'y', 0
+    /* Product name: "LED controller" */
+    'L', 0, 'E', 0, 'D', 0, ' ', 0, 'c', 0, 'o', 0, 'n', 0, 't', 0,
+    'o', 0, 'l', 0, 'l', 0, 'e', 0, 'r', 0
+
+
   };
 
 uint8_t Virtual_Com_Port_StringSerial[VIRTUAL_COM_PORT_SIZ_STRING_SERIAL] =
