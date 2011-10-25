@@ -43,7 +43,7 @@ void SysTick_Handler(void) {
 	cnt++;
 	if (cnt >= 1000) {
 		cnt = 0;
-		errdisplay_aliveSign();
+		//errdisplay_aliveSign();
 	}
 }
 

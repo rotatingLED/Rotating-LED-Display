@@ -59,7 +59,7 @@ const uint8_t Virtual_Com_Port_ConfigDescriptor[] =
     0x00,   /* bInterfaceNumber: Number of Interface */
     0x00,   /* bAlternateSetting: Alternate setting */
     0x01,   /* bNumEndpoints: One endpoints used */
-    0x03,         /* bInterfaceClass: HID */
+    0x00,         /* bInterfaceClass: HID -> 03 */
     0x00,         /* bInterfaceSubClass : 1=BOOT, 0=no boot */
     0x00,         /* nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse */
     0x00,   /* iInterface: */

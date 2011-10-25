@@ -101,6 +101,8 @@ void EP3_OUT_Callback(void)
   
   /* USB data will be immediately processed, this allow next USB traffic being 
   NAKed till the end of the USART Xfer */
+  GPIOC->ODR = 0xffff;
+  GPIOC->ODR = 0x0000;
   
   USB_To_USART_Send_Data(USB_Rx_Buffer, USB_Rx_Cnt);
   

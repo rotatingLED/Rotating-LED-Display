@@ -31,6 +31,10 @@
 #define VIRTUAL_COM_PORT_DATA_SIZE              64
 #define VIRTUAL_COM_PORT_INT_SIZE               8
 
+#define HID_DESCRIPTOR_TYPE                     0x21
+#define CUSTOMHID_SIZ_HID_DESC                  0x09
+#define CUSTOMHID_OFF_HID_DESC                  0x12
+
 #define VIRTUAL_COM_PORT_SIZ_DEVICE_DESC        18
 #define VIRTUAL_COM_PORT_SIZ_CONFIG_DESC        67
 #define VIRTUAL_COM_PORT_SIZ_STRING_LANGID      4
