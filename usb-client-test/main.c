@@ -20,7 +20,8 @@
 
 #define IDENT_VENDOR_NUM        0xffff
 #define IDENT_VENDOR_STRING     "ZHAW"
-#define IDENT_PRODUCT_NUM       0x001f
+//#define IDENT_PRODUCT_NUM       0x001f
+#define IDENT_PRODUCT_NUM       0x5740
 #define IDENT_PRODUCT_STRING    "LED controller"
 
 /* ------------------------------------------------------------------------- */
