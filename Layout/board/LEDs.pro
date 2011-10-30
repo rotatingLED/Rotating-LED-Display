@@ -1,4 +1,4 @@
-update=Son 30 Okt 2011 19:58:40 CET
+update=Son 30 Okt 2011 22:20:51 CET
 version=1
 last_client=pcbnew
 [general]
@@ -83,8 +83,8 @@ LibName36=l78l33acutr
 [pcbnew]
 version=1
 PadDrlX=0
-PadDimH=236
-PadDimV=394
+PadDimH=1600
+PadDimV=1600
 BoardThickness=630
 SgPcb45=1
 TxtPcbV=800
