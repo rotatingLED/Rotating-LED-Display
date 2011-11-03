@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Don 03 Nov 2011 09:31:52 CET
+EESchema Schematic File Version 2  date Don 03 Nov 2011 21:44:05 CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -35,6 +35,7 @@ LIBS:74ABT573A-neu
 LIBS:dual-mosfeet
 LIBS:74lv04
 LIBS:l78l33acutr
+LIBS:LEDs-cache
 EELAYER 24  0
 EELAYER END
 $Descr A0 46800 33070
@@ -48,6 +49,8 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Wire Wire Line
+	1300 4950 1650 4950
 Wire Wire Line
 	3750 2250 4450 2250
 Wire Wire Line
@@ -101,8 +104,6 @@ Wire Wire Line
 	1900 6000 1900 6050
 Wire Wire Line
 	1300 4950 1300 3650
-Wire Wire Line
-	1300 4950 1350 4950
 Wire Wire Line
 	3100 5150 2050 5150
 Wire Wire Line
@@ -1999,10 +2000,6 @@ Wire Wire Line
 Wire Wire Line
 	2200 5050 2200 5000
 Wire Wire Line
-	2200 5000 1650 5000
-Wire Wire Line
-	1650 5000 1650 4950
-Wire Wire Line
 	2500 5250 1950 5250
 Wire Wire Line
 	1950 5250 1950 5150
@@ -2075,6 +2072,10 @@ Wire Wire Line
 Wire Wire Line
 	950  4800 950  5250
 Connection ~ 950  5250
+Wire Wire Line
+	2200 5000 1650 5000
+Wire Wire Line
+	1650 5000 1650 4950
 Text Label 3750 2250 0    60   ~ 0
 EXTERN_INT_1
 $Comp
@@ -2353,17 +2354,17 @@ Text Label 13900 26100 2    60   ~ 0
 GREEN
 Text Label 13900 25900 2    60   ~ 0
 RED
-Text Label 8850 5900 0    60   ~ 0
+Text Label 8850 6000 0    60   ~ 0
 LED48
-Text Label 8850 3600 0    60   ~ 0
-LED63
-Text Label 8850 3500 0    60   ~ 0
-LED62
-Text Label 8850 3400 0    60   ~ 0
-LED61
-Text Label 8850 3300 0    60   ~ 0
-LED60
 Text Label 8850 3700 0    60   ~ 0
+LED63
+Text Label 8850 3600 0    60   ~ 0
+LED62
+Text Label 8850 3500 0    60   ~ 0
+LED61
+Text Label 8850 3400 0    60   ~ 0
+LED60
+Text Label 8850 3300 0    60   ~ 0
 LED59
 Text Label 4200 8100 0    60   ~ 0
 LED58
@@ -2371,27 +2372,27 @@ Text Label 4200 8000 0    60   ~ 0
 LED57
 Text Label 4200 7900 0    60   ~ 0
 LED56
-Text Label 4200 8300 0    60   ~ 0
-LED55
 Text Label 4200 8200 0    60   ~ 0
+LED55
+Text Label 4200 8300 0    60   ~ 0
 LED54
-Text Label 4200 8500 0    60   ~ 0
-LED53
 Text Label 4200 8400 0    60   ~ 0
+LED53
+Text Label 4200 8500 0    60   ~ 0
 LED52
-Text Label 8850 5800 0    60   ~ 0
-LED51
 Text Label 4200 8600 0    60   ~ 0
+LED51
+Text Label 8850 5800 0    60   ~ 0
 LED50
-Text Label 8850 6000 0    60   ~ 0
+Text Label 8850 5900 0    60   ~ 0
 LED49
-Text Label 8850 6200 0    60   ~ 0
-LED47
 Text Label 8850 6100 0    60   ~ 0
+LED47
+Text Label 8850 6200 0    60   ~ 0
 LED46
-Text Label 8850 6400 0    60   ~ 0
-LED45
 Text Label 8850 6300 0    60   ~ 0
+LED45
+Text Label 8850 6400 0    60   ~ 0
 LED44
 Text Label 8850 6500 0    60   ~ 0
 LED43
@@ -2437,51 +2438,49 @@ Text Label 8850 2300 0    60   ~ 0
 LED23
 Text Label 8850 2200 0    60   ~ 0
 LED22
-Text Label 8850 4000 0    60   ~ 0
-LED21
 Text Label 8850 3900 0    60   ~ 0
+LED21
+Text Label 8850 4000 0    60   ~ 0
 LED20
-Text Label 8850 4200 0    60   ~ 0
+Text Label 8850 4100 0    60   ~ 0
 LED19
 Text Label 8850 4200 0    60   ~ 0
-LED
-Text Label 8850 4100 0    60   ~ 0
 LED18
-Text Label 8850 4400 0    60   ~ 0
-LED17
 Text Label 8850 4300 0    60   ~ 0
+LED17
+Text Label 8850 4400 0    60   ~ 0
 LED16
-Text Label 8850 4600 0    60   ~ 0
-LED15
 Text Label 8850 4500 0    60   ~ 0
+LED15
+Text Label 8850 4600 0    60   ~ 0
 LED14
-Text Label 8850 4800 0    60   ~ 0
-LED13
 Text Label 8850 4700 0    60   ~ 0
+LED13
+Text Label 8850 4800 0    60   ~ 0
 LED12
-Text Label 8850 5000 0    60   ~ 0
-LED11
 Text Label 8850 4900 0    60   ~ 0
+LED11
+Text Label 8850 5000 0    60   ~ 0
 LED10
-Text Label 8850 5200 0    60   ~ 0
-LED9
 Text Label 8850 5100 0    60   ~ 0
+LED9
+Text Label 8850 5200 0    60   ~ 0
 LED8
-Text Label 8850 5400 0    60   ~ 0
-LED7
 Text Label 8850 5300 0    60   ~ 0
+LED7
+Text Label 8850 5400 0    60   ~ 0
 LED6
-Text Label 8850 5600 0    60   ~ 0
-LED4
 Text Label 8850 5700 0    60   ~ 0
+LED4
+Text Label 8850 5600 0    60   ~ 0
 LED5
-Text Label 8850 3000 0    60   ~ 0
-LED3
 Text Label 8850 2900 0    60   ~ 0
+LED3
+Text Label 8850 3000 0    60   ~ 0
 LED2
-Text Label 8850 3200 0    60   ~ 0
-LED1
 Text Label 8850 3100 0    60   ~ 0
+LED1
+Text Label 8850 3200 0    60   ~ 0
 LED0
 Text Label 15800 25700 0    60   ~ 0
 LED63
