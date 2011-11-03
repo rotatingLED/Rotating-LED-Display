@@ -1,4 +1,4 @@
-update=Mon 31 Okt 2011 20:50:09 CET
+update=Don 03 Nov 2011 16:23:37 CET
 version=1
 last_client=pcbnew
 [general]
@@ -82,9 +82,9 @@ LibName35=74lv04
 LibName36=l78l33acutr
 [pcbnew]
 version=1
-PadDrlX=0
-PadDimH=1600
-PadDimV=1600
+PadDrlX=1200
+PadDimH=1200
+PadDimV=1200
 BoardThickness=630
 SgPcb45=1
 TxtPcbV=800
@@ -115,3 +115,4 @@ LibName12=PLCC6
 LibName13=LQFP144
 LibName14=SO-8-FET
 LibName15=SOT23-FET
+LibName16=BEFESTIGUNG
