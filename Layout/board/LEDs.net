@@ -1,4 +1,4 @@
-# EESchema Netlist Version 1.1 created  Don 03 Nov 2011 21:44:10 CET
+# EESchema Netlist Version 1.1 created  Fre 04 Nov 2011 12:29:03 CET
 (
  ( /4EADB2EB $noname  C14 100nF {Lib=C}
   (    1 VCC )
@@ -34,35 +34,35 @@
  )
  ( /4EAC0B31 $noname  K1 CONN_3 {Lib=CONN_3}
   (    1 GND )
-  (    2 N-000364 )
-  (    3 N-000131 )
+  (    2 N-000355 )
+  (    3 N-000368 )
  )
  ( /4EABEA2B $noname  U1 74LV04 {Lib=74LV04}
-  (    1 N-000373 )
-  (    2 N-000363 )
-  (    3 N-000372 )
-  (    4 N-000371 )
-  (    5 N-000370 )
-  (    6 N-000081 )
+  (    1 N-000360 )
+  (    2 N-000364 )
+  (    3 N-000363 )
+  (    4 N-000361 )
+  (    5 N-000147 )
+  (    6 N-000362 )
   (    7 GND )
-  (    8 N-000081 )
-  (    9 N-000370 )
-  (   10 N-000371 )
-  (   11 N-000372 )
-  (   12 N-000363 )
-  (   13 N-000373 )
+  (    8 N-000362 )
+  (    9 N-000147 )
+  (   10 N-000361 )
+  (   11 N-000363 )
+  (   12 N-000364 )
+  (   13 N-000360 )
   (   14 VCC )
  )
  ( /4EABD423 $noname  IC1 STM32F103ZET6 {Lib=STM32F103ZET6}
-  (    1 /LED24 )
-  (    2 /LED25 )
-  (    3 /LED26 )
-  (    4 /LED27 )
-  (    5 /LED29 )
+  (    1 /LED27 )
+  (    2 /LED23 )
+  (    3 /LED25 )
+  (    4 /LED24 )
+  (    5 /LED26 )
   (    6 ? )
   (    7 ? )
-  (    8 N-000175 )
-  (    9 N-000376 )
+  (    8 N-000172 )
+  (    9 N-000173 )
   (   10 /LED21 )
   (   11 /LED20 )
   (   12 /LED19 )
@@ -76,9 +76,9 @@
   (   20 /LED13 )
   (   21 /LED12 )
   (   22 /LED11 )
-  (   23 N-000170 )
-  (   24 N-000169 )
-  (   25 N-000167 )
+  (   23 N-000168 )
+  (   24 N-000359 )
+  (   25 N-000164 )
   (   26 ? )
   (   27 ? )
   (   28 ? )
@@ -122,14 +122,14 @@
   (   66 /LED61 )
   (   67 /LED62 )
   (   68 /LED63 )
-  (   69 N-000370 )
-  (   70 N-000372 )
+  (   69 N-000147 )
+  (   70 N-000363 )
   (   71 GND )
   (   72 /3v3 )
-  (   73 N-000373 )
-  (   74 N-000364 )
+  (   73 N-000360 )
+  (   74 N-000355 )
   (   75 ? )
-  (   76 N-000131 )
+  (   76 N-000368 )
   (   77 /LED56 )
   (   78 /LED57 )
   (   79 /LED58 )
@@ -154,10 +154,10 @@
   (   98 ? )
   (   99 ? )
   (  100 ? )
-  (  101 N-000168 )
-  (  102 N-000159 )
-  (  103 N-000177 )
-  (  104 N-000176 )
+  (  101 N-000154 )
+  (  102 N-000165 )
+  (  103 N-000161 )
+  (  104 N-000131 )
   (  105 ? )
   (  106 ? )
   (  107 GND )
@@ -167,35 +167,35 @@
   (  111 ? )
   (  112 ? )
   (  113 ? )
-  (  114 /LED30 )
-  (  115 /LED31 )
-  (  116 /LED32 )
-  (  117 /LED33 )
-  (  118 /LED34 )
-  (  119 /LED35 )
+  (  114 /LED34 )
+  (  115 /LED35 )
+  (  116 /LED36 )
+  (  117 /LED37 )
+  (  118 /LED38 )
+  (  119 /LED39 )
   (  120 GND )
   (  121 /3v3 )
-  (  122 /LED36 )
-  (  123 /LED37 )
+  (  122 /LED40 )
+  (  123 /LED41 )
   (  124 /LED43 )
   (  125 /LED42 )
-  (  126 /LED41 )
-  (  127 /LED40 )
-  (  128 /LED39 )
-  (  129 /LED38 )
+  (  126 /LED33 )
+  (  127 /LED32 )
+  (  128 /LED31 )
+  (  129 /LED30 )
   (  130 GND )
   (  131 /3v3 )
-  (  132 /LED28 )
+  (  132 /LED22 )
   (  133 ? )
   (  134 ? )
   (  135 ? )
   (  136 ? )
   (  137 ? )
-  (  138 N-000165 )
+  (  138 N-000162 )
   (  139 ? )
   (  140 ? )
-  (  141 /LED22 )
-  (  142 /LED23 )
+  (  141 /LED28 )
+  (  142 /LED29 )
   (  143 GND )
   (  144 /3v3 )
  )
@@ -213,24 +213,24 @@
  )
  ( /4EAA4E4D $noname  Q33 FET_P {Lib=FET_P}
   (    D /RED )
-  (    G N-000371 )
+  (    G N-000362 )
   (    S VCC )
  )
  ( /4EAA4E14 $noname  Q34 FET_P {Lib=FET_P}
   (    D /GREEN )
-  (    G N-000081 )
+  (    G N-000364 )
   (    S VCC )
  )
  ( /4EAA4DCC $noname  Q35 FET_P {Lib=FET_P}
   (    D /BLUE )
-  (    G N-000363 )
+  (    G N-000361 )
   (    S VCC )
  )
  ( /4EA92087 $noname  P1 CONN_1 {Lib=CONN_1}
   (    1 VCC )
  )
  ( /4EA5B154 $noname  Q19 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000003 )
+  (   D1 N-000004 )
   (   G1 /LED36 )
   (   S1 GND )
   (   D2 N-000002 )
@@ -238,167 +238,167 @@
   (   S2 GND )
  )
  ( /4EA5B09D $noname  Q13 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000236 )
+  (   D1 N-000226 )
   (   G1 /LED24 )
   (   S1 GND )
-  (   D2 N-000232 )
+  (   D2 N-000222 )
   (   G2 /LED25 )
   (   S2 GND )
  )
  ( /4EA5B0D3 $noname  Q10 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000338 )
+  (   D1 N-000327 )
   (   G1 /LED18 )
   (   S1 GND )
-  (   D2 N-000337 )
+  (   D2 N-000326 )
   (   G2 /LED19 )
   (   S2 GND )
  )
  ( /4EA7E063 $noname  R198 R {Lib=R}
-  (    1 N-000166 )
+  (    1 N-000163 )
   (    2 /3v3 )
  )
  ( /4EA7E05D $noname  R199 R {Lib=R}
-  (    1 N-000165 )
-  (    2 N-000166 )
+  (    1 N-000162 )
+  (    2 N-000163 )
  )
  ( /4EA7CE21 $noname  SW2 SW_PUSH {Lib=SW_PUSH}
   (    1 GND )
-  (    2 N-000166 )
+  (    2 N-000163 )
  )
  ( /4EA6EE82 $noname  R197 10k {Lib=R}
   (    1 /3v3 )
-  (    2 N-000167 )
+  (    2 N-000164 )
  )
  ( /4EA6EE38 $noname  C3 100nF {Lib=C}
   (    1 GND )
-  (    2 N-000167 )
+  (    2 N-000164 )
  )
  ( /4EA6E5D3 $noname  SW1 SW_PUSH {Lib=SW_PUSH}
-  (    1 N-000167 )
+  (    1 N-000164 )
   (    2 GND )
  )
  ( /4EA6E4ED $noname  ISP1 CONN_3 {Lib=CONN_3}
-  (    1 N-000168 )
-  (    2 N-000159 )
+  (    1 N-000154 )
+  (    2 N-000165 )
   (    3 GND )
  )
  ( /4EA6E3E4 $noname  C2 10pF {Lib=C}
   (    1 GND )
-  (    2 N-000376 )
+  (    2 N-000173 )
  )
  ( /4EA6E3DF $noname  C1 10pF {Lib=C}
   (    1 GND )
-  (    2 N-000175 )
+  (    2 N-000172 )
  )
  ( /4EA6E38A $noname  X2 32.768KHz {Lib=CRYSTAL}
-  (    1 N-000175 )
-  (    2 N-000376 )
+  (    1 N-000172 )
+  (    2 N-000173 )
  )
  ( /4EA6E30F $noname  R196 1.5k {Lib=R}
   (    1 /3v3 )
-  (    2 N-000362 )
+  (    2 N-000174 )
  )
  ( /4EA6E2DC $noname  R195 22R {Lib=R}
-  (    1 N-000176 )
-  (    2 N-000362 )
+  (    1 N-000131 )
+  (    2 N-000174 )
  )
  ( /4EA6E2C5 $noname  R194 22R {Lib=R}
-  (    1 N-000177 )
-  (    2 N-000178 )
+  (    1 N-000161 )
+  (    2 N-000353 )
  )
  ( /4EA6E25C $noname  USB1 CONN_4 {Lib=CONN_4}
   (    1 GND )
-  (    2 N-000362 )
-  (    3 N-000178 )
+  (    2 N-000174 )
+  (    3 N-000353 )
   (    4 ? )
  )
  ( /4EA6E186 $noname  C5 20pF {Lib=C}
   (    1 GND )
-  (    2 N-000169 )
+  (    2 N-000359 )
  )
  ( /4EA6E17E $noname  C4 20pF {Lib=C}
   (    1 GND )
-  (    2 N-000170 )
+  (    2 N-000168 )
  )
  ( /4EA6E143 $noname  X1 8MHz {Lib=CRYSTAL}
-  (    1 N-000169 )
-  (    2 N-000170 )
+  (    1 N-000359 )
+  (    2 N-000168 )
  )
  ( /4EA6E0F5 $noname  R193 1M {Lib=R}
-  (    1 N-000169 )
-  (    2 N-000170 )
+  (    1 N-000359 )
+  (    2 N-000168 )
  )
  ( /4EA5B16F $noname  D33 RGBLED {Lib=RGBLED}
-  (    1 N-000171 )
-  (    2 N-000172 )
-  (    3 N-000022 )
-  (    4 N-000173 )
+  (    1 N-000169 )
+  (    2 N-000170 )
+  (    3 N-000021 )
+  (    4 N-000171 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B16E $noname  D34 RGBLED {Lib=RGBLED}
-  (    1 N-000174 )
-  (    2 N-000074 )
-  (    3 N-000019 )
-  (    4 N-000021 )
+  (    1 N-000076 )
+  (    2 N-000022 )
+  (    3 N-000023 )
+  (    4 N-000020 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B16D $noname  R161 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000173 )
+  (    2 N-000171 )
  )
  ( /4EA5B16C $noname  R162 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000021 )
+  (    2 N-000020 )
  )
  ( /4EA5B16B $noname  R97 R {Lib=R}
-  (    1 N-000171 )
-  (    2 N-000022 )
+  (    1 N-000169 )
+  (    2 N-000021 )
  )
  ( /4EA5B16A $noname  R98 R {Lib=R}
-  (    1 N-000172 )
-  (    2 N-000022 )
+  (    1 N-000170 )
+  (    2 N-000021 )
  )
  ( /4EA5B169 $noname  R99 R {Lib=R}
-  (    1 N-000174 )
-  (    2 N-000019 )
+  (    1 N-000076 )
+  (    2 N-000023 )
  )
  ( /4EA5B168 $noname  R100 R {Lib=R}
-  (    1 N-000074 )
-  (    2 N-000019 )
+  (    1 N-000022 )
+  (    2 N-000023 )
  )
  ( /4EA5B167 $noname  Q17 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000022 )
+  (   D1 N-000021 )
   (   G1 /LED32 )
   (   S1 GND )
-  (   D2 N-000019 )
+  (   D2 N-000023 )
   (   G2 /LED33 )
   (   S2 GND )
  )
  ( /4EA5B166 $noname  Q18 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000020 )
+  (   D1 N-000019 )
   (   G1 /LED34 )
   (   S1 GND )
-  (   D2 N-000366 )
+  (   D2 N-000018 )
   (   G2 /LED35 )
   (   S2 GND )
  )
  ( /4EA5B165 $noname  R104 R {Lib=R}
   (    1 N-000030 )
-  (    2 N-000366 )
+  (    2 N-000018 )
  )
  ( /4EA5B164 $noname  R103 R {Lib=R}
   (    1 N-000029 )
-  (    2 N-000366 )
+  (    2 N-000018 )
  )
  ( /4EA5B163 $noname  R102 R {Lib=R}
-  (    1 N-000028 )
-  (    2 N-000020 )
+  (    1 N-000033 )
+  (    2 N-000019 )
  )
  ( /4EA5B162 $noname  R101 R {Lib=R}
-  (    1 N-000032 )
-  (    2 N-000020 )
+  (    1 N-000028 )
+  (    2 N-000019 )
  )
  ( /4EA5B161 $noname  R164 R {Lib=R}
   (    1 /BLUE )
@@ -411,15 +411,15 @@
  ( /4EA5B15F $noname  D36 RGBLED {Lib=RGBLED}
   (    1 N-000029 )
   (    2 N-000030 )
-  (    3 N-000366 )
+  (    3 N-000018 )
   (    4 N-000031 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B15E $noname  D35 RGBLED {Lib=RGBLED}
-  (    1 N-000032 )
-  (    2 N-000028 )
-  (    3 N-000020 )
+  (    1 N-000028 )
+  (    2 N-000033 )
+  (    3 N-000019 )
   (    4 N-000034 )
   (    5 /GREEN )
   (    6 /RED )
@@ -427,16 +427,16 @@
  ( /4EA5B15D $noname  D39 RGBLED {Lib=RGBLED}
   (    1 N-000035 )
   (    2 N-000036 )
-  (    3 N-000024 )
+  (    3 N-000025 )
   (    4 N-000037 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B15C $noname  D40 RGBLED {Lib=RGBLED}
-  (    1 N-000025 )
-  (    2 N-000026 )
-  (    3 N-000027 )
-  (    4 N-000023 )
+  (    1 N-000026 )
+  (    2 N-000027 )
+  (    3 N-000392 )
+  (    4 N-000024 )
   (    5 /GREEN )
   (    6 /RED )
  )
@@ -446,69 +446,69 @@
  )
  ( /4EA5B15A $noname  R168 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000023 )
+  (    2 N-000024 )
  )
  ( /4EA5B159 $noname  R109 R {Lib=R}
   (    1 N-000035 )
-  (    2 N-000024 )
+  (    2 N-000025 )
  )
  ( /4EA5B158 $noname  R110 R {Lib=R}
   (    1 N-000036 )
-  (    2 N-000024 )
+  (    2 N-000025 )
  )
  ( /4EA5B157 $noname  R111 R {Lib=R}
-  (    1 N-000025 )
-  (    2 N-000027 )
+  (    1 N-000026 )
+  (    2 N-000392 )
  )
  ( /4EA5B156 $noname  R112 R {Lib=R}
-  (    1 N-000026 )
-  (    2 N-000027 )
+  (    1 N-000027 )
+  (    2 N-000392 )
  )
  ( /4EA5B155 $noname  Q20 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000024 )
+  (   D1 N-000025 )
   (   G1 /LED38 )
   (   S1 GND )
-  (   D2 N-000027 )
+  (   D2 N-000392 )
   (   G2 /LED39 )
   (   S2 GND )
  )
  ( /4EA5B153 $noname  R108 R {Lib=R}
-  (    1 N-000008 )
+  (    1 N-000001 )
   (    2 N-000002 )
  )
  ( /4EA5B152 $noname  R107 R {Lib=R}
-  (    1 N-000007 )
+  (    1 N-000008 )
   (    2 N-000002 )
  )
  ( /4EA5B151 $noname  R106 R {Lib=R}
-  (    1 N-000001 )
-  (    2 N-000003 )
+  (    1 N-000003 )
+  (    2 N-000004 )
  )
  ( /4EA5B150 $noname  R105 R {Lib=R}
-  (    1 N-000004 )
-  (    2 N-000003 )
+  (    1 N-000005 )
+  (    2 N-000004 )
  )
  ( /4EA5B14F $noname  R166 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000005 )
+  (    2 N-000006 )
  )
  ( /4EA5B14E $noname  R165 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000006 )
+  (    2 N-000007 )
  )
  ( /4EA5B14D $noname  D38 RGBLED {Lib=RGBLED}
-  (    1 N-000007 )
-  (    2 N-000008 )
+  (    1 N-000008 )
+  (    2 N-000001 )
   (    3 N-000002 )
-  (    4 N-000005 )
+  (    4 N-000006 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B14C $noname  D37 RGBLED {Lib=RGBLED}
-  (    1 N-000004 )
-  (    2 N-000001 )
-  (    3 N-000003 )
-  (    4 N-000006 )
+  (    1 N-000005 )
+  (    2 N-000003 )
+  (    3 N-000004 )
+  (    4 N-000007 )
   (    5 /GREEN )
   (    6 /RED )
  )
@@ -522,8 +522,8 @@
  )
  ( /4EA5B14A $noname  D46 RGBLED {Lib=RGBLED}
   (    1 N-000017 )
-  (    2 N-000018 )
-  (    3 N-000011 )
+  (    2 N-000011 )
+  (    3 N-000391 )
   (    4 N-000013 )
   (    5 /GREEN )
   (    6 /RED )
@@ -546,1297 +546,1297 @@
  )
  ( /4EA5B145 $noname  R123 R {Lib=R}
   (    1 N-000017 )
-  (    2 N-000011 )
+  (    2 N-000391 )
  )
  ( /4EA5B144 $noname  R124 R {Lib=R}
-  (    1 N-000018 )
-  (    2 N-000011 )
+  (    1 N-000011 )
+  (    2 N-000391 )
  )
  ( /4EA5B143 $noname  Q23 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
   (   D1 N-000016 )
   (   G1 /LED44 )
   (   S1 GND )
-  (   D2 N-000011 )
+  (   D2 N-000391 )
   (   G2 /LED45 )
   (   S2 GND )
  )
  ( /4EA5B142 $noname  Q24 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000009 )
+  (   D1 N-000010 )
   (   G1 /LED46 )
   (   S1 GND )
-  (   D2 N-000368 )
+  (   D2 N-000009 )
   (   G2 /LED47 )
   (   S2 GND )
  )
  ( /4EA5B141 $noname  R128 R {Lib=R}
-  (    1 N-000033 )
-  (    2 N-000368 )
- )
- ( /4EA5B140 $noname  R127 R {Lib=R}
-  (    1 N-000010 )
-  (    2 N-000368 )
- )
- ( /4EA5B13F $noname  R126 R {Lib=R}
   (    1 N-000060 )
   (    2 N-000009 )
  )
- ( /4EA5B13E $noname  R125 R {Lib=R}
-  (    1 N-000059 )
+ ( /4EA5B140 $noname  R127 R {Lib=R}
+  (    1 N-000032 )
   (    2 N-000009 )
+ )
+ ( /4EA5B13F $noname  R126 R {Lib=R}
+  (    1 N-000063 )
+  (    2 N-000010 )
+ )
+ ( /4EA5B13E $noname  R125 R {Lib=R}
+  (    1 N-000062 )
+  (    2 N-000010 )
  )
  ( /4EA5B13D $noname  R176 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000058 )
+  (    2 N-000061 )
  )
  ( /4EA5B13C $noname  R175 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000061 )
+  (    2 N-000064 )
  )
  ( /4EA5B13B $noname  D48 RGBLED {Lib=RGBLED}
-  (    1 N-000010 )
-  (    2 N-000033 )
-  (    3 N-000368 )
-  (    4 N-000058 )
-  (    5 /GREEN )
-  (    6 /RED )
- )
- ( /4EA5B13A $noname  D47 RGBLED {Lib=RGBLED}
-  (    1 N-000059 )
+  (    1 N-000032 )
   (    2 N-000060 )
   (    3 N-000009 )
   (    4 N-000061 )
   (    5 /GREEN )
   (    6 /RED )
  )
+ ( /4EA5B13A $noname  D47 RGBLED {Lib=RGBLED}
+  (    1 N-000062 )
+  (    2 N-000063 )
+  (    3 N-000010 )
+  (    4 N-000064 )
+  (    5 /GREEN )
+  (    6 /RED )
+ )
  ( /4EA5B139 $noname  D43 RGBLED {Lib=RGBLED}
-  (    1 N-000057 )
-  (    2 N-000062 )
-  (    3 N-000055 )
-  (    4 N-000063 )
+  (    1 N-000065 )
+  (    2 N-000066 )
+  (    3 N-000057 )
+  (    4 N-000067 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B138 $noname  D44 RGBLED {Lib=RGBLED}
-  (    1 N-000064 )
-  (    2 N-000065 )
-  (    3 N-000056 )
-  (    4 N-000066 )
+  (    1 N-000068 )
+  (    2 N-000069 )
+  (    3 N-000059 )
+  (    4 N-000058 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B137 $noname  R171 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000063 )
+  (    2 N-000067 )
  )
  ( /4EA5B136 $noname  R172 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000066 )
+  (    2 N-000058 )
  )
  ( /4EA5B135 $noname  R117 R {Lib=R}
-  (    1 N-000057 )
-  (    2 N-000055 )
+  (    1 N-000065 )
+  (    2 N-000057 )
  )
  ( /4EA5B134 $noname  R118 R {Lib=R}
-  (    1 N-000062 )
-  (    2 N-000055 )
+  (    1 N-000066 )
+  (    2 N-000057 )
  )
  ( /4EA5B133 $noname  R119 R {Lib=R}
-  (    1 N-000064 )
-  (    2 N-000056 )
+  (    1 N-000068 )
+  (    2 N-000059 )
  )
  ( /4EA5B132 $noname  R120 R {Lib=R}
-  (    1 N-000065 )
-  (    2 N-000056 )
+  (    1 N-000069 )
+  (    2 N-000059 )
  )
  ( /4EA5B131 $noname  Q22 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000055 )
+  (   D1 N-000057 )
   (   G1 /LED42 )
   (   S1 GND )
-  (   D2 N-000056 )
+  (   D2 N-000059 )
   (   G2 /LED43 )
   (   S2 GND )
  )
  ( /4EA5B130 $noname  Q21 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000077 )
+  (   D1 N-000080 )
   (   G1 /LED40 )
   (   S1 GND )
-  (   D2 N-000367 )
+  (   D2 N-000077 )
   (   G2 /LED41 )
   (   S2 GND )
  )
  ( /4EA5B12F $noname  R116 R {Lib=R}
-  (    1 N-000073 )
-  (    2 N-000367 )
- )
- ( /4EA5B12E $noname  R115 R {Lib=R}
   (    1 N-000075 )
-  (    2 N-000367 )
- )
- ( /4EA5B12D $noname  R114 R {Lib=R}
-  (    1 N-000076 )
   (    2 N-000077 )
  )
- ( /4EA5B12C $noname  R113 R {Lib=R}
+ ( /4EA5B12E $noname  R115 R {Lib=R}
   (    1 N-000078 )
   (    2 N-000077 )
  )
+ ( /4EA5B12D $noname  R114 R {Lib=R}
+  (    1 N-000079 )
+  (    2 N-000080 )
+ )
+ ( /4EA5B12C $noname  R113 R {Lib=R}
+  (    1 N-000081 )
+  (    2 N-000080 )
+ )
  ( /4EA5B12B $noname  R170 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000079 )
+  (    2 N-000082 )
  )
  ( /4EA5B12A $noname  R169 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000067 )
+  (    2 N-000070 )
  )
  ( /4EA5B129 $noname  D42 RGBLED {Lib=RGBLED}
-  (    1 N-000075 )
-  (    2 N-000073 )
-  (    3 N-000367 )
-  (    4 N-000079 )
+  (    1 N-000078 )
+  (    2 N-000075 )
+  (    3 N-000077 )
+  (    4 N-000082 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B128 $noname  D41 RGBLED {Lib=RGBLED}
-  (    1 N-000078 )
-  (    2 N-000076 )
-  (    3 N-000077 )
-  (    4 N-000067 )
-  (    5 /GREEN )
-  (    6 /RED )
- )
- ( /4EA5B127 $noname  D57 RGBLED {Lib=RGBLED}
-  (    1 N-000068 )
-  (    2 N-000069 )
-  (    3 N-000039 )
+  (    1 N-000081 )
+  (    2 N-000079 )
+  (    3 N-000080 )
   (    4 N-000070 )
   (    5 /GREEN )
   (    6 /RED )
  )
- ( /4EA5B126 $noname  D58 RGBLED {Lib=RGBLED}
+ ( /4EA5B127 $noname  D57 RGBLED {Lib=RGBLED}
   (    1 N-000071 )
   (    2 N-000072 )
   (    3 N-000041 )
+  (    4 N-000073 )
+  (    5 /GREEN )
+  (    6 /RED )
+ )
+ ( /4EA5B126 $noname  D58 RGBLED {Lib=RGBLED}
+  (    1 N-000074 )
+  (    2 N-000052 )
+  (    3 N-000351 )
   (    4 N-000040 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B125 $noname  R185 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000070 )
+  (    2 N-000073 )
  )
  ( /4EA5B124 $noname  R186 R {Lib=R}
   (    1 /BLUE )
   (    2 N-000040 )
  )
  ( /4EA5B123 $noname  R145 R {Lib=R}
-  (    1 N-000068 )
-  (    2 N-000039 )
- )
- ( /4EA5B122 $noname  R146 R {Lib=R}
-  (    1 N-000069 )
-  (    2 N-000039 )
- )
- ( /4EA5B121 $noname  R147 R {Lib=R}
   (    1 N-000071 )
   (    2 N-000041 )
  )
- ( /4EA5B120 $noname  R148 R {Lib=R}
+ ( /4EA5B122 $noname  R146 R {Lib=R}
   (    1 N-000072 )
   (    2 N-000041 )
  )
+ ( /4EA5B121 $noname  R147 R {Lib=R}
+  (    1 N-000074 )
+  (    2 N-000351 )
+ )
+ ( /4EA5B120 $noname  R148 R {Lib=R}
+  (    1 N-000052 )
+  (    2 N-000351 )
+ )
  ( /4EA5B11F $noname  Q29 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000039 )
+  (   D1 N-000041 )
   (   G1 /LED56 )
   (   S1 GND )
-  (   D2 N-000041 )
+  (   D2 N-000351 )
   (   G2 /LED57 )
   (   S2 GND )
  )
  ( /4EA5B11E $noname  Q30 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000038 )
+  (   D1 N-000039 )
   (   G1 /LED58 )
   (   S1 GND )
-  (   D2 N-000361 )
+  (   D2 N-000038 )
   (   G2 /LED59 )
   (   S2 GND )
  )
  ( /4EA5B11D $noname  R152 R {Lib=R}
-  (    1 N-000047 )
-  (    2 N-000361 )
- )
- ( /4EA5B11C $noname  R151 R {Lib=R}
-  (    1 N-000046 )
-  (    2 N-000361 )
- )
- ( /4EA5B11B $noname  R150 R {Lib=R}
-  (    1 N-000050 )
-  (    2 N-000038 )
- )
- ( /4EA5B11A $noname  R149 R {Lib=R}
   (    1 N-000049 )
   (    2 N-000038 )
  )
+ ( /4EA5B11C $noname  R151 R {Lib=R}
+  (    1 N-000048 )
+  (    2 N-000038 )
+ )
+ ( /4EA5B11B $noname  R150 R {Lib=R}
+  (    1 N-000047 )
+  (    2 N-000039 )
+ )
+ ( /4EA5B11A $noname  R149 R {Lib=R}
+  (    1 N-000051 )
+  (    2 N-000039 )
+ )
  ( /4EA5B119 $noname  R188 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000048 )
+  (    2 N-000050 )
  )
  ( /4EA5B118 $noname  R187 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000051 )
+  (    2 N-000053 )
  )
  ( /4EA5B117 $noname  D60 RGBLED {Lib=RGBLED}
-  (    1 N-000046 )
-  (    2 N-000047 )
-  (    3 N-000361 )
-  (    4 N-000048 )
+  (    1 N-000048 )
+  (    2 N-000049 )
+  (    3 N-000038 )
+  (    4 N-000050 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B116 $noname  D59 RGBLED {Lib=RGBLED}
-  (    1 N-000049 )
-  (    2 N-000050 )
-  (    3 N-000038 )
-  (    4 N-000051 )
+  (    1 N-000051 )
+  (    2 N-000047 )
+  (    3 N-000039 )
+  (    4 N-000053 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B115 $noname  D63 RGBLED {Lib=RGBLED}
-  (    1 N-000052 )
-  (    2 N-000053 )
+  (    1 N-000054 )
+  (    2 N-000055 )
   (    3 N-000043 )
-  (    4 N-000054 )
+  (    4 N-000056 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B114 $noname  D64 RGBLED {Lib=RGBLED}
   (    1 N-000044 )
   (    2 N-000045 )
-  (    3 N-000302 )
+  (    3 N-000046 )
   (    4 N-000042 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B113 $noname  R191 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000054 )
+  (    2 N-000056 )
  )
  ( /4EA5B112 $noname  R192 R {Lib=R}
   (    1 /BLUE )
   (    2 N-000042 )
  )
  ( /4EA5B111 $noname  R157 R {Lib=R}
-  (    1 N-000052 )
+  (    1 N-000054 )
   (    2 N-000043 )
  )
  ( /4EA5B110 $noname  R158 R {Lib=R}
-  (    1 N-000053 )
+  (    1 N-000055 )
   (    2 N-000043 )
  )
  ( /4EA5B10F $noname  R159 R {Lib=R}
   (    1 N-000044 )
-  (    2 N-000302 )
+  (    2 N-000046 )
  )
  ( /4EA5B10E $noname  R160 R {Lib=R}
   (    1 N-000045 )
-  (    2 N-000302 )
+  (    2 N-000046 )
  )
  ( /4EA5B10D $noname  Q32 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
   (   D1 N-000043 )
   (   G1 /LED62 )
   (   S1 GND )
-  (   D2 N-000302 )
+  (   D2 N-000046 )
   (   G2 /LED63 )
   (   S2 GND )
  )
  ( /4EA5B10C $noname  Q31 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000307 )
+  (   D1 N-000290 )
   (   G1 /LED60 )
   (   S1 GND )
-  (   D2 N-000304 )
+  (   D2 N-000294 )
   (   G2 /LED61 )
   (   S2 GND )
  )
  ( /4EA5B10B $noname  R156 R {Lib=R}
-  (    1 N-000303 )
-  (    2 N-000304 )
+  (    1 N-000293 )
+  (    2 N-000294 )
  )
  ( /4EA5B10A $noname  R155 R {Lib=R}
-  (    1 N-000305 )
-  (    2 N-000304 )
+  (    1 N-000295 )
+  (    2 N-000294 )
  )
  ( /4EA5B109 $noname  R154 R {Lib=R}
-  (    1 N-000306 )
-  (    2 N-000307 )
+  (    1 N-000296 )
+  (    2 N-000290 )
  )
  ( /4EA5B108 $noname  R153 R {Lib=R}
-  (    1 N-000300 )
-  (    2 N-000307 )
+  (    1 N-000291 )
+  (    2 N-000290 )
  )
  ( /4EA5B107 $noname  R190 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000299 )
+  (    2 N-000289 )
  )
  ( /4EA5B106 $noname  R189 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000301 )
+  (    2 N-000292 )
  )
  ( /4EA5B105 $noname  D62 RGBLED {Lib=RGBLED}
-  (    1 N-000305 )
-  (    2 N-000303 )
-  (    3 N-000304 )
-  (    4 N-000299 )
+  (    1 N-000295 )
+  (    2 N-000293 )
+  (    3 N-000294 )
+  (    4 N-000289 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B104 $noname  D61 RGBLED {Lib=RGBLED}
-  (    1 N-000300 )
-  (    2 N-000306 )
-  (    3 N-000307 )
-  (    4 N-000301 )
+  (    1 N-000291 )
+  (    2 N-000296 )
+  (    3 N-000290 )
+  (    4 N-000292 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B103 $noname  D53 RGBLED {Lib=RGBLED}
-  (    1 N-000313 )
-  (    2 N-000314 )
-  (    3 N-000315 )
-  (    4 N-000312 )
+  (    1 N-000302 )
+  (    2 N-000303 )
+  (    3 N-000304 )
+  (    4 N-000300 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B102 $noname  D54 RGBLED {Lib=RGBLED}
-  (    1 N-000316 )
-  (    2 N-000317 )
-  (    3 N-000318 )
-  (    4 N-000311 )
+  (    1 N-000305 )
+  (    2 N-000306 )
+  (    3 N-000390 )
+  (    4 N-000301 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B101 $noname  R181 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000312 )
+  (    2 N-000300 )
  )
  ( /4EA5B100 $noname  R182 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000311 )
+  (    2 N-000301 )
  )
  ( /4EA5B0FF $noname  R137 R {Lib=R}
-  (    1 N-000313 )
-  (    2 N-000315 )
+  (    1 N-000302 )
+  (    2 N-000304 )
  )
  ( /4EA5B0FE $noname  R138 R {Lib=R}
-  (    1 N-000314 )
-  (    2 N-000315 )
+  (    1 N-000303 )
+  (    2 N-000304 )
  )
  ( /4EA5B0FD $noname  R139 R {Lib=R}
-  (    1 N-000316 )
-  (    2 N-000318 )
+  (    1 N-000305 )
+  (    2 N-000390 )
  )
  ( /4EA5B0FC $noname  R140 R {Lib=R}
-  (    1 N-000317 )
-  (    2 N-000318 )
+  (    1 N-000306 )
+  (    2 N-000390 )
  )
  ( /4EA5B0FB $noname  Q27 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000315 )
+  (   D1 N-000304 )
   (   G1 /LED52 )
   (   S1 GND )
-  (   D2 N-000318 )
+  (   D2 N-000390 )
   (   G2 /LED53 )
   (   S2 GND )
  )
  ( /4EA5B0FA $noname  Q28 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000285 )
+  (   D1 N-000275 )
   (   G1 /LED54 )
   (   S1 GND )
-  (   D2 N-000309 )
+  (   D2 N-000297 )
   (   G2 /LED55 )
   (   S2 GND )
  )
  ( /4EA5B0F9 $noname  R144 R {Lib=R}
-  (    1 N-000308 )
-  (    2 N-000309 )
+  (    1 N-000298 )
+  (    2 N-000297 )
  )
  ( /4EA5B0F8 $noname  R143 R {Lib=R}
-  (    1 N-000310 )
-  (    2 N-000309 )
+  (    1 N-000299 )
+  (    2 N-000297 )
  )
  ( /4EA5B0F7 $noname  R142 R {Lib=R}
-  (    1 N-000297 )
-  (    2 N-000285 )
+  (    1 N-000279 )
+  (    2 N-000275 )
  )
  ( /4EA5B0F6 $noname  R141 R {Lib=R}
-  (    1 N-000288 )
-  (    2 N-000285 )
+  (    1 N-000278 )
+  (    2 N-000275 )
  )
  ( /4EA5B0F5 $noname  R184 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000286 )
+  (    2 N-000277 )
  )
  ( /4EA5B0F4 $noname  R183 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000289 )
+  (    2 N-000280 )
  )
  ( /4EA5B0F3 $noname  D56 RGBLED {Lib=RGBLED}
-  (    1 N-000310 )
-  (    2 N-000308 )
-  (    3 N-000309 )
-  (    4 N-000286 )
+  (    1 N-000299 )
+  (    2 N-000298 )
+  (    3 N-000297 )
+  (    4 N-000277 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B0F2 $noname  D55 RGBLED {Lib=RGBLED}
-  (    1 N-000288 )
-  (    2 N-000297 )
-  (    3 N-000285 )
-  (    4 N-000289 )
+  (    1 N-000278 )
+  (    2 N-000279 )
+  (    3 N-000275 )
+  (    4 N-000280 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B0F1 $noname  D51 RGBLED {Lib=RGBLED}
-  (    1 N-000290 )
-  (    2 N-000281 )
-  (    3 N-000282 )
-  (    4 N-000279 )
+  (    1 N-000271 )
+  (    2 N-000272 )
+  (    3 N-000273 )
+  (    4 N-000269 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B0F0 $noname  D52 RGBLED {Lib=RGBLED}
-  (    1 N-000283 )
-  (    2 N-000284 )
-  (    3 N-000287 )
-  (    4 N-000280 )
+  (    1 N-000274 )
+  (    2 N-000276 )
+  (    3 N-000389 )
+  (    4 N-000270 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B0EF $noname  R179 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000279 )
+  (    2 N-000269 )
  )
  ( /4EA5B0EE $noname  R180 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000280 )
+  (    2 N-000270 )
  )
  ( /4EA5B0ED $noname  R133 R {Lib=R}
-  (    1 N-000290 )
-  (    2 N-000282 )
+  (    1 N-000271 )
+  (    2 N-000273 )
  )
  ( /4EA5B0EC $noname  R134 R {Lib=R}
-  (    1 N-000281 )
-  (    2 N-000282 )
+  (    1 N-000272 )
+  (    2 N-000273 )
  )
  ( /4EA5B0EB $noname  R135 R {Lib=R}
-  (    1 N-000283 )
-  (    2 N-000287 )
+  (    1 N-000274 )
+  (    2 N-000389 )
  )
  ( /4EA5B0EA $noname  R136 R {Lib=R}
-  (    1 N-000284 )
-  (    2 N-000287 )
+  (    1 N-000276 )
+  (    2 N-000389 )
  )
  ( /4EA5B0E9 $noname  Q26 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000282 )
+  (   D1 N-000273 )
   (   G1 /LED50 )
   (   S1 GND )
-  (   D2 N-000287 )
+  (   D2 N-000389 )
   (   G2 /LED51 )
   (   S2 GND )
  )
  ( /4EA5B0E8 $noname  Q25 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000291 )
+  (   D1 N-000282 )
   (   G1 /LED48 )
   (   S1 GND )
-  (   D2 N-000360 )
+  (   D2 N-000287 )
   (   G2 /LED49 )
   (   S2 GND )
  )
  ( /4EA5B0E7 $noname  R132 R {Lib=R}
-  (    1 N-000298 )
-  (    2 N-000360 )
+  (    1 N-000288 )
+  (    2 N-000287 )
  )
  ( /4EA5B0E6 $noname  R131 R {Lib=R}
-  (    1 N-000292 )
-  (    2 N-000360 )
+  (    1 N-000281 )
+  (    2 N-000287 )
  )
  ( /4EA5B0E5 $noname  R130 R {Lib=R}
-  (    1 N-000295 )
-  (    2 N-000291 )
+  (    1 N-000285 )
+  (    2 N-000282 )
  )
  ( /4EA5B0E4 $noname  R129 R {Lib=R}
-  (    1 N-000294 )
-  (    2 N-000291 )
+  (    1 N-000284 )
+  (    2 N-000282 )
  )
  ( /4EA5B0E3 $noname  R178 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000293 )
+  (    2 N-000283 )
  )
  ( /4EA5B0E2 $noname  R177 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000296 )
+  (    2 N-000286 )
  )
  ( /4EA5B0E1 $noname  D50 RGBLED {Lib=RGBLED}
-  (    1 N-000292 )
-  (    2 N-000298 )
-  (    3 N-000360 )
-  (    4 N-000293 )
+  (    1 N-000281 )
+  (    2 N-000288 )
+  (    3 N-000287 )
+  (    4 N-000283 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B0E0 $noname  D49 RGBLED {Lib=RGBLED}
-  (    1 N-000294 )
-  (    2 N-000295 )
-  (    3 N-000291 )
-  (    4 N-000296 )
+  (    1 N-000284 )
+  (    2 N-000285 )
+  (    3 N-000282 )
+  (    4 N-000286 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B0DC $noname  D17 RGBLED {Lib=RGBLED}
-  (    1 N-000343 )
-  (    2 N-000344 )
-  (    3 N-000345 )
-  (    4 N-000341 )
+  (    1 N-000332 )
+  (    2 N-000333 )
+  (    3 N-000334 )
+  (    4 N-000330 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B0DB $noname  D18 RGBLED {Lib=RGBLED}
-  (    1 N-000339 )
-  (    2 N-000340 )
-  (    3 N-000336 )
-  (    4 N-000342 )
+  (    1 N-000328 )
+  (    2 N-000329 )
+  (    3 N-000350 )
+  (    4 N-000331 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B0DA $noname  R81 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000341 )
+  (    2 N-000330 )
  )
  ( /4EA5B0D9 $noname  R82 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000342 )
+  (    2 N-000331 )
  )
  ( /4EA5B0D8 $noname  R33 R {Lib=R}
-  (    1 N-000343 )
-  (    2 N-000345 )
+  (    1 N-000332 )
+  (    2 N-000334 )
  )
  ( /4EA5B0D7 $noname  R34 R {Lib=R}
-  (    1 N-000344 )
-  (    2 N-000345 )
+  (    1 N-000333 )
+  (    2 N-000334 )
  )
  ( /4EA5B0D6 $noname  R35 R {Lib=R}
-  (    1 N-000339 )
-  (    2 N-000336 )
+  (    1 N-000328 )
+  (    2 N-000350 )
  )
  ( /4EA5B0D5 $noname  R36 R {Lib=R}
-  (    1 N-000340 )
-  (    2 N-000336 )
+  (    1 N-000329 )
+  (    2 N-000350 )
  )
  ( /4EA5B0D4 $noname  Q9 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000345 )
+  (   D1 N-000334 )
   (   G1 /LED16 )
   (   S1 GND )
-  (   D2 N-000336 )
+  (   D2 N-000350 )
   (   G2 /LED17 )
   (   S2 GND )
  )
  ( /4EA5B0D2 $noname  R40 R {Lib=R}
-  (    1 N-000352 )
-  (    2 N-000337 )
+  (    1 N-000340 )
+  (    2 N-000326 )
  )
  ( /4EA5B0D1 $noname  R39 R {Lib=R}
-  (    1 N-000351 )
-  (    2 N-000337 )
+  (    1 N-000339 )
+  (    2 N-000326 )
  )
  ( /4EA5B0D0 $noname  R38 R {Lib=R}
-  (    1 N-000355 )
-  (    2 N-000338 )
+  (    1 N-000343 )
+  (    2 N-000327 )
  )
  ( /4EA5B0CF $noname  R37 R {Lib=R}
-  (    1 N-000354 )
-  (    2 N-000338 )
+  (    1 N-000342 )
+  (    2 N-000327 )
  )
  ( /4EA5B0CE $noname  R84 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000353 )
+  (    2 N-000341 )
  )
  ( /4EA5B0CD $noname  R83 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000356 )
+  (    2 N-000344 )
  )
  ( /4EA5B0CC $noname  D20 RGBLED {Lib=RGBLED}
-  (    1 N-000351 )
-  (    2 N-000352 )
-  (    3 N-000337 )
-  (    4 N-000353 )
+  (    1 N-000339 )
+  (    2 N-000340 )
+  (    3 N-000326 )
+  (    4 N-000341 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B0CB $noname  D19 RGBLED {Lib=RGBLED}
-  (    1 N-000354 )
-  (    2 N-000355 )
-  (    3 N-000338 )
-  (    4 N-000356 )
+  (    1 N-000342 )
+  (    2 N-000343 )
+  (    3 N-000327 )
+  (    4 N-000344 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B0CA $noname  D23 RGBLED {Lib=RGBLED}
-  (    1 N-000357 )
-  (    2 N-000358 )
-  (    3 N-000347 )
-  (    4 N-000359 )
+  (    1 N-000345 )
+  (    2 N-000346 )
+  (    3 N-000336 )
+  (    4 N-000347 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B0C9 $noname  D24 RGBLED {Lib=RGBLED}
-  (    1 N-000348 )
-  (    2 N-000349 )
-  (    3 N-000350 )
-  (    4 N-000346 )
+  (    1 N-000337 )
+  (    2 N-000338 )
+  (    3 N-000348 )
+  (    4 N-000335 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B0C8 $noname  R87 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000359 )
+  (    2 N-000347 )
  )
  ( /4EA5B0C7 $noname  R88 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000346 )
+  (    2 N-000335 )
  )
  ( /4EA5B0C6 $noname  R45 R {Lib=R}
-  (    1 N-000357 )
-  (    2 N-000347 )
+  (    1 N-000345 )
+  (    2 N-000336 )
  )
  ( /4EA5B0C5 $noname  R46 R {Lib=R}
-  (    1 N-000358 )
-  (    2 N-000347 )
+  (    1 N-000346 )
+  (    2 N-000336 )
  )
  ( /4EA5B0C4 $noname  R47 R {Lib=R}
-  (    1 N-000348 )
-  (    2 N-000350 )
+  (    1 N-000337 )
+  (    2 N-000348 )
  )
  ( /4EA5B0C3 $noname  R48 R {Lib=R}
-  (    1 N-000349 )
-  (    2 N-000350 )
+  (    1 N-000338 )
+  (    2 N-000348 )
  )
  ( /4EA5B0C2 $noname  Q12 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000347 )
+  (   D1 N-000336 )
   (   G1 /LED22 )
   (   S1 GND )
-  (   D2 N-000350 )
+  (   D2 N-000348 )
   (   G2 /LED23 )
   (   S2 GND )
  )
  ( /4EA5B0C1 $noname  Q11 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000325 )
+  (   D1 N-000314 )
   (   G1 /LED20 )
   (   S1 GND )
-  (   D2 N-000390 )
+  (   D2 N-000310 )
   (   G2 /LED21 )
   (   S2 GND )
  )
  ( /4EA5B0C0 $noname  R44 R {Lib=R}
-  (    1 N-000322 )
-  (    2 N-000390 )
+  (    1 N-000311 )
+  (    2 N-000310 )
  )
  ( /4EA5B0BF $noname  R43 R {Lib=R}
-  (    1 N-000323 )
-  (    2 N-000390 )
+  (    1 N-000312 )
+  (    2 N-000310 )
  )
  ( /4EA5B0BE $noname  R42 R {Lib=R}
-  (    1 N-000324 )
-  (    2 N-000325 )
+  (    1 N-000313 )
+  (    2 N-000314 )
  )
  ( /4EA5B0BD $noname  R41 R {Lib=R}
-  (    1 N-000320 )
-  (    2 N-000325 )
+  (    1 N-000308 )
+  (    2 N-000314 )
  )
  ( /4EA5B0BC $noname  R86 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000319 )
+  (    2 N-000307 )
  )
  ( /4EA5B0BB $noname  R85 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000321 )
+  (    2 N-000309 )
  )
  ( /4EA5B0BA $noname  D22 RGBLED {Lib=RGBLED}
-  (    1 N-000323 )
-  (    2 N-000322 )
-  (    3 N-000390 )
-  (    4 N-000319 )
+  (    1 N-000312 )
+  (    2 N-000311 )
+  (    3 N-000310 )
+  (    4 N-000307 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B0B9 $noname  D21 RGBLED {Lib=RGBLED}
-  (    1 N-000320 )
-  (    2 N-000324 )
-  (    3 N-000325 )
-  (    4 N-000321 )
+  (    1 N-000308 )
+  (    2 N-000313 )
+  (    3 N-000314 )
+  (    4 N-000309 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B0B8 $noname  D29 RGBLED {Lib=RGBLED}
-  (    1 N-000331 )
-  (    2 N-000332 )
-  (    3 N-000333 )
-  (    4 N-000330 )
+  (    1 N-000320 )
+  (    2 N-000321 )
+  (    3 N-000322 )
+  (    4 N-000319 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B0B7 $noname  D30 RGBLED {Lib=RGBLED}
-  (    1 N-000334 )
-  (    2 N-000335 )
-  (    3 N-000326 )
-  (    4 N-000329 )
+  (    1 N-000323 )
+  (    2 N-000324 )
+  (    3 N-000325 )
+  (    4 N-000318 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B0B6 $noname  R93 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000330 )
+  (    2 N-000319 )
  )
  ( /4EA5B0B5 $noname  R94 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000329 )
+  (    2 N-000318 )
  )
  ( /4EA5B0B4 $noname  R57 R {Lib=R}
-  (    1 N-000331 )
-  (    2 N-000333 )
+  (    1 N-000320 )
+  (    2 N-000322 )
  )
  ( /4EA5B0B3 $noname  R58 R {Lib=R}
-  (    1 N-000332 )
-  (    2 N-000333 )
+  (    1 N-000321 )
+  (    2 N-000322 )
  )
  ( /4EA5B0B2 $noname  R59 R {Lib=R}
-  (    1 N-000334 )
-  (    2 N-000326 )
+  (    1 N-000323 )
+  (    2 N-000325 )
  )
  ( /4EA5B0B1 $noname  R60 R {Lib=R}
-  (    1 N-000335 )
-  (    2 N-000326 )
+  (    1 N-000324 )
+  (    2 N-000325 )
  )
  ( /4EA5B0B0 $noname  Q15 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000333 )
+  (   D1 N-000322 )
   (   G1 /LED28 )
   (   S1 GND )
-  (   D2 N-000326 )
+  (   D2 N-000325 )
   (   G2 /LED29 )
   (   S2 GND )
  )
  ( /4EA5B0AF $noname  Q16 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000389 )
+  (   D1 N-000211 )
   (   G1 /LED30 )
   (   S1 GND )
-  (   D2 N-000388 )
+  (   D2 N-000316 )
   (   G2 /LED31 )
   (   S2 GND )
  )
  ( /4EA5B0AE $noname  R64 R {Lib=R}
-  (    1 N-000327 )
-  (    2 N-000388 )
+  (    1 N-000315 )
+  (    2 N-000316 )
  )
  ( /4EA5B0AD $noname  R63 R {Lib=R}
-  (    1 N-000328 )
-  (    2 N-000388 )
+  (    1 N-000317 )
+  (    2 N-000316 )
  )
  ( /4EA5B0AC $noname  R62 R {Lib=R}
-  (    1 N-000273 )
-  (    2 N-000389 )
+  (    1 N-000264 )
+  (    2 N-000211 )
  )
  ( /4EA5B0AB $noname  R61 R {Lib=R}
-  (    1 N-000223 )
-  (    2 N-000389 )
+  (    1 N-000213 )
+  (    2 N-000211 )
  )
  ( /4EA5B0AA $noname  R96 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000221 )
+  (    2 N-000212 )
  )
  ( /4EA5B0A9 $noname  R95 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000224 )
+  (    2 N-000214 )
  )
  ( /4EA5B0A8 $noname  D32 RGBLED {Lib=RGBLED}
-  (    1 N-000328 )
-  (    2 N-000327 )
-  (    3 N-000388 )
-  (    4 N-000221 )
+  (    1 N-000317 )
+  (    2 N-000315 )
+  (    3 N-000316 )
+  (    4 N-000212 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B0A7 $noname  D31 RGBLED {Lib=RGBLED}
-  (    1 N-000223 )
-  (    2 N-000273 )
-  (    3 N-000389 )
-  (    4 N-000224 )
+  (    1 N-000213 )
+  (    2 N-000264 )
+  (    3 N-000211 )
+  (    4 N-000214 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B0A6 $noname  D27 RGBLED {Lib=RGBLED}
-  (    1 N-000225 )
-  (    2 N-000217 )
-  (    3 N-000218 )
-  (    4 N-000215 )
+  (    1 N-000215 )
+  (    2 N-000207 )
+  (    3 N-000208 )
+  (    4 N-000205 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B0A5 $noname  D28 RGBLED {Lib=RGBLED}
-  (    1 N-000219 )
-  (    2 N-000220 )
-  (    3 N-000222 )
-  (    4 N-000216 )
+  (    1 N-000209 )
+  (    2 N-000210 )
+  (    3 N-000352 )
+  (    4 N-000206 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B0A4 $noname  R91 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000215 )
+  (    2 N-000205 )
  )
  ( /4EA5B0A3 $noname  R92 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000216 )
+  (    2 N-000206 )
  )
  ( /4EA5B0A2 $noname  R53 R {Lib=R}
-  (    1 N-000225 )
-  (    2 N-000218 )
+  (    1 N-000215 )
+  (    2 N-000208 )
  )
  ( /4EA5B0A1 $noname  R54 R {Lib=R}
-  (    1 N-000217 )
-  (    2 N-000218 )
+  (    1 N-000207 )
+  (    2 N-000208 )
  )
  ( /4EA5B0A0 $noname  R55 R {Lib=R}
-  (    1 N-000219 )
-  (    2 N-000222 )
+  (    1 N-000209 )
+  (    2 N-000352 )
  )
  ( /4EA5B09F $noname  R56 R {Lib=R}
-  (    1 N-000220 )
-  (    2 N-000222 )
+  (    1 N-000210 )
+  (    2 N-000352 )
  )
  ( /4EA5B09E $noname  Q14 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000218 )
+  (   D1 N-000208 )
   (   G1 /LED26 )
   (   S1 GND )
-  (   D2 N-000222 )
+  (   D2 N-000352 )
   (   G2 /LED27 )
   (   S2 GND )
  )
  ( /4EA5B09C $noname  R52 R {Lib=R}
-  (    1 N-000233 )
-  (    2 N-000232 )
+  (    1 N-000223 )
+  (    2 N-000222 )
  )
  ( /4EA5B09B $noname  R51 R {Lib=R}
-  (    1 N-000234 )
-  (    2 N-000232 )
+  (    1 N-000224 )
+  (    2 N-000222 )
  )
  ( /4EA5B09A $noname  R50 R {Lib=R}
-  (    1 N-000235 )
-  (    2 N-000236 )
+  (    1 N-000225 )
+  (    2 N-000226 )
  )
  ( /4EA5B099 $noname  R49 R {Lib=R}
-  (    1 N-000237 )
-  (    2 N-000236 )
+  (    1 N-000227 )
+  (    2 N-000226 )
  )
  ( /4EA5B098 $noname  R90 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000238 )
+  (    2 N-000228 )
  )
  ( /4EA5B097 $noname  R89 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000226 )
+  (    2 N-000216 )
  )
  ( /4EA5B096 $noname  D26 RGBLED {Lib=RGBLED}
-  (    1 N-000234 )
-  (    2 N-000233 )
-  (    3 N-000232 )
-  (    4 N-000238 )
+  (    1 N-000224 )
+  (    2 N-000223 )
+  (    3 N-000222 )
+  (    4 N-000228 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B095 $noname  D25 RGBLED {Lib=RGBLED}
-  (    1 N-000237 )
-  (    2 N-000235 )
-  (    3 N-000236 )
-  (    4 N-000226 )
+  (    1 N-000227 )
+  (    2 N-000225 )
+  (    3 N-000226 )
+  (    4 N-000216 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B045 $noname  D9 RGBLED {Lib=RGBLED}
-  (    1 N-000227 )
-  (    2 N-000228 )
-  (    3 N-000199 )
-  (    4 N-000229 )
+  (    1 N-000217 )
+  (    2 N-000218 )
+  (    3 N-000189 )
+  (    4 N-000219 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B044 $noname  D10 RGBLED {Lib=RGBLED}
-  (    1 N-000230 )
-  (    2 N-000231 )
-  (    3 N-000196 )
-  (    4 N-000200 )
+  (    1 N-000220 )
+  (    2 N-000221 )
+  (    3 N-000191 )
+  (    4 N-000190 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B043 $noname  R73 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000229 )
+  (    2 N-000219 )
  )
  ( /4EA5B042 $noname  R74 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000200 )
+  (    2 N-000190 )
  )
  ( /4EA5B041 $noname  R17 R {Lib=R}
-  (    1 N-000227 )
-  (    2 N-000199 )
+  (    1 N-000217 )
+  (    2 N-000189 )
  )
  ( /4EA5B040 $noname  R18 R {Lib=R}
-  (    1 N-000228 )
-  (    2 N-000199 )
+  (    1 N-000218 )
+  (    2 N-000189 )
  )
  ( /4EA5B03F $noname  R19 R {Lib=R}
-  (    1 N-000230 )
-  (    2 N-000196 )
+  (    1 N-000220 )
+  (    2 N-000191 )
  )
  ( /4EA5B03E $noname  R20 R {Lib=R}
-  (    1 N-000231 )
-  (    2 N-000196 )
+  (    1 N-000221 )
+  (    2 N-000191 )
  )
  ( /4EA5B03D $noname  Q5 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000199 )
+  (   D1 N-000189 )
   (   G1 /LED8 )
   (   S1 GND )
-  (   D2 N-000196 )
+  (   D2 N-000191 )
   (   G2 /LED9 )
   (   S2 GND )
  )
  ( /4EA5B03C $noname  Q6 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000198 )
+  (   D1 N-000188 )
   (   G1 /LED10 )
   (   S1 GND )
-  (   D2 N-000197 )
+  (   D2 N-000187 )
   (   G2 /LED11 )
   (   S2 GND )
  )
  ( /4EA5B03B $noname  R24 R {Lib=R}
-  (    1 N-000207 )
-  (    2 N-000197 )
+  (    1 N-000197 )
+  (    2 N-000187 )
  )
  ( /4EA5B03A $noname  R23 R {Lib=R}
-  (    1 N-000206 )
-  (    2 N-000197 )
+  (    1 N-000196 )
+  (    2 N-000187 )
  )
  ( /4EA5B039 $noname  R22 R {Lib=R}
-  (    1 N-000210 )
-  (    2 N-000198 )
+  (    1 N-000200 )
+  (    2 N-000188 )
  )
  ( /4EA5B038 $noname  R21 R {Lib=R}
-  (    1 N-000209 )
-  (    2 N-000198 )
+  (    1 N-000199 )
+  (    2 N-000188 )
  )
  ( /4EA5B037 $noname  R76 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000208 )
+  (    2 N-000198 )
  )
  ( /4EA5B036 $noname  R75 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000211 )
+  (    2 N-000201 )
  )
  ( /4EA5B035 $noname  D12 RGBLED {Lib=RGBLED}
-  (    1 N-000206 )
-  (    2 N-000207 )
-  (    3 N-000197 )
-  (    4 N-000208 )
+  (    1 N-000196 )
+  (    2 N-000197 )
+  (    3 N-000187 )
+  (    4 N-000198 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B034 $noname  D11 RGBLED {Lib=RGBLED}
-  (    1 N-000209 )
-  (    2 N-000210 )
-  (    3 N-000198 )
-  (    4 N-000211 )
+  (    1 N-000199 )
+  (    2 N-000200 )
+  (    3 N-000188 )
+  (    4 N-000201 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B033 $noname  D15 RGBLED {Lib=RGBLED}
-  (    1 N-000212 )
-  (    2 N-000213 )
-  (    3 N-000202 )
-  (    4 N-000214 )
+  (    1 N-000202 )
+  (    2 N-000203 )
+  (    3 N-000193 )
+  (    4 N-000204 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B032 $noname  D16 RGBLED {Lib=RGBLED}
-  (    1 N-000203 )
-  (    2 N-000204 )
-  (    3 N-000205 )
-  (    4 N-000201 )
+  (    1 N-000194 )
+  (    2 N-000195 )
+  (    3 N-000358 )
+  (    4 N-000192 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B031 $noname  R79 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000214 )
+  (    2 N-000204 )
  )
  ( /4EA5B030 $noname  R80 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000201 )
+  (    2 N-000192 )
  )
  ( /4EA5B02F $noname  R29 R {Lib=R}
-  (    1 N-000212 )
-  (    2 N-000202 )
+  (    1 N-000202 )
+  (    2 N-000193 )
  )
  ( /4EA5B02E $noname  R30 R {Lib=R}
-  (    1 N-000213 )
-  (    2 N-000202 )
+  (    1 N-000203 )
+  (    2 N-000193 )
  )
  ( /4EA5B02D $noname  R31 R {Lib=R}
-  (    1 N-000203 )
-  (    2 N-000205 )
+  (    1 N-000194 )
+  (    2 N-000358 )
  )
  ( /4EA5B02C $noname  R32 R {Lib=R}
-  (    1 N-000204 )
-  (    2 N-000205 )
+  (    1 N-000195 )
+  (    2 N-000358 )
  )
  ( /4EA5B02B $noname  Q8 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000202 )
+  (   D1 N-000193 )
   (   G1 /LED14 )
   (   S1 GND )
-  (   D2 N-000205 )
+  (   D2 N-000358 )
   (   G2 /LED15 )
   (   S2 GND )
  )
  ( /4EA5B02A $noname  Q7 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000265 )
+  (   D1 N-000255 )
   (   G1 /LED12 )
   (   S1 GND )
-  (   D2 N-000262 )
+  (   D2 N-000252 )
   (   G2 /LED13 )
   (   S2 GND )
  )
  ( /4EA5B029 $noname  R28 R {Lib=R}
-  (    1 N-000261 )
-  (    2 N-000262 )
+  (    1 N-000251 )
+  (    2 N-000252 )
  )
  ( /4EA5B028 $noname  R27 R {Lib=R}
-  (    1 N-000263 )
-  (    2 N-000262 )
+  (    1 N-000253 )
+  (    2 N-000252 )
  )
  ( /4EA5B027 $noname  R26 R {Lib=R}
-  (    1 N-000264 )
-  (    2 N-000265 )
+  (    1 N-000254 )
+  (    2 N-000255 )
  )
  ( /4EA5B026 $noname  R25 R {Lib=R}
-  (    1 N-000266 )
-  (    2 N-000265 )
+  (    1 N-000256 )
+  (    2 N-000255 )
  )
  ( /4EA5B025 $noname  R78 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000259 )
+  (    2 N-000249 )
  )
  ( /4EA5B024 $noname  R77 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000260 )
+  (    2 N-000250 )
  )
  ( /4EA5B023 $noname  D14 RGBLED {Lib=RGBLED}
-  (    1 N-000263 )
-  (    2 N-000261 )
-  (    3 N-000262 )
-  (    4 N-000259 )
+  (    1 N-000253 )
+  (    2 N-000251 )
+  (    3 N-000252 )
+  (    4 N-000249 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5B022 $noname  D13 RGBLED {Lib=RGBLED}
-  (    1 N-000266 )
-  (    2 N-000264 )
-  (    3 N-000265 )
-  (    4 N-000260 )
+  (    1 N-000256 )
+  (    2 N-000254 )
+  (    3 N-000255 )
+  (    4 N-000250 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5AFE7 $noname  D5 RGBLED {Lib=RGBLED}
-  (    1 N-000270 )
-  (    2 N-000274 )
-  (    3 N-000275 )
-  (    4 N-000271 )
+  (    1 N-000261 )
+  (    2 N-000265 )
+  (    3 N-000266 )
+  (    4 N-000262 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5AFE6 $noname  D6 RGBLED {Lib=RGBLED}
-  (    1 N-000276 )
-  (    2 N-000277 )
-  (    3 N-000278 )
-  (    4 N-000272 )
+  (    1 N-000267 )
+  (    2 N-000268 )
+  (    3 N-000357 )
+  (    4 N-000263 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5AFE5 $noname  R69 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000271 )
+  (    2 N-000262 )
  )
  ( /4EA5AFE4 $noname  R70 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000272 )
+  (    2 N-000263 )
  )
  ( /4EA5AFE3 $noname  R9 R {Lib=R}
-  (    1 N-000270 )
-  (    2 N-000275 )
+  (    1 N-000261 )
+  (    2 N-000266 )
  )
  ( /4EA5AFE2 $noname  R10 R {Lib=R}
-  (    1 N-000274 )
-  (    2 N-000275 )
+  (    1 N-000265 )
+  (    2 N-000266 )
  )
  ( /4EA5AFE1 $noname  R11 R {Lib=R}
-  (    1 N-000276 )
-  (    2 N-000278 )
+  (    1 N-000267 )
+  (    2 N-000357 )
  )
  ( /4EA5AFE0 $noname  R12 R {Lib=R}
-  (    1 N-000277 )
-  (    2 N-000278 )
+  (    1 N-000268 )
+  (    2 N-000357 )
  )
  ( /4EA5AFDF $noname  Q3 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000275 )
+  (   D1 N-000266 )
   (   G1 /LED4 )
   (   S1 GND )
-  (   D2 N-000278 )
+  (   D2 N-000357 )
   (   G2 /LED5 )
   (   S2 GND )
  )
  ( /4EA5AFDE $noname  Q4 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000256 )
+  (   D1 N-000245 )
   (   G1 /LED6 )
   (   S1 GND )
-  (   D2 N-000392 )
+  (   D2 N-000258 )
   (   G2 /LED7 )
   (   S2 GND )
  )
  ( /4EA5AFDD $noname  R16 R {Lib=R}
-  (    1 N-000267 )
-  (    2 N-000392 )
+  (    1 N-000257 )
+  (    2 N-000258 )
  )
  ( /4EA5AFDC $noname  R15 R {Lib=R}
-  (    1 N-000268 )
-  (    2 N-000392 )
+  (    1 N-000259 )
+  (    2 N-000258 )
  )
  ( /4EA5AFDB $noname  R14 R {Lib=R}
-  (    1 N-000269 )
-  (    2 N-000256 )
+  (    1 N-000260 )
+  (    2 N-000245 )
  )
  ( /4EA5AFDA $noname  R13 R {Lib=R}
-  (    1 N-000245 )
-  (    2 N-000256 )
+  (    1 N-000235 )
+  (    2 N-000245 )
  )
  ( /4EA5AFD9 $noname  R72 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000244 )
+  (    2 N-000234 )
  )
  ( /4EA5AFD8 $noname  R71 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000246 )
+  (    2 N-000236 )
  )
  ( /4EA5AFD7 $noname  D8 RGBLED {Lib=RGBLED}
-  (    1 N-000268 )
-  (    2 N-000267 )
-  (    3 N-000392 )
-  (    4 N-000244 )
+  (    1 N-000259 )
+  (    2 N-000257 )
+  (    3 N-000258 )
+  (    4 N-000234 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5AFD6 $noname  D7 RGBLED {Lib=RGBLED}
-  (    1 N-000245 )
-  (    2 N-000269 )
-  (    3 N-000256 )
-  (    4 N-000246 )
+  (    1 N-000235 )
+  (    2 N-000260 )
+  (    3 N-000245 )
+  (    4 N-000236 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5AFA6 $noname  D3 RGBLED {Lib=RGBLED}
-  (    1 N-000247 )
-  (    2 N-000248 )
-  (    3 N-000241 )
-  (    4 N-000239 )
+  (    1 N-000237 )
+  (    2 N-000238 )
+  (    3 N-000231 )
+  (    4 N-000229 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5AFA5 $noname  D4 RGBLED {Lib=RGBLED}
-  (    1 N-000242 )
-  (    2 N-000243 )
-  (    3 N-000255 )
-  (    4 N-000240 )
+  (    1 N-000232 )
+  (    2 N-000233 )
+  (    3 N-000349 )
+  (    4 N-000230 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA5AFA4 $noname  R67 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000239 )
+  (    2 N-000229 )
  )
  ( /4EA5AFA3 $noname  R68 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000240 )
+  (    2 N-000230 )
  )
  ( /4EA5AFA2 $noname  R5 R {Lib=R}
-  (    1 N-000247 )
-  (    2 N-000241 )
+  (    1 N-000237 )
+  (    2 N-000231 )
  )
  ( /4EA5AFA1 $noname  R6 R {Lib=R}
-  (    1 N-000248 )
-  (    2 N-000241 )
+  (    1 N-000238 )
+  (    2 N-000231 )
  )
  ( /4EA5AFA0 $noname  R7 R {Lib=R}
-  (    1 N-000242 )
-  (    2 N-000255 )
+  (    1 N-000232 )
+  (    2 N-000349 )
  )
  ( /4EA5AF9F $noname  R8 R {Lib=R}
-  (    1 N-000243 )
-  (    2 N-000255 )
+  (    1 N-000233 )
+  (    2 N-000349 )
  )
  ( /4EA5AF9E $noname  Q2 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000241 )
+  (   D1 N-000231 )
   (   G1 /LED2 )
   (   S1 GND )
-  (   D2 N-000255 )
+  (   D2 N-000349 )
   (   G2 /LED3 )
   (   S2 GND )
  )
  ( /4EA5AEF3 $noname  Q1 DUAL_MOSFET_N {Lib=DUAL_MOSFET_N}
-  (   D1 N-000249 )
+  (   D1 N-000239 )
   (   G1 /LED0 )
   (   S1 GND )
-  (   D2 N-000391 )
+  (   D2 N-000246 )
   (   G2 /LED1 )
   (   S2 GND )
  )
  ( /4EA1AECE $noname  R4 R {Lib=R}
-  (    1 N-000257 )
-  (    2 N-000391 )
+  (    1 N-000247 )
+  (    2 N-000246 )
  )
  ( /4EA1AECA $noname  R3 R {Lib=R}
-  (    1 N-000258 )
-  (    2 N-000391 )
+  (    1 N-000248 )
+  (    2 N-000246 )
  )
  ( /4EA1AEC2 $noname  R2 R {Lib=R}
-  (    1 N-000252 )
-  (    2 N-000249 )
+  (    1 N-000242 )
+  (    2 N-000239 )
  )
  ( /4EA1AEBF $noname  R1 R {Lib=R}
-  (    1 N-000251 )
-  (    2 N-000249 )
+  (    1 N-000241 )
+  (    2 N-000239 )
  )
  ( /4EA1AEB0 $noname  R66 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000250 )
+  (    2 N-000240 )
  )
  ( /4EA1AE9C $noname  R65 R {Lib=R}
   (    1 /BLUE )
-  (    2 N-000253 )
+  (    2 N-000243 )
  )
  ( /4EA1AE8A $noname  D2 RGBLED {Lib=RGBLED}
-  (    1 N-000258 )
-  (    2 N-000257 )
-  (    3 N-000391 )
-  (    4 N-000250 )
+  (    1 N-000248 )
+  (    2 N-000247 )
+  (    3 N-000246 )
+  (    4 N-000240 )
   (    5 /GREEN )
   (    6 /RED )
  )
  ( /4EA1AE79 $noname  D1 RGBLED {Lib=RGBLED}
-  (    1 N-000251 )
-  (    2 N-000252 )
-  (    3 N-000249 )
-  (    4 N-000253 )
+  (    1 N-000241 )
+  (    2 N-000242 )
+  (    3 N-000239 )
+  (    4 N-000243 )
   (    5 /GREEN )
   (    6 /RED )
  )
@@ -3303,48 +3303,48 @@ $endfootprintlist
 }
 { Pin List by Nets
 Net 1 "" ""
- R106 1
- D37 2
+ R108 1
+ D38 2
 Net 2 "" ""
- D38 3
  R108 2
- R107 2
  Q19 D2
+ R107 2
+ D38 3
 Net 3 "" ""
- Q19 D1
- R105 2
+ D37 2
+ R106 1
+Net 4 "" ""
  R106 2
  Q19 D1
+ R105 2
  D37 3
-Net 4 "" ""
+ Q19 D1
+Net 5 "" ""
  D37 1
  R105 1
-Net 5 "" ""
+Net 6 "" ""
  D38 4
  R166 2
-Net 6 "" ""
- D37 4
- R165 2
 Net 7 "" ""
+ R165 2
+ D37 4
+Net 8 "" ""
  R107 1
  D38 1
-Net 8 "" ""
- D38 2
- R108 1
 Net 9 "" ""
- Q24 D1
+ R128 2
+ D48 3
+ Q24 D2
+ R127 2
+Net 10 "" ""
  R126 2
  R125 2
  D47 3
  Q24 D1
-Net 10 "" ""
- R127 1
- D48 1
+ Q24 D1
 Net 11 "" ""
- R124 2
- D46 3
- Q23 D2
- R123 2
+ R124 1
+ D46 2
 Net 12 "" ""
  R173 2
  D45 4
@@ -3358,60 +3358,60 @@ Net 15 "" ""
  D45 2
  R122 1
 Net 16 "" ""
- Q23 D1
- Q23 D1
- R122 2
- R121 2
  D45 3
+ Q23 D1
+ R121 2
+ R122 2
+ Q23 D1
 Net 17 "" ""
  R123 1
  D46 1
 Net 18 "" ""
- R124 1
- D46 2
+ Q18 D2
+ R104 2
+ R103 2
+ D36 3
 Net 19 "" ""
- D34 3
- R99 2
- Q17 D2
- R100 2
-Net 20 "" ""
+ D35 3
  R101 2
  Q18 D1
  R102 2
- D35 3
  Q18 D1
-Net 21 "" ""
- D34 4
+Net 20 "" ""
  R162 2
-Net 22 "" ""
- Q17 D1
+ D34 4
+Net 21 "" ""
  R98 2
  R97 2
  Q17 D1
+ Q17 D1
  D33 3
+Net 22 "" ""
+ D34 2
+ R100 1
 Net 23 "" ""
- D40 4
- R168 2
+ Q17 D2
+ R100 2
+ R99 2
+ D34 3
 Net 24 "" ""
+ R168 2
+ D40 4
+Net 25 "" ""
+ R110 2
  R109 2
  Q20 D1
  Q20 D1
  D39 3
- R110 2
-Net 25 "" ""
+Net 26 "" ""
  D40 1
  R111 1
-Net 26 "" ""
+Net 27 "" ""
  D40 2
  R112 1
-Net 27 "" ""
- R112 2
- Q20 D2
- R111 2
- D40 3
 Net 28 "" ""
- R102 1
- D35 2
+ R101 1
+ D35 1
 Net 29 "" ""
  D36 1
  R103 1
@@ -3422,52 +3422,52 @@ Net 31 "" ""
  R164 2
  D36 4
 Net 32 "" ""
- R101 1
- D35 1
+ D48 1
+ R127 1
 Net 33 "" ""
- R128 1
- D48 2
+ D35 2
+ R102 1
 Net 34 "" ""
- D35 4
  R163 2
+ D35 4
 Net 35 "" ""
- D39 1
  R109 1
+ D39 1
 Net 36 "" ""
- D39 2
  R110 1
+ D39 2
 Net 37 "" ""
  D39 4
  R167 2
 Net 38 "" ""
- R150 2
- R149 2
+ R152 2
+ D60 3
+ R151 2
+ Q30 D2
+Net 39 "" ""
+ Q30 D1
  D59 3
  Q30 D1
- Q30 D1
-Net 39 "" ""
- R146 2
- R145 2
- Q29 D1
+ R150 2
+ R149 2
+Net 40 "" ""
+ R186 2
+ D58 4
+Net 41 "" ""
  D57 3
  Q29 D1
-Net 40 "" ""
- D58 4
- R186 2
-Net 41 "" ""
- R147 2
- R148 2
- Q29 D2
- D58 3
+ Q29 D1
+ R146 2
+ R145 2
 Net 42 "" ""
  R192 2
  D64 4
 Net 43 "" ""
  R158 2
  Q32 D1
- D63 3
- R157 2
  Q32 D1
+ R157 2
+ D63 3
 Net 44 "" ""
  D64 1
  R159 1
@@ -3475,1424 +3475,1424 @@ Net 45 "" ""
  D64 2
  R160 1
 Net 46 "" ""
+ D64 3
+ R160 2
+ R159 2
+ Q32 D2
+Net 47 "" ""
+ R150 1
+ D59 2
+Net 48 "" ""
  D60 1
  R151 1
-Net 47 "" ""
- R152 1
+Net 49 "" ""
  D60 2
-Net 48 "" ""
+ R152 1
+Net 50 "" ""
  R188 2
  D60 4
-Net 49 "" ""
- D59 1
- R149 1
-Net 50 "" ""
- D59 2
- R150 1
 Net 51 "" ""
- D59 4
- R187 2
+ R149 1
+ D59 1
 Net 52 "" ""
- D63 1
- R157 1
-Net 53 "" ""
- R158 1
- D63 2
-Net 54 "" ""
- R191 2
- D63 4
-Net 55 "" ""
- D43 3
- R117 2
- R118 2
- Q22 D1
- Q22 D1
-Net 56 "" ""
- Q22 D2
- R120 2
- D44 3
- R119 2
-Net 57 "" ""
- R117 1
- D43 1
-Net 58 "" ""
- R176 2
- D48 4
-Net 59 "" ""
- D47 1
- R125 1
-Net 60 "" ""
- R126 1
- D47 2
-Net 61 "" ""
- D47 4
- R175 2
-Net 62 "" ""
- D43 2
- R118 1
-Net 63 "" ""
- D43 4
- R171 2
-Net 64 "" ""
- D44 1
- R119 1
-Net 65 "" ""
- D44 2
- R120 1
-Net 66 "" ""
- D44 4
- R172 2
-Net 67 "" ""
- R169 2
- D41 4
-Net 68 "" ""
- R145 1
- D57 1
-Net 69 "" ""
- D57 2
- R146 1
-Net 70 "" ""
- R185 2
- D57 4
-Net 71 "" ""
- R147 1
- D58 1
-Net 72 "" ""
  R148 1
  D58 2
+Net 53 "" ""
+ R187 2
+ D59 4
+Net 54 "" ""
+ R157 1
+ D63 1
+Net 55 "" ""
+ R158 1
+ D63 2
+Net 56 "" ""
+ R191 2
+ D63 4
+Net 57 "" ""
+ R118 2
+ R117 2
+ Q22 D1
+ Q22 D1
+ D43 3
+Net 58 "" ""
+ D44 4
+ R172 2
+Net 59 "" ""
+ D44 3
+ R119 2
+ R120 2
+ Q22 D2
+Net 60 "" ""
+ R128 1
+ D48 2
+Net 61 "" ""
+ R176 2
+ D48 4
+Net 62 "" ""
+ D47 1
+ R125 1
+Net 63 "" ""
+ D47 2
+ R126 1
+Net 64 "" ""
+ D47 4
+ R175 2
+Net 65 "" ""
+ R117 1
+ D43 1
+Net 66 "" ""
+ R118 1
+ D43 2
+Net 67 "" ""
+ R171 2
+ D43 4
+Net 68 "" ""
+ R119 1
+ D44 1
+Net 69 "" ""
+ R120 1
+ D44 2
+Net 70 "" ""
+ D41 4
+ R169 2
+Net 71 "" ""
+ R145 1
+ D57 1
+Net 72 "" ""
+ R146 1
+ D57 2
 Net 73 "" ""
- D42 2
- R116 1
+ R185 2
+ D57 4
 Net 74 "" ""
- R100 1
- D34 2
+ R147 1
+ D58 1
 Net 75 "" ""
+ R116 1
+ D42 2
+Net 76 "" ""
+ R99 1
+ D34 1
+Net 77 "" ""
+ D42 3
+ R115 2
+ R116 2
+ Q21 D2
+Net 78 "" ""
  D42 1
  R115 1
-Net 76 "" ""
- R114 1
+Net 79 "" ""
  D41 2
-Net 77 "" ""
- R114 2
- R113 2
+ R114 1
+Net 80 "" ""
  D41 3
  Q21 D1
  Q21 D1
-Net 78 "" ""
- D41 1
+ R114 2
+ R113 2
+Net 81 "" ""
  R113 1
-Net 79 "" ""
- D42 4
+ D41 1
+Net 82 "" ""
  R170 2
-Net 80 "VCC" "VCC"
- C11 1
- C13 1
- C14 1
- U2 3
- Q35 S
- Q33 S
- Q34 S
- P1 1
+ D42 4
+Net 83 "VCC" "VCC"
  U1 14
  C10 1
-Net 81 "" ""
- U1 6
- U1 8
- Q34 G
-Net 82 "/BLUE" "BLUE"
+ U2 3
+ C14 1
+ C13 1
+ C11 1
+ Q35 S
+ Q33 S
+ P1 1
+ Q34 S
+Net 84 "/BLUE" "BLUE"
+ R189 1
+ R190 1
+ R167 1
+ R86 1
+ R85 1
+ R93 1
+ R94 1
+ R84 1
  R182 1
+ R81 1
+ R82 1
+ R87 1
  R88 1
  R83 1
- R84 1
- R95 1
- R80 1
- R96 1
- R94 1
- R87 1
- R79 1
- R82 1
- R81 1
- R75 1
+ R181 1
+ R168 1
+ R67 1
+ R68 1
+ R161 1
+ R185 1
+ Q35 D
  R91 1
- R74 1
- R73 1
- R76 1
- R92 1
- R93 1
- R85 1
- R86 1
+ R162 1
+ R170 1
+ R72 1
+ R71 1
+ R192 1
+ R66 1
+ R191 1
+ R96 1
  R175 1
- R163 1
+ R169 1
+ R173 1
+ R174 1
+ R90 1
+ R74 1
+ R65 1
+ R92 1
+ R89 1
+ R176 1
+ R76 1
+ R164 1
+ R188 1
+ R186 1
+ R179 1
+ R180 1
+ R184 1
+ R183 1
+ R79 1
+ R80 1
  R178 1
  R177 1
- R72 1
- R77 1
- R164 1
- R174 1
- R176 1
- R187 1
- R170 1
- R169 1
- R78 1
- R172 1
- R183 1
  R171 1
- R184 1
- Q35 D
- R167 1
- R168 1
- R68 1
- R65 1
- R162 1
- R66 1
- R186 1
- R185 1
- R69 1
- R189 1
- R90 1
- R188 1
- R161 1
- R180 1
- R67 1
- R181 1
- R70 1
- R89 1
- R179 1
- R192 1
- R191 1
- R71 1
+ R163 1
+ R73 1
  R165 1
+ R187 1
+ R78 1
+ R77 1
  R166 1
- R190 1
- R173 1
-Net 83 "/GREEN" "GREEN"
- D13 5
- D6 5
- D19 5
- D23 5
- D39 5
- D35 5
- D36 5
- D40 5
- D5 5
- D2 5
- D16 5
- D27 5
- D46 5
- D7 5
- D45 5
- D12 5
- D37 5
- D11 5
- D15 5
- D14 5
+ R95 1
+ R75 1
+ R172 1
+ R69 1
+ R70 1
+Net 85 "/GREEN" "GREEN"
  D28 5
- D38 5
- D34 5
- D8 5
- D1 5
- D10 5
- D50 5
- D55 5
- D29 5
- D26 5
- Q34 D
+ D27 5
+ D15 5
+ D11 5
+ D12 5
+ D16 5
+ D13 5
+ D18 5
  D30 5
- D56 5
- D25 5
- D9 5
- D54 5
- D53 5
- D61 5
- D62 5
- D22 5
+ D29 5
+ D7 5
+ D2 5
  D21 5
- D49 5
- D63 5
- D33 5
- D44 5
+ D22 5
+ D1 5
+ D54 5
+ D14 5
  D17 5
- D58 5
+ D5 5
+ D6 5
+ D53 5
+ D51 5
  D52 5
+ D56 5
+ D55 5
+ D50 5
+ D61 5
+ D49 5
+ D9 5
+ D32 5
+ D31 5
+ D25 5
+ D26 5
+ D62 5
  D3 5
+ D23 5
+ D19 5
+ D4 5
  D20 5
  D24 5
- D32 5
- D60 5
+ D8 5
+ D38 5
+ D40 5
+ D37 5
+ D45 5
+ D46 5
+ D34 5
+ D48 5
+ D58 5
  D64 5
  D59 5
- D57 5
+ D63 5
+ D44 5
+ Q34 D
+ D60 5
+ D10 5
+ D33 5
+ D47 5
+ D43 5
  D42 5
  D41 5
- D43 5
- D47 5
- D51 5
- D18 5
- D48 5
- D4 5
- D31 5
-Net 84 "/RED" "RED"
- D51 6
- D22 6
- D61 6
- D23 6
- D7 6
- D49 6
- D19 6
- D53 6
+ D57 5
+ D36 5
+ D35 5
+ D39 5
+Net 86 "/RED" "RED"
  D54 6
+ D8 6
+ D7 6
+ D4 6
+ D23 6
+ D51 6
+ D56 6
  D20 6
- D6 6
+ D53 6
+ D3 6
+ D24 6
+ D40 6
  D50 6
  D14 6
- D13 6
- D1 6
- D30 6
- D56 6
- D29 6
- D52 6
  D2 6
- D55 6
- D8 6
- D21 6
- D62 6
- D17 6
- D18 6
- D24 6
+ D13 6
  D5 6
- D27 6
- Q33 D
- D26 6
- D39 6
- D28 6
- D40 6
- D33 6
+ D19 6
+ D6 6
+ D55 6
+ D1 6
+ D61 6
+ D62 6
+ D47 6
+ D63 6
+ D12 6
  D60 6
  D59 6
- D63 6
- D3 6
- D34 6
- D15 6
+ D11 6
  D44 6
- D57 6
- D41 6
- D42 6
- D43 6
- D4 6
- D47 6
+ D15 6
+ D64 6
+ D27 6
  D48 6
- D25 6
+ D28 6
+ D43 6
+ D36 6
  D38 6
+ D35 6
+ D21 6
+ D16 6
  D37 6
  D45 6
- D64 6
+ D52 6
+ D42 6
  D46 6
- D9 6
- D10 6
  D58 6
- D16 6
- D11 6
- D12 6
- D35 6
- D36 6
+ D18 6
+ D26 6
+ D41 6
+ D25 6
+ D9 6
+ D49 6
+ D29 6
+ D39 6
+ D57 6
+ D22 6
+ D10 6
+ D30 6
+ D17 6
+ D33 6
  D31 6
+ D34 6
+ Q33 D
  D32 6
-Net 87 "GND" "GND"
- C6 2
- C14 2
- C13 2
- P2 1
- Q32 S1
- Q31 S2
- Q31 S1
- Q32 S2
- Q32 S1
- Q31 S1
- IC1 38
- IC1 16
- C12 2
- C8 2
- Q26 S1
- Q26 S1
- C7 2
- Q14 S2
- Q8 S1
- Q14 S1
- IC1 94
- Q14 S1
- C11 2
- Q25 S2
- Q25 S1
- Q25 S1
- USB1 1
- Q26 S2
- C9 2
- Q15 S2
- Q15 S1
- Q15 S1
- Q11 S2
- Q11 S1
- Q12 S2
- U1 7
- Q12 S1
- Q12 S1
- Q11 S1
- C10 2
- U2 2
- Q9 S1
- Q9 S1
- Q9 S2
- Q16 S2
- Q16 S1
- Q16 S1
- Q28 S2
- IC1 51
- IC1 61
- IC1 71
- Q28 S1
- Q28 S1
- Q5 S2
- Q27 S2
- Q27 S1
- Q27 S1
- IC1 83
- K1 1
- Q5 S1
- Q6 S2
- IC1 30
- Q5 S1
- Q6 S1
- Q6 S1
- C5 1
- Q8 S1
- Q18 S2
- C4 1
- Q17 S1
- Q18 S1
- Q29 S2
- Q3 S2
- C2 1
- Q3 S1
- Q3 S1
- Q4 S1
- Q18 S1
- Q7 S2
- Q7 S1
- Q7 S1
- Q8 S2
- Q10 S2
- Q24 S1
- ISP1 3
- Q23 S1
- Q23 S1
- SW1 2
- C3 1
- Q24 S2
- Q24 S1
- SW2 1
- Q20 S2
- Q20 S1
- Q20 S1
- Q2 S2
- Q10 S1
- Q10 S1
- Q1 S2
- Q1 S1
- Q1 S1
- Q13 S2
- Q17 S2
- Q13 S1
- Q13 S1
- Q2 S1
- Q2 S1
- Q17 S1
- Q19 S2
- Q23 S2
- Q19 S1
- Q29 S1
- Q30 S2
- Q29 S1
- Q21 S2
- Q30 S1
- Q19 S1
- Q21 S1
- Q22 S2
- IC1 143
- Q22 S1
- Q22 S1
- Q21 S1
- IC1 120
- IC1 130
- Q4 S1
- C1 1
- Q4 S2
- IC1 107
- Q30 S1
-Net 88 "/LED38" "LED38"
- Q20 G1
- IC1 129
- Q20 G1
-Net 89 "/LED35" "LED35"
- IC1 119
- Q18 G2
-Net 90 "/LED29" "LED29"
- IC1 5
- Q15 G2
-Net 91 "/LED39" "LED39"
+Net 89 "/LED39" "LED39"
  Q20 G2
+ IC1 119
+Net 90 "/LED38" "LED38"
+ IC1 118
+ Q20 G1
+ Q20 G1
+Net 91 "/LED31" "LED31"
+ Q16 G2
  IC1 128
-Net 92 "/LED27" "LED27"
- IC1 4
- Q14 G2
-Net 93 "/LED26" "LED26"
- Q14 G1
- Q14 G1
- IC1 3
-Net 94 "/LED25" "LED25"
- IC1 2
- Q13 G2
-Net 95 "/LED24" "LED24"
+Net 92 "/LED30" "LED30"
+ Q16 G1
+ IC1 129
+ Q16 G1
+Net 93 "/LED27" "LED27"
  IC1 1
+ Q14 G2
+Net 94 "/LED26" "LED26"
+ IC1 5
+ Q14 G1
+ Q14 G1
+Net 95 "/LED25" "LED25"
+ IC1 3
+ Q13 G2
+Net 96 "/LED24" "LED24"
  Q13 G1
  Q13 G1
-Net 96 "/LED21" "LED21"
- IC1 10
- Q11 G2
-Net 97 "/LED20" "LED20"
+ IC1 4
+Net 97 "/LED23" "LED23"
+ Q12 G2
+ IC1 2
+Net 98 "/LED20" "LED20"
  Q11 G1
  Q11 G1
  IC1 11
-Net 98 "/LED19" "LED19"
- Q10 G2
- IC1 12
-Net 99 "/LED18" "LED18"
+Net 99 "/LED59" "LED59"
+ Q30 G2
+ IC1 64
+Net 100 "/LED54" "LED54"
+ Q28 G1
+ IC1 81
+ Q28 G1
+Net 101 "/LED47" "LED47"
+ Q24 G2
+ IC1 90
+Net 102 "/LED45" "LED45"
+ Q23 G2
+ IC1 92
+Net 106 "/LED62" "LED62"
+ Q32 G1
+ IC1 67
+ Q32 G1
+Net 107 "/LED56" "LED56"
+ Q29 G1
+ Q29 G1
+ IC1 77
+Net 108 "/LED50" "LED50"
+ Q26 G1
+ IC1 87
+ Q26 G1
+Net 112 "/LED63" "LED63"
+ Q32 G2
+ IC1 68
+Net 113 "/LED57" "LED57"
+ Q29 G2
+ IC1 78
+Net 114 "/LED49" "LED49"
+ IC1 88
+ Q25 G2
+Net 119 "/LED60" "LED60"
+ Q31 G1
+ IC1 65
+ Q31 G1
+Net 121 "/LED52" "LED52"
+ IC1 85
+ Q27 G1
+ Q27 G1
+Net 125 "/LED61" "LED61"
+ IC1 66
+ Q31 G2
+Net 126 "/LED51" "LED51"
+ Q26 G2
+ IC1 86
+Net 128 "/LED42" "LED42"
+ IC1 125
+ Q22 G1
+ Q22 G1
+Net 129 "/LED41" "LED41"
+ IC1 123
+ Q21 G2
+Net 131 "" ""
+ R195 1
+ IC1 104
+Net 132 "/LED34" "LED34"
+ IC1 114
+ Q18 G1
+ Q18 G1
+Net 133 "/LED43" "LED43"
+ Q22 G2
+ IC1 124
+Net 136 "/LED35" "LED35"
+ IC1 115
+ Q18 G2
+Net 140 "/LED36" "LED36"
+ IC1 116
+ Q19 G1
+ Q19 G1
+Net 141 "/LED33" "LED33"
+ IC1 126
+ Q17 G2
+Net 143 "/LED37" "LED37"
+ IC1 117
+ Q19 G2
+Net 144 "/LED32" "LED32"
+ Q17 G1
+ IC1 127
+ Q17 G1
+Net 147 "" ""
+ IC1 69
+ U1 9
+ U1 5
+Net 148 "/LED58" "LED58"
+ Q30 G1
+ Q30 G1
+ IC1 79
+Net 149 "/LED48" "LED48"
+ Q25 G1
+ Q25 G1
+ IC1 89
+Net 154 "" ""
+ IC1 101
+ ISP1 1
+Net 155 "/LED18" "LED18"
  Q10 G1
  Q10 G1
  IC1 13
-Net 100 "/LED59" "LED59"
- Q30 G2
- IC1 64
-Net 101 "/LED55" "LED55"
- Q28 G2
- IC1 80
-Net 102 "/LED53" "LED53"
- IC1 82
- Q27 G2
-Net 103 "/LED34" "LED34"
- IC1 118
- Q18 G1
- Q18 G1
-Net 104 "/LED47" "LED47"
- Q24 G2
- IC1 90
-Net 105 "/LED46" "LED46"
- Q24 G1
- IC1 91
- Q24 G1
-Net 106 "/LED45" "LED45"
- IC1 92
- Q23 G2
-Net 107 "/LED44" "LED44"
- IC1 93
- Q23 G1
- Q23 G1
-Net 111 "/LED62" "LED62"
- Q32 G1
- Q32 G1
- IC1 67
-Net 112 "/LED56" "LED56"
- IC1 77
- Q29 G1
- Q29 G1
-Net 113 "/LED50" "LED50"
- Q26 G1
- Q26 G1
- IC1 87
-Net 117 "/LED63" "LED63"
- IC1 68
- Q32 G2
-Net 118 "/LED57" "LED57"
- IC1 78
- Q29 G2
-Net 119 "/LED49" "LED49"
- IC1 88
- Q25 G2
-Net 124 "/LED60" "LED60"
- IC1 65
- Q31 G1
- Q31 G1
-Net 126 "/LED52" "LED52"
- Q27 G1
- Q27 G1
- IC1 85
-Net 130 "/LED61" "LED61"
- Q31 G2
- IC1 66
-Net 131 "" ""
- IC1 76
- K1 3
-Net 132 "/LED51" "LED51"
- Q26 G2
- IC1 86
-Net 136 "/LED30" "LED30"
- Q16 G1
- IC1 114
- Q16 G1
-Net 137 "/LED43" "LED43"
- Q22 G2
- IC1 124
-Net 140 "/LED31" "LED31"
- IC1 115
- Q16 G2
-Net 141 "/LED42" "LED42"
- Q22 G1
- Q22 G1
- IC1 125
-Net 142 "/LED37" "LED37"
- IC1 123
- Q19 G2
-Net 144 "/LED32" "LED32"
- IC1 116
- Q17 G1
- Q17 G1
-Net 145 "/LED41" "LED41"
- IC1 126
- Q21 G2
-Net 147 "/LED33" "LED33"
- IC1 117
- Q17 G2
-Net 148 "/LED40" "LED40"
- IC1 127
- Q21 G1
- Q21 G1
-Net 150 "/LED58" "LED58"
- IC1 79
- Q30 G1
- Q30 G1
-Net 151 "/LED48" "LED48"
- Q25 G1
- IC1 89
- Q25 G1
-Net 157 "/LED17" "LED17"
- IC1 14
- Q9 G2
-Net 158 "/LED22" "LED22"
- Q12 G1
- Q12 G1
+Net 156 "/LED28" "LED28"
  IC1 141
-Net 159 "" ""
- IC1 102
- ISP1 2
-Net 161 "/LED36" "LED36"
+ Q15 G1
+ Q15 G1
+Net 158 "/LED40" "LED40"
+ Q21 G1
  IC1 122
- Q19 G1
- Q19 G1
-Net 162 "/LED28" "LED28"
+ Q21 G1
+Net 159 "/LED22" "LED22"
+ Q12 G1
+ Q12 G1
  IC1 132
- Q15 G1
- Q15 G1
-Net 163 "/LED23" "LED23"
+Net 160 "/LED29" "LED29"
+ Q15 G2
  IC1 142
- Q12 G2
-Net 165 "" ""
+Net 161 "" ""
+ R194 1
+ IC1 103
+Net 162 "" ""
  IC1 138
  R199 1
-Net 166 "" ""
+Net 163 "" ""
+ SW2 2
  R198 1
  R199 2
- SW2 2
-Net 167 "" ""
+Net 164 "" ""
+ C3 2
  IC1 25
  SW1 1
  R197 2
- C3 2
+Net 165 "" ""
+ ISP1 2
+ IC1 102
+Net 166 "GND" "GND"
+ Q13 S2
+ U1 7
+ Q5 S2
+ Q6 S2
+ Q32 S1
+ Q31 S1
+ C9 2
+ Q1 S1
+ Q1 S1
+ Q1 S2
+ Q26 S2
+ IC1 16
+ Q11 S2
+ Q25 S1
+ Q25 S1
+ Q8 S2
+ Q8 S1
+ Q8 S1
+ Q14 S2
+ Q26 S1
+ C6 2
+ Q14 S1
+ C8 2
+ Q12 S1
+ U2 2
+ Q12 S1
+ ISP1 3
+ IC1 94
+ Q12 S2
+ Q11 S1
+ Q13 S1
+ Q11 S1
+ Q28 S2
+ C11 2
+ C5 1
+ P2 1
+ Q10 S1
+ C4 1
+ Q10 S1
+ Q6 S1
+ Q2 S1
+ Q28 S1
+ Q28 S1
+ C14 2
+ IC1 38
+ C13 2
+ C12 2
+ Q6 S1
+ Q5 S1
+ K1 1
+ Q31 S2
+ USB1 1
+ Q31 S1
+ Q25 S2
+ C10 2
+ Q32 S2
+ IC1 30
+ IC1 71
+ IC1 61
+ IC1 51
+ Q2 S1
+ Q32 S1
+ IC1 83
+ C2 1
+ C1 1
+ Q27 S2
+ Q2 S2
+ Q27 S1
+ Q27 S1
+ Q4 S2
+ Q16 S1
+ Q23 S1
+ Q4 S1
+ Q23 S1
+ Q16 S2
+ Q9 S2
+ SW2 1
+ Q16 S1
+ SW1 2
+ Q3 S2
+ Q21 S1
+ Q18 S1
+ Q22 S2
+ C3 1
+ Q17 S2
+ Q9 S1
+ Q17 S1
+ Q17 S1
+ Q18 S1
+ IC1 107
+ Q24 S2
+ Q30 S1
+ Q30 S1
+ Q29 S1
+ IC1 130
+ IC1 120
+ Q24 S1
+ Q24 S1
+ Q30 S2
+ Q22 S1
+ Q10 S2
+ Q22 S1
+ Q20 S2
+ Q23 S2
+ Q9 S1
+ Q19 S1
+ IC1 143
+ Q20 S1
+ Q20 S1
+ Q7 S2
+ Q19 S2
+ Q7 S1
+ C7 2
+ Q15 S1
+ Q7 S1
+ Q29 S2
+ Q26 S1
+ Q29 S1
+ Q5 S1
+ Q14 S1
+ Q19 S1
+ Q15 S2
+ Q21 S1
+ Q21 S2
+ Q18 S2
+ Q3 S1
+ Q3 S1
+ Q13 S1
+ Q4 S1
+ Q15 S1
 Net 168 "" ""
- ISP1 1
- IC1 101
-Net 169 "" ""
- X1 1
- R193 1
- C5 2
- IC1 24
-Net 170 "" ""
- X1 2
  R193 2
- C4 2
  IC1 23
-Net 171 "" ""
- D33 1
+ X1 2
+ C4 2
+Net 169 "" ""
  R97 1
-Net 172 "" ""
- D33 2
+ D33 1
+Net 170 "" ""
  R98 1
-Net 173 "" ""
+ D33 2
+Net 171 "" ""
  R161 2
  D33 4
-Net 174 "" ""
- D34 1
- R99 1
-Net 175 "" ""
- IC1 8
- C1 2
+Net 172 "" ""
  X2 1
-Net 176 "" ""
- IC1 104
- R195 1
-Net 177 "" ""
- IC1 103
- R194 1
-Net 178 "" ""
- R194 2
- USB1 3
-Net 180 "/LED6" "LED6"
- IC1 55
- Q4 G1
- Q4 G1
-Net 181 "/LED16" "LED16"
- Q9 G1
+ C1 2
+ IC1 8
+Net 173 "" ""
+ C2 2
+ X2 2
+ IC1 9
+Net 174 "" ""
+ USB1 2
+ R196 2
+ R195 2
+Net 175 "/LED16" "LED16"
  Q9 G1
  IC1 15
-Net 182 "/LED15" "LED15"
- IC1 18
+ Q9 G1
+Net 176 "/LED15" "LED15"
  Q8 G2
-Net 183 "/LED14" "LED14"
+ IC1 18
+Net 177 "/LED14" "LED14"
+ Q8 G1
  IC1 19
  Q8 G1
- Q8 G1
-Net 184 "/LED13" "LED13"
- Q7 G2
- IC1 20
-Net 185 "/LED12" "LED12"
+Net 178 "/LED12" "LED12"
  IC1 21
  Q7 G1
  Q7 G1
-Net 186 "/LED11" "LED11"
- IC1 22
- Q6 G2
-Net 187 "/LED10" "LED10"
+Net 179 "/LED10" "LED10"
  IC1 49
  Q6 G1
  Q6 G1
-Net 188 "/LED9" "LED9"
- IC1 50
- Q5 G2
-Net 189 "/LED8" "LED8"
+Net 180 "/LED8" "LED8"
  Q5 G1
  Q5 G1
  IC1 53
-Net 190 "/LED7" "LED7"
- IC1 54
- Q4 G2
-Net 191 "/LED4" "LED4"
- Q3 G1
+Net 181 "/LED6" "LED6"
+ Q4 G1
+ IC1 55
+ Q4 G1
+Net 182 "/LED4" "LED4"
  IC1 57
  Q3 G1
-Net 192 "/LED5" "LED5"
+ Q3 G1
+Net 183 "/LED5" "LED5"
  Q3 G2
  IC1 56
-Net 193 "/LED3" "LED3"
+Net 184 "/LED3" "LED3"
  Q2 G2
  IC1 58
-Net 194 "/LED2" "LED2"
- Q2 G1
- Q2 G1
+Net 185 "/LED2" "LED2"
  IC1 59
-Net 195 "/LED1" "LED1"
- IC1 60
+ Q2 G1
+ Q2 G1
+Net 186 "/LED1" "LED1"
  Q1 G2
-Net 196 "" ""
+ IC1 60
+Net 187 "" ""
+ D12 3
+ R24 2
+ R23 2
+ Q6 D2
+Net 188 "" ""
+ D11 3
+ Q6 D1
+ R21 2
+ Q6 D1
+ R22 2
+Net 189 "" ""
+ R17 2
+ R18 2
+ Q5 D1
+ Q5 D1
+ D9 3
+Net 190 "" ""
+ D10 4
+ R74 2
+Net 191 "" ""
+ R19 2
  D10 3
  Q5 D2
  R20 2
- R19 2
-Net 197 "" ""
- D12 3
- Q6 D2
- R24 2
- R23 2
-Net 198 "" ""
- R22 2
- D11 3
- R21 2
- Q6 D1
- Q6 D1
-Net 199 "" ""
- D9 3
- Q5 D1
- R17 2
- Q5 D1
- R18 2
-Net 200 "" ""
- R74 2
- D10 4
-Net 201 "" ""
+Net 192 "" ""
  D16 4
  R80 2
-Net 202 "" ""
- R29 2
+Net 193 "" ""
+ Q8 D1
  R30 2
- Q8 D1
- Q8 D1
  D15 3
-Net 203 "" ""
+ Q8 D1
+ R29 2
+Net 194 "" ""
  D16 1
  R31 1
-Net 204 "" ""
+Net 195 "" ""
  R32 1
  D16 2
-Net 205 "" ""
- R31 2
- R32 2
- Q8 D2
- D16 3
-Net 206 "" ""
+Net 196 "" ""
  D12 1
  R23 1
-Net 207 "" ""
- R24 1
+Net 197 "" ""
  D12 2
-Net 208 "" ""
- D12 4
+ R24 1
+Net 198 "" ""
  R76 2
-Net 209 "" ""
+ D12 4
+Net 199 "" ""
  D11 1
  R21 1
-Net 210 "" ""
- D11 2
+Net 200 "" ""
  R22 1
-Net 211 "" ""
- D11 4
+ D11 2
+Net 201 "" ""
  R75 2
-Net 212 "" ""
- R29 1
+ D11 4
+Net 202 "" ""
  D15 1
-Net 213 "" ""
+ R29 1
+Net 203 "" ""
  D15 2
  R30 1
-Net 214 "" ""
- R79 2
+Net 204 "" ""
  D15 4
-Net 215 "" ""
- D27 4
+ R79 2
+Net 205 "" ""
  R91 2
-Net 216 "" ""
+ D27 4
+Net 206 "" ""
  D28 4
  R92 2
-Net 217 "" ""
+Net 207 "" ""
  D27 2
  R54 1
-Net 218 "" ""
- Q14 D1
+Net 208 "" ""
  D27 3
- Q14 D1
- R53 2
  R54 2
-Net 219 "" ""
+ R53 2
+ Q14 D1
+ Q14 D1
+Net 209 "" ""
  D28 1
  R55 1
-Net 220 "" ""
+Net 210 "" ""
  R56 1
  D28 2
-Net 221 "" ""
+Net 211 "" ""
+ Q16 D1
+ D31 3
+ R62 2
+ Q16 D1
+ R61 2
+Net 212 "" ""
  R96 2
  D32 4
-Net 222 "" ""
- Q14 D2
- R56 2
- R55 2
- D28 3
-Net 223 "" ""
- D31 1
+Net 213 "" ""
  R61 1
-Net 224 "" ""
+ D31 1
+Net 214 "" ""
  D31 4
  R95 2
-Net 225 "" ""
+Net 215 "" ""
  D27 1
  R53 1
-Net 226 "" ""
+Net 216 "" ""
  R89 2
  D25 4
-Net 227 "" ""
- R17 1
+Net 217 "" ""
  D9 1
-Net 228 "" ""
+ R17 1
+Net 218 "" ""
  D9 2
  R18 1
-Net 229 "" ""
- D9 4
+Net 219 "" ""
  R73 2
-Net 230 "" ""
+ D9 4
+Net 220 "" ""
  R19 1
  D10 1
-Net 231 "" ""
+Net 221 "" ""
  R20 1
  D10 2
-Net 232 "" ""
- Q13 D2
+Net 222 "" ""
  R51 2
+ Q13 D2
  R52 2
  D26 3
-Net 233 "" ""
+Net 223 "" ""
  D26 2
  R52 1
-Net 234 "" ""
+Net 224 "" ""
  D26 1
  R51 1
-Net 235 "" ""
- D25 2
+Net 225 "" ""
  R50 1
-Net 236 "" ""
+ D25 2
+Net 226 "" ""
+ Q13 D1
+ Q13 D1
  D25 3
- R49 2
  R50 2
- Q13 D1
- Q13 D1
-Net 237 "" ""
+ R49 2
+Net 227 "" ""
  D25 1
  R49 1
-Net 238 "" ""
- D26 4
+Net 228 "" ""
  R90 2
-Net 239 "" ""
+ D26 4
+Net 229 "" ""
  R67 2
  D3 4
-Net 240 "" ""
- R68 2
+Net 230 "" ""
  D4 4
-Net 241 "" ""
- Q2 D1
+ R68 2
+Net 231 "" ""
  R5 2
  R6 2
  Q2 D1
+ Q2 D1
  D3 3
-Net 242 "" ""
- R7 1
+Net 232 "" ""
  D4 1
-Net 243 "" ""
+ R7 1
+Net 233 "" ""
  R8 1
  D4 2
-Net 244 "" ""
- D8 4
+Net 234 "" ""
  R72 2
-Net 245 "" ""
+ D8 4
+Net 235 "" ""
  R13 1
  D7 1
-Net 246 "" ""
- D7 4
+Net 236 "" ""
  R71 2
-Net 247 "" ""
+ D7 4
+Net 237 "" ""
  R5 1
  D3 1
-Net 248 "" ""
- D3 2
+Net 238 "" ""
  R6 1
-Net 249 "" ""
+ D3 2
+Net 239 "" ""
  Q1 D1
+ Q1 D1
+ R2 2
  R1 2
  D1 3
- R2 2
- Q1 D1
-Net 250 "" ""
+Net 240 "" ""
  D2 4
  R66 2
-Net 251 "" ""
+Net 241 "" ""
  D1 1
  R1 1
-Net 252 "" ""
+Net 242 "" ""
  D1 2
  R2 1
-Net 253 "" ""
- D1 4
+Net 243 "" ""
  R65 2
-Net 254 "/LED0" "LED0"
+ D1 4
+Net 244 "/LED0" "LED0"
  Q1 G1
  IC1 63
  Q1 G1
-Net 255 "" ""
- R7 2
- Q2 D2
- R8 2
- D4 3
-Net 256 "" ""
+Net 245 "" ""
+ R14 2
  R13 2
  D7 3
  Q4 D1
- R14 2
  Q4 D1
-Net 257 "" ""
- D2 2
+Net 246 "" ""
+ R4 2
+ Q1 D2
+ R3 2
+ D2 3
+Net 247 "" ""
  R4 1
-Net 258 "" ""
- D2 1
+ D2 2
+Net 248 "" ""
  R3 1
-Net 259 "" ""
+ D2 1
+Net 249 "" ""
  R78 2
  D14 4
-Net 260 "" ""
- R77 2
+Net 250 "" ""
  D13 4
-Net 261 "" ""
- D14 2
+ R77 2
+Net 251 "" ""
  R28 1
-Net 262 "" ""
+ D14 2
+Net 252 "" ""
  D14 3
  Q7 D2
  R28 2
  R27 2
-Net 263 "" ""
- R27 1
+Net 253 "" ""
  D14 1
-Net 264 "" ""
- D13 2
+ R27 1
+Net 254 "" ""
  R26 1
-Net 265 "" ""
- R25 2
+ D13 2
+Net 255 "" ""
  D13 3
+ R25 2
+ Q7 D1
  R26 2
  Q7 D1
- Q7 D1
-Net 266 "" ""
+Net 256 "" ""
  R25 1
  D13 1
-Net 267 "" ""
- D8 2
+Net 257 "" ""
  R16 1
-Net 268 "" ""
+ D8 2
+Net 258 "" ""
+ Q4 D2
+ R16 2
+ D8 3
+ R15 2
+Net 259 "" ""
  D8 1
  R15 1
-Net 269 "" ""
- D7 2
+Net 260 "" ""
  R14 1
-Net 270 "" ""
- D5 1
+ D7 2
+Net 261 "" ""
  R9 1
-Net 271 "" ""
- R69 2
+ D5 1
+Net 262 "" ""
  D5 4
-Net 272 "" ""
- D6 4
+ R69 2
+Net 263 "" ""
  R70 2
-Net 273 "" ""
- D31 2
+ D6 4
+Net 264 "" ""
  R62 1
-Net 274 "" ""
- R10 1
+ D31 2
+Net 265 "" ""
  D5 2
-Net 275 "" ""
- R9 2
- R10 2
- Q3 D1
+ R10 1
+Net 266 "" ""
  D5 3
  Q3 D1
-Net 276 "" ""
- D6 1
+ R10 2
+ Q3 D1
+ R9 2
+Net 267 "" ""
  R11 1
-Net 277 "" ""
- D6 2
+ D6 1
+Net 268 "" ""
  R12 1
-Net 278 "" ""
- Q3 D2
- D6 3
- R11 2
- R12 2
-Net 279 "" ""
+ D6 2
+Net 269 "" ""
  D51 4
  R179 2
-Net 280 "" ""
+Net 270 "" ""
  D52 4
  R180 2
-Net 281 "" ""
+Net 271 "" ""
+ D51 1
+ R133 1
+Net 272 "" ""
  D51 2
  R134 1
-Net 282 "" ""
+Net 273 "" ""
+ R133 2
+ Q26 D1
  D51 3
  Q26 D1
- Q26 D1
  R134 2
- R133 2
-Net 283 "" ""
- D52 1
+Net 274 "" ""
  R135 1
-Net 284 "" ""
- R136 1
- D52 2
-Net 285 "" ""
- R142 2
- D55 3
- Q28 D1
- Q28 D1
+ D52 1
+Net 275 "" ""
  R141 2
-Net 286 "" ""
+ Q28 D1
+ R142 2
+ Q28 D1
+ D55 3
+Net 276 "" ""
+ D52 2
+ R136 1
+Net 277 "" ""
  D56 4
  R184 2
-Net 287 "" ""
- R136 2
- R135 2
- Q26 D2
- D52 3
-Net 288 "" ""
+Net 278 "" ""
  R141 1
  D55 1
-Net 289 "" ""
- R183 2
+Net 279 "" ""
+ D55 2
+ R142 1
+Net 280 "" ""
  D55 4
-Net 290 "" ""
- R133 1
- D51 1
-Net 291 "" ""
+ R183 2
+Net 281 "" ""
+ D50 1
+ R131 1
+Net 282 "" ""
+ R129 2
+ R130 2
  D49 3
  Q25 D1
  Q25 D1
- R129 2
- R130 2
-Net 292 "" ""
- R131 1
- D50 1
-Net 293 "" ""
+Net 283 "" ""
  D50 4
  R178 2
-Net 294 "" ""
+Net 284 "" ""
  R129 1
  D49 1
-Net 295 "" ""
- D49 2
+Net 285 "" ""
  R130 1
-Net 296 "" ""
+ D49 2
+Net 286 "" ""
  R177 2
  D49 4
-Net 297 "" ""
- R142 1
- D55 2
-Net 298 "" ""
+Net 287 "" ""
+ R132 2
+ D50 3
+ Q25 D2
+ R131 2
+Net 288 "" ""
  R132 1
  D50 2
-Net 299 "" ""
+Net 289 "" ""
  R190 2
  D62 4
-Net 300 "" ""
- R153 1
- D61 1
-Net 301 "" ""
- R189 2
- D61 4
-Net 302 "" ""
- Q32 D2
- R160 2
- R159 2
- D64 3
-Net 303 "" ""
- R156 1
- D62 2
-Net 304 "" ""
- R156 2
- Q31 D2
- R155 2
- D62 3
-Net 305 "" ""
- D62 1
- R155 1
-Net 306 "" ""
- D61 2
- R154 1
-Net 307 "" ""
+Net 290 "" ""
  Q31 D1
- D61 3
  Q31 D1
  R153 2
  R154 2
-Net 308 "" ""
- D56 2
- R144 1
-Net 309 "" ""
- R144 2
+ D61 3
+Net 291 "" ""
+ D61 1
+ R153 1
+Net 292 "" ""
+ R189 2
+ D61 4
+Net 293 "" ""
+ R156 1
+ D62 2
+Net 294 "" ""
+ D62 3
+ Q31 D2
+ R156 2
+ R155 2
+Net 295 "" ""
+ D62 1
+ R155 1
+Net 296 "" ""
+ R154 1
+ D61 2
+Net 297 "" ""
  R143 2
- Q28 D2
  D56 3
-Net 310 "" ""
+ Q28 D2
+ R144 2
+Net 298 "" ""
+ R144 1
+ D56 2
+Net 299 "" ""
  R143 1
  D56 1
-Net 311 "" ""
- R182 2
- D54 4
-Net 312 "" ""
+Net 300 "" ""
  R181 2
  D53 4
-Net 313 "" ""
+Net 301 "" ""
+ D54 4
+ R182 2
+Net 302 "" ""
  R137 1
  D53 1
-Net 314 "" ""
- R138 1
+Net 303 "" ""
  D53 2
-Net 315 "" ""
- R138 2
- D53 3
+ R138 1
+Net 304 "" ""
  R137 2
  Q27 D1
+ D53 3
  Q27 D1
-Net 316 "" ""
- R139 1
+ R138 2
+Net 305 "" ""
  D54 1
-Net 317 "" ""
- R140 1
+ R139 1
+Net 306 "" ""
  D54 2
-Net 318 "" ""
- D54 3
- R140 2
- Q27 D2
- R139 2
-Net 319 "" ""
+ R140 1
+Net 307 "" ""
  D22 4
  R86 2
-Net 320 "" ""
+Net 308 "" ""
  R41 1
  D21 1
-Net 321 "" ""
+Net 309 "" ""
  D21 4
  R85 2
-Net 322 "" ""
+Net 310 "" ""
+ Q11 D2
+ R44 2
+ R43 2
+ D22 3
+Net 311 "" ""
  D22 2
  R44 1
-Net 323 "" ""
+Net 312 "" ""
  D22 1
  R43 1
-Net 324 "" ""
- D21 2
+Net 313 "" ""
  R42 1
-Net 325 "" ""
- R42 2
- Q11 D1
+ D21 2
+Net 314 "" ""
  R41 2
- Q11 D1
+ R42 2
  D21 3
-Net 326 "" ""
+ Q11 D1
+ Q11 D1
+Net 315 "" ""
+ D32 2
+ R64 1
+Net 316 "" ""
+ D32 3
+ R64 2
+ R63 2
+ Q16 D2
+Net 317 "" ""
+ D32 1
+ R63 1
+Net 318 "" ""
+ D30 4
+ R94 2
+Net 319 "" ""
+ D29 4
+ R93 2
+Net 320 "" ""
+ R57 1
+ D29 1
+Net 321 "" ""
+ R58 1
+ D29 2
+Net 322 "" ""
+ Q15 D1
+ Q15 D1
+ R58 2
+ D29 3
+ R57 2
+Net 323 "" ""
+ R59 1
+ D30 1
+Net 324 "" ""
+ R60 1
+ D30 2
+Net 325 "" ""
  Q15 D2
  D30 3
  R59 2
  R60 2
-Net 327 "" ""
- R64 1
- D32 2
-Net 328 "" ""
- R63 1
- D32 1
-Net 329 "" ""
- D30 4
- R94 2
-Net 330 "" ""
- R93 2
- D29 4
-Net 331 "" ""
- R57 1
- D29 1
-Net 332 "" ""
- R58 1
- D29 2
-Net 333 "" ""
- R58 2
- R57 2
- D29 3
- Q15 D1
- Q15 D1
-Net 334 "" ""
- R59 1
- D30 1
-Net 335 "" ""
- R60 1
- D30 2
-Net 336 "" ""
- R35 2
- D18 3
- R36 2
- Q9 D2
-Net 337 "" ""
- Q10 D2
- R39 2
- R40 2
+Net 326 "" ""
  D20 3
-Net 338 "" ""
- R37 2
+ R39 2
+ Q10 D2
+ R40 2
+Net 327 "" ""
  R38 2
+ R37 2
+ Q10 D1
  D19 3
  Q10 D1
- Q10 D1
-Net 339 "" ""
+Net 328 "" ""
  R35 1
  D18 1
-Net 340 "" ""
- R36 1
+Net 329 "" ""
  D18 2
-Net 341 "" ""
- D17 4
+ R36 1
+Net 330 "" ""
  R81 2
-Net 342 "" ""
+ D17 4
+Net 331 "" ""
  D18 4
  R82 2
-Net 343 "" ""
- D17 1
+Net 332 "" ""
  R33 1
-Net 344 "" ""
+ D17 1
+Net 333 "" ""
  D17 2
  R34 1
-Net 345 "" ""
+Net 334 "" ""
+ R34 2
+ R33 2
  D17 3
  Q9 D1
- R33 2
- R34 2
  Q9 D1
-Net 346 "" ""
+Net 335 "" ""
  R88 2
  D24 4
-Net 347 "" ""
- R45 2
+Net 336 "" ""
  Q12 D1
- D23 3
+ Q12 D1
  R46 2
- Q12 D1
-Net 348 "" ""
+ R45 2
+ D23 3
+Net 337 "" ""
  D24 1
  R47 1
-Net 349 "" ""
- D24 2
+Net 338 "" ""
  R48 1
-Net 350 "" ""
- R48 2
- Q12 D2
- R47 2
- D24 3
-Net 351 "" ""
- D20 1
+ D24 2
+Net 339 "" ""
  R39 1
-Net 352 "" ""
- R40 1
+ D20 1
+Net 340 "" ""
  D20 2
-Net 353 "" ""
+ R40 1
+Net 341 "" ""
  D20 4
  R84 2
-Net 354 "" ""
- D19 1
+Net 342 "" ""
  R37 1
-Net 355 "" ""
- D19 2
+ D19 1
+Net 343 "" ""
  R38 1
-Net 356 "" ""
- D19 4
+ D19 2
+Net 344 "" ""
  R83 2
-Net 357 "" ""
- R45 1
+ D19 4
+Net 345 "" ""
  D23 1
-Net 358 "" ""
- R46 1
+ R45 1
+Net 346 "" ""
  D23 2
-Net 359 "" ""
- D23 4
+ R46 1
+Net 347 "" ""
  R87 2
-Net 360 "" ""
- R131 2
- D50 3
- Q25 D2
- R132 2
-Net 361 "" ""
- R151 2
- D60 3
- R152 2
- Q30 D2
-Net 362 "" ""
- USB1 2
- R196 2
- R195 2
-Net 363 "" ""
- U1 2
- U1 12
- Q35 G
-Net 364 "" ""
- K1 2
+ D23 4
+Net 348 "" ""
+ R47 2
+ D24 3
+ Q12 D2
+ R48 2
+Net 349 "" ""
+ Q2 D2
+ D4 3
+ R7 2
+ R8 2
+Net 350 "" ""
+ Q9 D2
+ D18 3
+ R36 2
+ R35 2
+Net 351 "" ""
+ D58 3
+ Q29 D2
+ R148 2
+ R147 2
+Net 352 "" ""
+ Q14 D2
+ R56 2
+ R55 2
+ D28 3
+Net 353 "" ""
+ USB1 3
+ R194 2
+Net 355 "" ""
  IC1 74
-Net 366 "" ""
- D36 3
- R103 2
- Q18 D2
- R104 2
-Net 367 "" ""
- D42 3
- R116 2
- Q21 D2
- R115 2
-Net 368 "" ""
- Q24 D2
- D48 3
- R127 2
- R128 2
-Net 370 "" ""
- U1 9
- U1 5
- IC1 69
-Net 371 "" ""
- U1 4
- Q33 G
- U1 10
-Net 372 "" ""
- U1 3
- U1 11
- IC1 70
-Net 373 "" ""
- IC1 73
+ K1 2
+Net 357 "" ""
+ R12 2
+ R11 2
+ Q3 D2
+ D6 3
+Net 358 "" ""
+ D16 3
+ R32 2
+ R31 2
+ Q8 D2
+Net 359 "" ""
+ X1 1
+ C5 2
+ R193 1
+ IC1 24
+Net 360 "" ""
  U1 13
+ IC1 73
  U1 1
-Net 376 "" ""
- X2 2
- C2 2
- IC1 9
-Net 379 "/3v3" "3v3"
- IC1 95
- U2 1
- C9 1
- IC1 17
- R196 1
- IC1 144
- IC1 84
- R198 2
- IC1 62
- IC1 121
- IC1 108
+Net 361 "" ""
+ U1 4
+ Q35 G
+ U1 10
+Net 362 "" ""
+ U1 8
+ U1 6
+ Q33 G
+Net 363 "" ""
+ U1 11
+ U1 3
+ IC1 70
+Net 364 "" ""
+ Q34 G
+ U1 12
+ U1 2
+Net 367 "/LED21" "LED21"
+ IC1 10
+ Q11 G2
+Net 368 "" ""
+ IC1 76
+ K1 3
+Net 369 "/3v3" "3v3"
  C6 1
- C12 1
- IC1 131
- IC1 52
- R197 1
- IC1 72
- IC1 39
- C8 1
  C7 1
-Net 384 "/LED54" "LED54"
- Q28 G1
- IC1 81
- Q28 G1
-Net 388 "" ""
- Q16 D2
- R64 2
- R63 2
- D32 3
+ IC1 121
+ C9 1
+ IC1 72
+ IC1 62
+ IC1 52
+ C12 1
+ IC1 108
+ C8 1
+ IC1 144
+ R197 1
+ R196 1
+ U2 1
+ R198 2
+ IC1 84
+ IC1 95
+ IC1 39
+ IC1 131
+ IC1 17
+Net 370 "/LED53" "LED53"
+ IC1 82
+ Q27 G2
+Net 374 "/LED44" "LED44"
+ Q23 G1
+ Q23 G1
+ IC1 93
+Net 375 "/LED17" "LED17"
+ Q9 G2
+ IC1 14
+Net 378 "/LED7" "LED7"
+ IC1 54
+ Q4 G2
+Net 380 "/LED13" "LED13"
+ IC1 20
+ Q7 G2
+Net 381 "/LED9" "LED9"
+ IC1 50
+ Q5 G2
+Net 382 "/LED55" "LED55"
+ Q28 G2
+ IC1 80
+Net 384 "/LED46" "LED46"
+ Q24 G1
+ Q24 G1
+ IC1 91
+Net 385 "/LED19" "LED19"
+ Q10 G2
+ IC1 12
+Net 386 "/LED11" "LED11"
+ Q6 G2
+ IC1 22
 Net 389 "" ""
- Q16 D1
- R61 2
- Q16 D1
- D31 3
- R62 2
+ R135 2
+ D52 3
+ Q26 D2
+ R136 2
 Net 390 "" ""
- Q11 D2
- D22 3
- R44 2
- R43 2
+ R140 2
+ Q27 D2
+ R139 2
+ D54 3
 Net 391 "" ""
- D2 3
- R4 2
- Q1 D2
- R3 2
+ R123 2
+ D46 3
+ R124 2
+ Q23 D2
 Net 392 "" ""
- Q4 D2
- R16 2
- R15 2
- D8 3
+ D40 3
+ R111 2
+ Q20 D2
+ R112 2
 }
 #End
