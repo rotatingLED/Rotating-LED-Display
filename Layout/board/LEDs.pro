@@ -1,4 +1,4 @@
-update=Son 06 Nov 2011 16:49:33 CET
+update=Son 06 Nov 2011 21:08:07 CET
 version=1
 last_client=pcbnew
 [general]
