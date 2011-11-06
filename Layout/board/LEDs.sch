@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Fre 04 Nov 2011 12:28:54 CET
+EESchema Schematic File Version 2  date Fre 04 Nov 2011 18:21:08 CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -35,6 +35,7 @@ LIBS:74ABT573A-neu
 LIBS:dual-mosfeet
 LIBS:74lv04
 LIBS:l78l33acutr
+LIBS:LEDs-cache
 EELAYER 24  0
 EELAYER END
 $Descr A0 46800 33070
@@ -2430,9 +2431,9 @@ Text Label 8850 2400 0    60   ~ 0
 LED27
 Text Label 8850 2800 0    60   ~ 0
 LED26
-Text Label 8850 2600 0    60   ~ 0
-LED25
 Text Label 8850 2700 0    60   ~ 0
+LED25
+Text Label 8850 2600 0    60   ~ 0
 LED24
 Text Label 8850 2500 0    60   ~ 0
 LED23

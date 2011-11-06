@@ -1,4 +1,4 @@
-# EESchema Netlist Version 1.1 created  Fre 04 Nov 2011 12:29:03 CET
+# EESchema Netlist Version 1.1 created  Fre 04 Nov 2011 18:21:21 CET
 (
  ( /4EADB2EB $noname  C14 100nF {Lib=C}
   (    1 VCC )
@@ -56,8 +56,8 @@
  ( /4EABD423 $noname  IC1 STM32F103ZET6 {Lib=STM32F103ZET6}
   (    1 /LED27 )
   (    2 /LED23 )
-  (    3 /LED25 )
-  (    4 /LED24 )
+  (    3 /LED24 )
+  (    4 /LED25 )
   (    5 /LED26 )
   (    6 ? )
   (    7 ? )
@@ -3747,19 +3747,19 @@ Net 86 "/RED" "RED"
  D4 6
  D23 6
  D51 6
- D56 6
  D20 6
  D53 6
  D3 6
  D24 6
+ D56 6
  D40 6
  D50 6
  D14 6
- D2 6
+ D6 6
  D13 6
  D5 6
  D19 6
- D6 6
+ D2 6
  D55 6
  D1 6
  D61 6
@@ -3776,7 +3776,7 @@ Net 86 "/RED" "RED"
  D27 6
  D48 6
  D28 6
- D43 6
+ D42 6
  D36 6
  D38 6
  D35 6
@@ -3785,7 +3785,7 @@ Net 86 "/RED" "RED"
  D37 6
  D45 6
  D52 6
- D42 6
+ D43 6
  D46 6
  D58 6
  D18 6
@@ -3821,19 +3821,19 @@ Net 92 "/LED30" "LED30"
  IC1 129
  Q16 G1
 Net 93 "/LED27" "LED27"
- IC1 1
  Q14 G2
+ IC1 1
 Net 94 "/LED26" "LED26"
  IC1 5
  Q14 G1
  Q14 G1
 Net 95 "/LED25" "LED25"
- IC1 3
+ IC1 4
  Q13 G2
 Net 96 "/LED24" "LED24"
+ IC1 3
  Q13 G1
  Q13 G1
- IC1 4
 Net 97 "/LED23" "LED23"
  Q12 G2
  IC1 2
@@ -3845,8 +3845,8 @@ Net 99 "/LED59" "LED59"
  Q30 G2
  IC1 64
 Net 100 "/LED54" "LED54"
- Q28 G1
  IC1 81
+ Q28 G1
  Q28 G1
 Net 101 "/LED47" "LED47"
  Q24 G2
