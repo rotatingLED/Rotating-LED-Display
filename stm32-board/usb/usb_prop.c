@@ -144,19 +144,6 @@ void Virtual_Com_Port_Reset(void)
   /* Set Virtual_Com_Port DEVICE with the default Interface*/
   pInformation->Current_Interface = 0;
 
-#ifdef STM32F10X_CL     
-  /* EP0 is already configured by USB_SIL_Init() function */
-  
-  /* Init EP1 IN as Bulk endpoint */
-  OTG_DEV_EP_Init(EP1_IN, OTG_DEV_EP_TYPE_BULK, VIRTUAL_COM_PORT_DATA_SIZE);
-  
-  /* Init EP2 IN as Interrupt endpoint */
-  OTG_DEV_EP_Init(EP2_IN, OTG_DEV_EP_TYPE_INT, VIRTUAL_COM_PORT_INT_SIZE);
-
-  /* Init EP3 OUT as Bulk endpoint */
-  OTG_DEV_EP_Init(EP3_OUT, OTG_DEV_EP_TYPE_BULK, VIRTUAL_COM_PORT_DATA_SIZE);  
-#else 
-
   SetBTABLE(BTABLE_ADDRESS);
 
   /* Initialize Endpoint 0 */
@@ -181,15 +168,16 @@ void Virtual_Com_Port_Reset(void)
   SetEPTxStatus(ENDP2, EP_TX_NAK);
 
   /* Initialize Endpoint 3 */
-  SetEPType(ENDP3, EP_BULK);
-  SetEPRxAddr(ENDP3, ENDP3_RXADDR);
-  SetEPRxCount(ENDP3, VIRTUAL_COM_PORT_DATA_SIZE);
+  SetEPType(ENDP3, EP_ISOCHRONOUS);
+  //SetEPRxAddr(ENDP3, ENDP3_RXADDR);
+  //SetEPRxCount(ENDP3, 0x40);
+  SetEPDblBuffAddr(ENDP3, ENDP3_BUF0Addr, ENDP3_BUF1Addr);
+  SetEPDblBuffCount(ENDP3, EP_DBUF_OUT, USB_OUT_DATA_SIZE);
   SetEPRxStatus(ENDP3, EP_RX_VALID);
   SetEPTxStatus(ENDP3, EP_TX_DIS);
 
   /* Set this device to response on default address */
   SetDeviceAddress(0);
-#endif /* STM32F10X_CL */
 
   bDeviceState = ATTACHED;
 }
