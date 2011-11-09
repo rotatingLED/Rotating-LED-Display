@@ -28,6 +28,7 @@
 #define USB_INTERFACE_DESCRIPTOR_TYPE           0x04
 #define USB_ENDPOINT_DESCRIPTOR_TYPE            0x05
 
+#define USB_OUT_DATA_SIZE                       0x400
 #define VIRTUAL_COM_PORT_DATA_SIZE              64
 #define VIRTUAL_COM_PORT_INT_SIZE               8
 
@@ -43,6 +44,9 @@
 #define VIRTUAL_COM_PORT_SIZ_STRING_SERIAL      26
 
 #define STANDARD_ENDPOINT_DESC_SIZE             0x09
+
+#define USB_ENDPOINT_TYPE_ISOCHRONOUS           0x01
+#define USB_ENDPOINT_TYPE_BULK                  0x02
 
 /* Exported functions ------------------------------------------------------- */
 extern const uint8_t Virtual_Com_Port_DeviceDescriptor[VIRTUAL_COM_PORT_SIZ_DEVICE_DESC];

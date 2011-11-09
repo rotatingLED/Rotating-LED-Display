@@ -29,7 +29,7 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-uint8_t USB_Rx_Buffer[VIRTUAL_COM_PORT_DATA_SIZE];
+uint8_t USB_Rx_Buffer[USB_OUT_DATA_SIZE];
 extern  uint8_t USART_Rx_Buffer[];
 extern uint32_t USART_Rx_ptr_out;
 extern uint32_t USART_Rx_length;
@@ -94,21 +94,36 @@ void EP1_IN_Callback (void)
 *******************************************************************************/
 void EP3_OUT_Callback(void)
 {
-  uint16_t USB_Rx_Cnt;
+  uint16_t data_len;
   
   /* Get the received data buffer and update the counter */
-  USB_Rx_Cnt = USB_SIL_Read(EP3_OUT, USB_Rx_Buffer);
+  //USB_Rx_Cnt = USB_SIL_Read(EP3_OUT, USB_Rx_Buffer);
   
   /* USB data will be immediately processed, this allow next USB traffic being 
   NAKed till the end of the USART Xfer */
-  GPIOC->ODR = 0xffff;
-  GPIOC->ODR = 0x0000;
+  if (USB_Rx_Buffer[254] = 1 && USB_Rx_Buffer[255] == 2){
+    GPIOC->ODR = 0xffff;
+    sleep(10);
+    GPIOC->ODR = 0x0000;
+  }
   
-  USB_To_USART_Send_Data(USB_Rx_Buffer, USB_Rx_Cnt);
+  //not used
+  //USB_To_USART_Send_Data(USB_Rx_Buffer, USB_Rx_Cnt);
   
+  if (GetENDPOINT(ENDP3) & EP_DTOG_TX) {
+    /*read from ENDP1_BUF0Addr buffer*/
+    data_len = GetEPDblBuf0Count(ENDP3);
+    PMAToUserBufferCopy(USB_Rx_Buffer, ENDP3_BUF0Addr, data_len);
+  } else {
+    /*read from ENDP1_BUF1Addr buffer*/
+    data_len = GetEPDblBuf1Count(ENDP3);
+    PMAToUserBufferCopy(USB_Rx_Buffer, ENDP3_BUF1Addr, data_len);
+  }
+  FreeUserBuffer(ENDP3, EP_DBUF_OUT);
+
 #ifndef STM32F10X_CL
   /* Enable the receive of data on EP3 */
-  SetEPRxValid(ENDP3);
+  //SetEPRxValid(ENDP3);
 #endif /* STM32F10X_CL */
 }
 
@@ -136,7 +151,7 @@ void SOF_Callback(void)
       FrameCount = 0;
       
       /* Check the data to be sent through IN pipe */
-      Handle_USBAsynchXfer();
+      //Handle_USBAsynchXfer();
     }
   }  
 }

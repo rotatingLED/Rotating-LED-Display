@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 update=Mon 07 Nov 2011 10:06:16 CET
+=======
+update=Mon 07 Nov 2011 19:29:27 CET
+>>>>>>> 63d262365b2d36c054c1931483acad766b7a8be0
 version=1
 last_client=pcbnew
 [general]

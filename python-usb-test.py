@@ -2,6 +2,10 @@
 
 from __future__ import division
 
+import os
+os.environ['PYUSB_LOG_FILENAME'] = 'test.log'
+os.environ['PYUSB_DEBUG_LEVEL'] = 'debug'
+
 import usb.core
 import usb.util
 import datetime
@@ -33,19 +37,25 @@ for cfg in dev:
 """
 
 package = []
-for i in range(1000):
-    package.append(1) # used as bytes
+for i in range(100*512):
+    if i % 2 == 1:
+        package.append(2) # used as bytes
+    else:
+        package.append(1) # used as bytes
+
 
 # write the data out to the device
 count = 0
 now = datetime.datetime.now()
-while count < 3000:
+report_all = 10
+while 1:
     wrote = dev.write(3, package, 1)
 
     count += 1
-    if count % 1000 == 0:
+    if count % report_all == 0:
         print count, ',', \
-            1000*divideTimeDelta(datetime.timedelta(seconds=1), datetime.datetime.now()-now),\
+            report_all*divideTimeDelta(datetime.timedelta(seconds=1),\
+            datetime.datetime.now()-now),\
             'packages/s, wrote', wrote, 'bytes'
         now = datetime.datetime.now()
 
