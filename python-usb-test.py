@@ -37,11 +37,11 @@ for cfg in dev:
 """
 
 package = []
-for i in range(100*1023):
+for i in range(100*512):
     if i % 2 == 1:
-        package.append(1) # used as bytes
-    else:
         package.append(2) # used as bytes
+    else:
+        package.append(1) # used as bytes
 
 
 # write the data out to the device
