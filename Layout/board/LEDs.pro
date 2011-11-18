@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-update=Mon 07 Nov 2011 10:06:16 CET
-=======
-update=Mon 07 Nov 2011 19:29:27 CET
->>>>>>> 63d262365b2d36c054c1931483acad766b7a8be0
+update=Fre 18 Nov 2011 18:32:54 CET
 version=1
 last_client=pcbnew
-[general]
-version=1
 [cvpcb]
 version=1
 NetIExt=net
@@ -84,6 +78,8 @@ LibName33=74ABT573A-neu
 LibName34=dual-mosfeet
 LibName35=74lv04
 LibName36=l78l33acutr
+[general]
+version=1
 [pcbnew]
 version=1
 PadDrlX=0

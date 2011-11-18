@@ -1,0 +1,7 @@
+Testpins für Zeilentreiber
+Zeilentreiber FET mehr platz, bahn nicht zu nahe daran
+ADC Spannungsversorgung
+BOOT1 Ground
+BOOT0 gegen VCC
+32khz Quarz wegnehmen
+
