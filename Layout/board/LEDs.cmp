@@ -1,18 +1,4 @@
-Cmp-Mod V01 Created by CvPCB (2010-00-09 BZR 23xx)-stable date = Son 30 Okt 2011 21:27:09 CET
-
-BeginCmp
-TimeStamp = /4EA6E3DF;
-Reference = C1;
-ValeurCmp = 10pF;
-IdModule  = SM0805;
-EndCmp
-
-BeginCmp
-TimeStamp = /4EA6E3E4;
-Reference = C2;
-ValeurCmp = 10pF;
-IdModule  = SM0805;
-EndCmp
+Cmp-Mod V01 Created by CvPCB (2010-00-09 BZR 23xx)-stable date = Son 20 Nov 2011 11:09:23 CET
 
 BeginCmp
 TimeStamp = /4EA6EE38;
@@ -579,6 +565,41 @@ TimeStamp = /4EADA8C2;
 Reference = P2;
 ValeurCmp = CONN_1;
 IdModule  = 1pin;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EC8BC1F;
+Reference = P3;
+ValeurCmp = CONN_1;
+IdModule  = JTAG_PIN;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EC8BC59;
+Reference = P4;
+ValeurCmp = CONN_1;
+IdModule  = JTAG_PIN;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EC8BC5A;
+Reference = P5;
+ValeurCmp = CONN_1;
+IdModule  = JTAG_PIN;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EC8BC5B;
+Reference = P6;
+ValeurCmp = CONN_1;
+IdModule  = JTAG_PIN;
+EndCmp
+
+BeginCmp
+TimeStamp = /4EC8BC5C;
+Reference = P7;
+ValeurCmp = CONN_1;
+IdModule  = JTAG_PIN;
 EndCmp
 
 BeginCmp
@@ -2208,14 +2229,14 @@ EndCmp
 BeginCmp
 TimeStamp = /4EA7E063;
 Reference = R198;
-ValeurCmp = R;
+ValeurCmp = 100k;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /4EA7E05D;
 Reference = R199;
-ValeurCmp = R;
+ValeurCmp = 10k;
 IdModule  = SM0805;
 EndCmp
 
@@ -2258,14 +2279,7 @@ BeginCmp
 TimeStamp = /4EA6E143;
 Reference = X1;
 ValeurCmp = 8MHz;
-IdModule  = SM0805;
-EndCmp
-
-BeginCmp
-TimeStamp = /4EA6E38A;
-Reference = X2;
-ValeurCmp = 32.768KHz;
-IdModule  = SM0805;
+IdModule  = 49SMD;
 EndCmp
 
 EndListe
