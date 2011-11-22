@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-update=Mon 07 Nov 2011 10:06:16 CET
-=======
-update=Mon 07 Nov 2011 19:29:27 CET
->>>>>>> 63d262365b2d36c054c1931483acad766b7a8be0
+update=Son 20 Nov 2011 13:41:55 CET
 version=1
 last_client=pcbnew
-[general]
-version=1
 [cvpcb]
 version=1
 NetIExt=net
@@ -84,11 +78,13 @@ LibName33=74ABT573A-neu
 LibName34=dual-mosfeet
 LibName35=74lv04
 LibName36=l78l33acutr
+[general]
+version=1
 [pcbnew]
 version=1
 PadDrlX=0
-PadDimH=197
-PadDimV=551
+PadDimH=500
+PadDimV=500
 BoardThickness=630
 SgPcb45=1
 TxtPcbV=800
@@ -120,3 +116,5 @@ LibName13=LQFP144
 LibName14=SO-8-FET
 LibName15=SOT23-FET
 LibName16=BEFESTIGUNG
+LibName17=JTAG_PIN
+LibName18=49SMD
