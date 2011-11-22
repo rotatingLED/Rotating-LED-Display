@@ -79,13 +79,31 @@ int main(void) {
 	USB_Interrupts_Config();
 	USB_Init();
 
-	while (1) {
-	}
   // Turn on/off LED(s)
   register int i=0;
   register int j=0;
   while(1){
     i++;
+    GPIOC->ODR = 0xffff;
+    GPIOD->ODR = 0xffff;
+    GPIOE->ODR = 0xffff;
+    GPIOF->ODR = 0xffff;
+    GPIOG->ODR = 0xffff;
+
+    GPIOC->ODR = 0x0000;
+    GPIOD->ODR = 0x0000;
+    GPIOE->ODR = 0x0000;
+    GPIOF->ODR = 0x0000;
+    GPIOG->ODR = 0x0000;
+    sleep(1);
+    
+    if (i%6000 == 0){
+      GPIOB->ODR = (1 << 10);
+    }else if (i%6000 == 2000){
+      GPIOB->ODR = (1 << 11);
+    }else if (i%6000 == 4000){
+      GPIOB->ODR = (1 << 12);
+    }
     /*GPIOD->ODR = 0x0400;
 
     GPIOC->ODR = 0xffff;
@@ -125,7 +143,9 @@ int main(void) {
  *******************************************************************************/
 void Periph_Configuration(void) {
 	/* Enable USART1, GPIOA, GPIOD and AFIO clocks */
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOx | RCC_APB2Periph_AFIO, ENABLE);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1
+      | RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOD | RCC_APB2Periph_GPIOE
+      | RCC_APB2Periph_GPIOF | RCC_APB2Periph_GPIOG | RCC_APB2Periph_AFIO, ENABLE);
 	/* Enable USART2 clock */
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
 
@@ -171,6 +191,12 @@ void GPIO_Configuration(void) {
 	GPIO_Init(GPIOx, &GPIO_InitStructure);
 
   /* Configure GPIO for LEDs as Output push-pull */
+  // GPIO B
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+
   // GPIO C
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
@@ -183,6 +209,23 @@ void GPIO_Configuration(void) {
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
   GPIO_Init(GPIOD, &GPIO_InitStructure);
 
+  // GPIO E
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_Init(GPIOE, &GPIO_InitStructure);
+
+  // GPIO F
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_Init(GPIOF, &GPIO_InitStructure);
+
+  // GPIO G
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_Init(GPIOG, &GPIO_InitStructure);
 #if defined(USE_MINI_STM32)
 	/* touch-controller's CS (PA4), SD-Card's CS (PB6) and DataFlash CS (PB7) high = unselect */
 	/* PB6 and PB7 both have an external 4,7kOhm pull-up */
