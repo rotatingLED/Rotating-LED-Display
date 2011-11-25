@@ -63,6 +63,10 @@ void (*pEpInt_OUT[7])(void) =
 *******************************************************************************/
 void USB_Istr(void)
 {
+  GPIOD->ODR = 0x0000;
+  GPIOE->ODR = 0x0000;
+  GPIOF->ODR = 0x0000;
+  GPIOG->ODR = 0x0000;
 
   wIstr = _GetISTR();
 

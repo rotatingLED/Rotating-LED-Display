@@ -4,7 +4,7 @@ from __future__ import division
 
 import os
 os.environ['PYUSB_LOG_FILENAME'] = 'test.log'
-os.environ['PYUSB_DEBUG_LEVEL'] = 'debug'
+#os.environ['PYUSB_DEBUG_LEVEL'] = 'debug'
 
 import usb.core
 import usb.util
@@ -39,7 +39,7 @@ for cfg in dev:
 package = []
 for i in range(100*512):
     if i % 2 == 1:
-        package.append(2) # used as bytes
+        package.append(0) # used as bytes
     else:
         package.append(1) # used as bytes
 

@@ -152,6 +152,7 @@ SRC += src/startup_stm32f10x_md_mthomas.c
 SRC += src/syscalls.c
 
 SRC += src/errdisplay.c
+SRC += src/led_config.c
 
 
 SRC += usb/hw_config.c

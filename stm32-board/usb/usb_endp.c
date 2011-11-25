@@ -20,6 +20,7 @@
 #include "hw_config.h"
 #include "usb_istr.h"
 #include "usb_pwr.h"
+#include "src/led_config.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -27,9 +28,9 @@
 /* Interval between sending IN packets in frame number (1 frame = 1ms) */
 #define VCOMPORT_IN_FRAME_INTERVAL             5
 
+
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-uint8_t USB_Rx_Buffer[USB_OUT_DATA_SIZE];
 extern  uint8_t USART_Rx_Buffer[];
 extern uint32_t USART_Rx_ptr_out;
 extern uint32_t USART_Rx_length;
@@ -97,28 +98,39 @@ void EP3_OUT_Callback(void)
   uint16_t data_len;
   
   /* Get the received data buffer and update the counter */
-  //USB_Rx_Cnt = USB_SIL_Read(EP3_OUT, USB_Rx_Buffer);
+  //USB_Rx_Cnt = USB_SIL_Read(EP3_OUT, frame_buffer);
   
   /* USB data will be immediately processed, this allow next USB traffic being 
   NAKed till the end of the USART Xfer */
-  if (USB_Rx_Buffer[254] = 1 && USB_Rx_Buffer[255] == 2){
+  /*if (frame_buffer[254] = 1 && frame_buffer[255] == 2){
     GPIOC->ODR = 0xffff;
-    sleep(10);
+    //sleep(10);
     GPIOC->ODR = 0x0000;
-  }
+  }*/
   
   //not used
-  //USB_To_USART_Send_Data(USB_Rx_Buffer, USB_Rx_Cnt);
+  //USB_To_USART_Send_Data(frame_buffer, USB_Rx_Cnt);
   
   if (GetENDPOINT(ENDP3) & EP_DTOG_TX) {
     /*read from ENDP1_BUF0Addr buffer*/
     data_len = GetEPDblBuf0Count(ENDP3);
-    PMAToUserBufferCopy(USB_Rx_Buffer, ENDP3_BUF0Addr, data_len);
+    //PMAToUserBufferCopy((uint8_t*)& frame_buffer[512*current_usb_frame], ENDP3_BUF0Addr, data_len);
+    //if (frame_buffer[0] == 0){
+    if (data_len > 0){
+      for(int i = 512*current_usb_frame;i<512*(current_usb_frame+1);i++){
+        frame_buffer[i] = 1;
+      }
+    }
   } else {
     /*read from ENDP1_BUF1Addr buffer*/
     data_len = GetEPDblBuf1Count(ENDP3);
-    PMAToUserBufferCopy(USB_Rx_Buffer, ENDP3_BUF1Addr, data_len);
+    //PMAToUserBufferCopy(& frame_buffer[512*current_usb_frame], ENDP3_BUF1Addr, data_len);
   }
+
+  if (++current_usb_frame >= NUM_USB_FRAMES){
+    current_usb_frame = 0;
+  }
+
   FreeUserBuffer(ENDP3, EP_DBUF_OUT);
 
 #ifndef STM32F10X_CL
