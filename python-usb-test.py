@@ -2,6 +2,12 @@
 
 from __future__ import division
 
+LEDS_PER_BOARD = 64
+BOARDS = 2
+PWM_STEPS = 15
+NUM_COLORS = 3
+NUM_ROWS = 1000
+
 import os
 os.environ['PYUSB_LOG_FILENAME'] = 'test.log'
 #os.environ['PYUSB_DEBUG_LEVEL'] = 'debug'
@@ -36,13 +42,52 @@ for cfg in dev:
             print '\t\t' + str(ep.bEndpointAddress)
 """
 
-package = []
-for i in range(100*512):
-    if i % 2 == 1:
-        package.append(0) # used as bytes
-    else:
-        package.append(1) # used as bytes
+ROW = BOARDS*LEDS_PER_BOARD*NUM_COLORS
+img = bytearray(ROW*NUM_ROWS);
+for i, pixel in enumerate(img):
+    img[i] = 255
 
+board = 0 # boards -> 128 or 1
+
+buf = bytearray()
+for i in range(NUM_ROWS):
+    num_leds = int(ROW/BOARDS/NUM_COLORS)
+    index = i*ROW+board*num_leds*3
+    relevant = img[index:index+num_leds*3]
+    print ROW, index, num_leds
+
+    # pwm calculation
+    pwm = [0] * int(PWM_STEPS * num_leds * NUM_COLORS / 8)
+    for j, pixel in enumerate(relevant):
+        pixel = pixel >> 4
+        for k in range(PWM_STEPS):
+            led_id = num_leds / 3
+            if k <= pixel:
+                address = (k*NUM_COLORS+(j % NUM_COLORS))*num_leds + int(j/NUM_COLORS)
+                #print 'a', address, PWM_STEPS, num_leds, j
+                pwm[int(address/8)] += 1 << address % 8
+            else:
+                break
+    pwm = img
+    buf += pwm
+
+    if i > 127:
+        break
+
+print len(buf)
+
+package = buf[:360*128]
+
+
+# 46'080 bytes should at least be written, so that the buffer's full
+# 360 bytes per row -> 360'000 for a full turn
+data = []
+for i in range(100*512): #(45*1024):
+    if i % 2 == 1:
+        data.append(0) # used as bytes
+    else:
+        data.append(255) # used as bytes
+#package = data
 
 # write the data out to the device
 count = 0

@@ -173,8 +173,13 @@ void Virtual_Com_Port_Reset(void)
   //SetEPRxCount(ENDP3, 0x40);
   SetEPDblBuffAddr(ENDP3, ENDP3_BUF0Addr, ENDP3_BUF1Addr);
   SetEPDblBuffCount(ENDP3, EP_DBUF_OUT, USB_OUT_DATA_SIZE);
+  ClearDTOG_RX(ENDP3);
+  ClearDTOG_TX(ENDP3);
+  ToggleDTOG_TX(ENDP3);
   SetEPRxStatus(ENDP3, EP_RX_VALID);
   SetEPTxStatus(ENDP3, EP_TX_DIS);
+
+  SetEPRxValid(ENDP0);
 
   /* Set this device to response on default address */
   SetDeviceAddress(0);

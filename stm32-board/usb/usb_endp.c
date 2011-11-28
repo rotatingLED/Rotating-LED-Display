@@ -114,17 +114,22 @@ void EP3_OUT_Callback(void)
   if (GetENDPOINT(ENDP3) & EP_DTOG_TX) {
     /*read from ENDP1_BUF0Addr buffer*/
     data_len = GetEPDblBuf0Count(ENDP3);
-    //PMAToUserBufferCopy((uint8_t*)& frame_buffer[512*current_usb_frame], ENDP3_BUF0Addr, data_len);
+    PMAToUserBufferCopy((uint8_t*)& frame_buffer[512*current_usb_frame], ENDP3_BUF0Addr, data_len);
     //if (frame_buffer[0] == 0){
     if (data_len > 0){
-      for(int i = 512*current_usb_frame;i<512*(current_usb_frame+1);i++){
-        frame_buffer[i] = 1;
+      //for(int i = 512*current_usb_frame;i<512*(current_usb_frame+1);i++){
+        //frame_buffer[i] = 1;
+      //}
+      if (frame_buffer[255] == 255){
+        GPIOC->ODR = 0xffff;
+        sleep(10);
+        GPIOC->ODR = 0x0000;
       }
     }
   } else {
     /*read from ENDP1_BUF1Addr buffer*/
     data_len = GetEPDblBuf1Count(ENDP3);
-    //PMAToUserBufferCopy(& frame_buffer[512*current_usb_frame], ENDP3_BUF1Addr, data_len);
+    PMAToUserBufferCopy(& frame_buffer[512*current_usb_frame], ENDP3_BUF1Addr, data_len);
   }
 
   if (++current_usb_frame >= NUM_USB_FRAMES){

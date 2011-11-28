@@ -51,7 +51,7 @@
 #define ENDP2_TXADDR        (0x0D0) //needs 10, so you could continue with 0x0E0
 //#define ENDP3_RXADDR        (0x110)
 #define ENDP3_BUF0Addr      (0x100)
-#define ENDP3_BUF1Addr      (0x500)
+#define ENDP3_BUF1Addr      (0x300)
 
 
 
