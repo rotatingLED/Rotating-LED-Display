@@ -45,7 +45,7 @@ for cfg in dev:
 ROW = BOARDS*LEDS_PER_BOARD*NUM_COLORS
 img = bytearray(ROW*NUM_ROWS);
 for i, pixel in enumerate(img):
-    img[i] = 255
+    img[i] = 1
 
 board = 0 # boards -> 128 or 1
 
@@ -84,7 +84,7 @@ package = buf[:360*128]
 data = []
 for i in range(100*512): #(45*1024):
     if i % 2 == 1:
-        data.append(0) # used as bytes
+        data.append(255) # used as bytes
     else:
         data.append(255) # used as bytes
 #package = data
