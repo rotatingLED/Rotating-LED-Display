@@ -17,9 +17,10 @@ void hw_init() {
 	// Initialize the ADC
 	adc_init();
 
-	// initialize blink
-	TCCR0B |= (1 << CS00) | (1 << CS02); // Prescaler: 1024: 12'000'000 / 1024 = 0.000085333s / Takt
-	TIMSK0 |= (1 << OCIE0A); // enable interrupt
+	// initialize timer
+	TCCR1B = (1 << CS10); // Prescaler 1
+	// TCCR1B = (1 << CS10) | (1 << CS12); // Prescaler 1024
+	TIMSK1 |= (1 << OCIE1A); // enable timer
 
 	// Enable interrupts
 	sei();
@@ -46,23 +47,29 @@ void getTime(struct Time * t) {
 }
 
 /**
- * c = a - b // c ist minimal 0
+ * c = a - b
  */
 void timeDiff(struct Time * a, struct Time * b, struct Time * c) {
-	c->parts = 0;
-	c->time = 0;
-
-	if (a->time < b->time) {
-		return;
-	}
-
 	uint8_t timeDiff = 0;
 	if (a->parts < b->parts) {
 		timeDiff = 1;
 	}
 
-	c->parts = a->parts - b->parts;
+	c->parts = a->parts - b->parts - timeDiff;
 	c->time = a->time - b->time;
+}
+
+/**
+ * c = a + b
+ */
+void timeAdd(struct Time * a, struct Time * b, struct Time * c) {
+	uint32_t parts = a->parts + b->parts;
+
+	c->time = a->time + b->time + 1;
+	if(parts > 65535) {
+		c->time++;
+		c->parts = parts;
+	}
 }
 
 static uint8_t ledBlink = 0;
@@ -70,7 +77,7 @@ static uint8_t ledBlink = 0;
 /**
  * Timer interrupt
  */
-ISR(TIMER0_COMPA_vect)
+ISR(TIMER1_COMPA_vect)
 {
 	ledBlink = !ledBlink;
 	if (ledBlink) {
@@ -79,6 +86,6 @@ ISR(TIMER0_COMPA_vect)
 		PORTD &= ~(1 << PD6);
 	}
 
-//TODO: 	time++;
+	time++;
 }
 

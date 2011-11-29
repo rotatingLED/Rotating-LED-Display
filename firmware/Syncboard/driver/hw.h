@@ -24,4 +24,9 @@ void getTime(struct Time * time);
  */
 void timeDiff(struct Time * a, struct Time * b, struct Time * c);
 
+/**
+ * c = a + b
+ */
+void timeAdd(struct Time * a, struct Time * b, struct Time * c);
+
 #endif /* HW_H_ */

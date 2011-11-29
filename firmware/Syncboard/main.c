@@ -29,12 +29,21 @@ int main(void) {
 	struct Time timeOn;
 	struct Time diff;
 
+	struct Time centerOnTime;
+	struct Time lastCenterOnTime;
+
+	struct Time tmp;
+
 	hw_init();
 	uart_init(UART_BAUD_SELECT(UART_BAUD_RATE, F_CPU));
+
+	getTime(&centerOnTime);
 
 	while (1) {
 		uint8_t v = adc_read(7);
 		state = v > adcThreshold;
+
+		lastCenterOnTime = centerOnTime;
 
 		if (state != lastState) {
 			lastState = state;
@@ -42,7 +51,7 @@ int main(void) {
 			if (state == 0) {
 				getTime(&timeOff);
 
-				timeDiff(&timeOn, &timeOff, &diff);
+				timeDiff(&timeOff, &timeOn, &diff);
 
 				uart_puts("on   =>");
 				uartPutTime(&timeOn);
@@ -52,6 +61,25 @@ int main(void) {
 				uart_putc('\n');
 				uart_puts("diff =>");
 				uartPutTime(&diff);
+				uart_putc('\n');
+
+				tmp = diff;
+				tmp.parts /= 2;
+				tmp.time /= 2;
+
+				timeAdd(&tmp, &timeOff, &centerOnTime);
+
+				uart_puts("cent =>");
+				uartPutTime(&centerOnTime);
+				uart_putc('\n');
+
+				timeDiff(&centerOnTime, &lastCenterOnTime, &tmp);
+
+				uart_puts("rota =>");
+				uartPutTime(&tmp);
+				uart_putc('\n');
+
+
 				uart_putc('\n');
 			} else {
 				getTime(&timeOn);
