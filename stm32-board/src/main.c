@@ -83,7 +83,7 @@ int main(void) {
 
   // Turn on/off LED(s)
   register int i=0;
-  register int j=0;
+  register int current_led=0;
   while(1){
     GPIOB->ODR = ~(1 << 10); //color: red
     GPIOD->ODR = frame_buffer[++current_led];
@@ -316,6 +316,7 @@ int main(void) {
     if (current_led >= FRAME_BUFFER_LENGTH){
       current_led = -1;
     }
+    current_led = -1;
     /*
     i++;
     GPIOC->ODR = 0xffff;
