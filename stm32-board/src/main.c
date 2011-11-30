@@ -85,7 +85,9 @@ int main(void) {
   register int i=0;
   register int current_led=0;
   while(1){
-    GPIOB->ODR = ~(1 << 10); //color: red
+  }
+  while(1){
+    GPIOB->ODR = (1 << 10); //color: blue
     GPIOD->ODR = frame_buffer[++current_led];
     GPIOE->ODR = frame_buffer[++current_led];
     GPIOF->ODR = frame_buffer[++current_led];
@@ -161,7 +163,7 @@ int main(void) {
     GPIOF->ODR = frame_buffer[++current_led];
     GPIOG->ODR = frame_buffer[++current_led];
 
-    GPIOB->ODR = ~(1 << 11); //color: green
+    GPIOB->ODR = (1 << 11); //color: green
     GPIOD->ODR = frame_buffer[++current_led];
     GPIOE->ODR = frame_buffer[++current_led];
     GPIOF->ODR = frame_buffer[++current_led];
@@ -237,7 +239,7 @@ int main(void) {
     GPIOF->ODR = frame_buffer[++current_led];
     GPIOG->ODR = frame_buffer[++current_led];
 
-    GPIOB->ODR = ~(1 << 12); //color: blue
+    GPIOB->ODR = (1 << 12); //color: blue
     GPIOD->ODR = frame_buffer[++current_led];
     GPIOE->ODR = frame_buffer[++current_led];
     GPIOF->ODR = frame_buffer[++current_led];
