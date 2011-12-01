@@ -46,32 +46,6 @@ void getTime(struct Time * t) {
 	SREG = sregTtmp; // Wiederherstellen
 }
 
-/**
- * c = a - b
- */
-void timeDiff(struct Time * a, struct Time * b, struct Time * c) {
-	uint8_t timeDiff = 0;
-	if (a->parts < b->parts) {
-		timeDiff = 1;
-	}
-
-	c->parts = a->parts - b->parts - timeDiff;
-	c->time = a->time - b->time;
-}
-
-/**
- * c = a + b
- */
-void timeAdd(struct Time * a, struct Time * b, struct Time * c) {
-	uint32_t parts = a->parts + b->parts;
-
-	c->time = a->time + b->time + 1;
-	if(parts > 65535) {
-		c->time++;
-		c->parts = parts;
-	}
-}
-
 static uint8_t ledBlink = 0;
 
 /**

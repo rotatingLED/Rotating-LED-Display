@@ -1,32 +1,16 @@
-/*
- * hw.h
+/**
+ * Hardware abstraktion
  *
- *  Created on: 09.11.2011
- *      Author: andreas
+ * @author Andreas Butti
  */
 
 #ifndef HW_H_
 #define HW_H_
 
+#include "../time/time.h"
+
 void hw_init();
 void setGreenLed(uint8_t led);
-
-
-struct Time {
-	uint32_t time;
-	uint16_t parts;
-};
-
 void getTime(struct Time * time);
-
-/**
- * c = a - b
- */
-void timeDiff(struct Time * a, struct Time * b, struct Time * c);
-
-/**
- * c = a + b
- */
-void timeAdd(struct Time * a, struct Time * b, struct Time * c);
 
 #endif /* HW_H_ */

@@ -9,6 +9,7 @@
 #include "driver/uart.h"
 #include <util/delay.h> // _delay_ms
 #include <string.h>
+#include "time/time.h"
 
 #define UART_BAUD_RATE 57600
 
