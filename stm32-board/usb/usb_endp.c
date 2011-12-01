@@ -98,12 +98,13 @@ void EP3_OUT_Callback(void)
   uint16_t data_len;
   
   // Get the received data buffer and update the counter
-  data_len = USB_SIL_Read(EP3_OUT, (uint8_t*)& frame_buffer[360*current_usb_frame]);
+  data_len = USB_SIL_Read(EP3_OUT, (uint8_t*)& frame_buffer[32*current_usb_frame]);
   
   // USB data will be immediately processed, this allow next USB traffic being 
   // NAKed till the end of the USART Xfer
   //if (frame_buffer[0] == 1){
   //if (data_len == 720){
+  /*
   GPIOD->ODR = 0xffff;
   GPIOB->ODR = (1 << 11);
   sleep(10);
@@ -123,6 +124,7 @@ void EP3_OUT_Callback(void)
     GPIOF->ODR = 0x0000;
   }
   //}
+  */
   
   //not used
   //USB_To_USART_Send_Data(frame_buffer, USB_Rx_Cnt);

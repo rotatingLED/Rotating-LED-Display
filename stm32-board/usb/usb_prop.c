@@ -168,7 +168,7 @@ void Virtual_Com_Port_Reset(void)
   SetEPTxStatus(ENDP2, EP_TX_NAK);
 
   /* Initialize Endpoint 3 */
-  SetEPType(ENDP3, EP_ISOCHRONOUS);
+  SetEPType(ENDP3, EP_BULK);
   SetEPRxAddr(ENDP3, ENDP3_RXADDR);
   SetEPRxCount(ENDP3, USB_OUT_DATA_SIZE);//0x40);
 

@@ -12,9 +12,9 @@
 #define NUM_FRAMES 128 // least common multiple: 46080
 #define NUM_ROWS 1000
 
-#define NUM_USB_FRAMES 90 //new value 45 //1024 bytes per usb frame
+#define NUM_USB_FRAMES 720 //new value 45 //1024 bytes per usb frame
 
-#define FRAME_BUFFER_LENGTH     NUM_FRAMES * FRAME_SIZE / 2
+#define FRAME_BUFFER_LENGTH     NUM_FRAMES * FRAME_SIZE / 2 //because of word
 
 extern uint8_t current_usb_frame;
 extern uint16_t frame_buffer[];

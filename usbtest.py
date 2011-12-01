@@ -94,21 +94,24 @@ package = ([255])*720*10
 
 def run(package=None):
     if package is None:
-        package = ([1]+[0])*720*10
+        package = ([1]+[0]*359)*129
+        #package = ([255]*360)*128
+        #package = ([1]*3+[0]*46077)
     # write the data out to the device
     count = 0
     now = datetime.datetime.now()
-    report_all = 10
-    while count < 40:
-        wrote = dev.write(3, package, 1)
+    report_all = 1
 
-        count += 1
-        if count % report_all == 0:
-            print count, ',', \
-                report_all*divideTimeDelta(datetime.timedelta(seconds=1),\
-                datetime.datetime.now()-now),\
-                'packages/s, wrote', wrote, 'bytes'
-            now = datetime.datetime.now()
+    #while count < 10:
+    wrote = dev.write(3, package, 1)
+
+    count += 1
+    if count % report_all == 0:
+        print count, ',', \
+            report_all*divideTimeDelta(datetime.timedelta(seconds=1),\
+            datetime.datetime.now()-now),\
+            'packages/s, wrote', wrote, 'bytes'
+        now = datetime.datetime.now()
 
 
     #usb.util.release_interface(dev, 1)

@@ -28,7 +28,7 @@
 #define USB_INTERFACE_DESCRIPTOR_TYPE           0x04
 #define USB_ENDPOINT_DESCRIPTOR_TYPE            0x05
 
-#define USB_OUT_DATA_SIZE                       0x2D0 //720
+#define USB_OUT_DATA_SIZE                       0x40 //720 = 2D0
 #define VIRTUAL_COM_PORT_DATA_SIZE              64
 #define VIRTUAL_COM_PORT_INT_SIZE               8
 
