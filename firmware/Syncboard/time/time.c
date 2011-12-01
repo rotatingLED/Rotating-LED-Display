@@ -31,3 +31,17 @@ void timeAdd(struct Time * a, struct Time * b, struct Time * c) {
 	}
 	c->parts = parts;
 }
+
+/**
+ * c = a / b
+ */
+void timeDiff(struct Time * a, uint8_t b, struct Time * c) {
+	c->parts = a->parts / b;
+	c->time = a->time / b;
+
+	uint32_t underflow = a->time % b;
+	underflow *= 65536;
+	underflow /= b;
+	c->parts += underflow;
+}
+

@@ -11,7 +11,7 @@ AVRDUDE = avrdude -c usbtiny -p $(DEVICE) # edit this line for your programmer
 
 
 CFLAGS  = 
-OBJECTS = main.o driver/hw.o driver/adc.o driver/uart.o time/time.o
+OBJECTS = main.o utils.o driver/hw.o driver/adc.o driver/uart.o time/time.o
 
 COMPILE = avr-gcc -Wall -Os -DF_CPU=$(F_CPU) $(CFLAGS) -mmcu=$(DEVICE)
 

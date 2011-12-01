@@ -186,6 +186,7 @@ void testAdd() {
 
 	printf("\n");
 }
+
 void testSub() {
 
 	struct Time a, b, c, d;
@@ -362,9 +363,92 @@ void testSub() {
 	printf("\n");
 }
 
+void testDiff() {
+
+	struct Time a, b, c, d;
+	long la, lb, lc, ld;
+
+	printHeader("Diff test");
+
+	/**
+	 * CLEAR DATA
+	 */
+	a.time = 0;
+	a.parts = 0;
+	b.time = 0;
+	b.parts = 0;
+	c.time = 0;
+	c.parts = 0;
+	d.time = 0;
+	d.parts = 0;
+
+	la = 0;
+	lb = 0;
+	lc = 0;
+	ld = 0;
+
+	/**
+	 * TEST 1
+	 */
+	a.time = 345;
+	a.parts = 60000;
+
+	timeDiff(&a, 2, &c);
+
+	la = TIME_TO_LONG(a);
+	lc = TIME_TO_LONG(c);
+
+	printf("a=%li, b=%li, c=%li, d=%li\n", la, lb, lc, ld);
+
+	if (la / 2 == lc) {
+		printf("Test Line %i OK\n", __LINE__);
+	} else {
+		printf("Test Line %i failed\n", __LINE__);
+	}
+	printf("\n");
+
+	/**
+	 * CLEAR DATA
+	 */
+	a.time = 0;
+	a.parts = 0;
+	b.time = 0;
+	b.parts = 0;
+	c.time = 0;
+	c.parts = 0;
+	d.time = 0;
+	d.parts = 0;
+
+	la = 0;
+	lb = 0;
+	lc = 0;
+	ld = 0;
+
+	/**
+	 * TEST 2
+	 */
+	a.time = 30;
+	a.parts = 60;
+
+	timeDiff(&a, 2, &c);
+
+	la = TIME_TO_LONG(a);
+	lc = TIME_TO_LONG(c);
+
+	printf("a=%li, b=%li, c=%li, d=%li\n", la, lb, lc, ld);
+
+	if (la / 2 == lc) {
+		printf("Test Line %i OK\n", __LINE__);
+	} else {
+		printf("Test Line %i failed\n", __LINE__);
+	}
+	printf("\n");
+}
+
 int main(int argc, char **argv) {
 	testAdd();
 	testSub();
+	testDiff();
 
 	return 0;
 }
