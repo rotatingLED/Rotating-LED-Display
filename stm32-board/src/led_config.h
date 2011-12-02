@@ -16,7 +16,7 @@
 
 #define FRAME_BUFFER_LENGTH     NUM_FRAMES * FRAME_SIZE / 2 //because of word
 
-extern uint8_t current_usb_frame;
+extern uint16_t current_usb_frame;
 extern uint16_t frame_buffer[];
 
 #endif

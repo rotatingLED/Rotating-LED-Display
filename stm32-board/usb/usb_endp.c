@@ -162,10 +162,12 @@ void EP3_OUT_Callback(void)
 */
 
   ++current_usb_frame;
+  if (data_len != 64){
+    //sleep(5000);
+  }
   if (current_usb_frame >= NUM_USB_FRAMES){
     current_usb_frame = 0;
   }
-
   //FreeUserBuffer(ENDP3, EP_DBUF_OUT); // double buffering
 
 #ifndef STM32F10X_CL
