@@ -113,7 +113,7 @@ init()
 
 img = bytearray(ROW*NUM_ROWS);
 for i, pixel in enumerate(img):
-    if i % 3==0:
+    if i % 3 == 0:
         img[i] = i % NUM_LEDS
 
 run(pwm_data(img))
