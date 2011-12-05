@@ -2,6 +2,8 @@
 cdef extern from "fastpwmc.c":
   void pwm_data_4bit_c(unsigned char* img, 
           unsigned char board_nr, unsigned char* pwm_data)
+  void pwm_data_2bit_c(unsigned char* img, 
+          unsigned char board_nr, unsigned char* pwm_data)
 
 DEF LEDS_PER_BOARD = 64
 DEF BOARDS = 2
@@ -82,6 +84,9 @@ LED_ARR[63] = 31 # PE15
 
 def pwm_4bit_c(img, board_nr, pwm_data):
     pwm_data_4bit_c(img, board_nr, pwm_data)
+
+def pwm_2bit_c(img, board_nr, pwm_data):
+    pwm_data_2bit_c(img, board_nr, pwm_data)
 
 def pwm_data_4bit(unsigned char* img, unsigned char board_nr=0):
     cdef int index
