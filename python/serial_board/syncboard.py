@@ -134,14 +134,19 @@ class Syncboard(object):
 
         # reset not only the boards, but also the usb connection
         boards = led.get_boards(find_all=True)
-        print boards
+        print 'numboards:', boards
         for b in boards:
             print "Reset Board on Bus %i, Device %i" % (b.bus, b.address)
 
             fd = open('/dev/bus/usb/%03i/%03i' % (b.bus, b.address), 'w')
             # defined somewhere in the c libraries of the system
             USBDEVFS_RESET = 21780
-            fcntl.ioctl(fd, USBDEVFS_RESET, 0);
+            # have a try here, because sometimes it seems to work,
+            # but throws an exception.
+            try:
+                fcntl.ioctl(fd, USBDEVFS_RESET, 0);
+            except:
+                pass
         
 
     def flash_led_boards(self):
