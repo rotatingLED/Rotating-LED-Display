@@ -8,7 +8,8 @@ NUM_COLORS = 3
 NUM_ROWS = 1000
 ROW = BOARDS*LEDS_PER_BOARD*NUM_COLORS
 
-led_arr = [
+# mapping of pixels, because the ST board has really strange pin orders
+LED_ARR = [
     26, # PE10
     25, # PE9
     24, # PE8
@@ -43,7 +44,6 @@ led_arr = [
     61, # PG13
     60, # PG12
     59, # PG11
-    58, # PG10
      0, # PD0
      1, # PD1
      2, # PD2
@@ -52,6 +52,7 @@ led_arr = [
      5, # PD5
      6, # PD6
      7, # PD7
+    58, # PG10
     57, # PG9
     56, # PG8
     55, # PG7
@@ -68,11 +69,11 @@ led_arr = [
      8, # PD8
      9, # PD9
     10, # PD10
-    11, # PE11
-    12, # PE12
-    13, # PE13
-    14, # PE14
-    15, # PE15
+    27, # PE11
+    28, # PE12
+    29, # PE13
+    30, # PE14
+    31, # PE15
 ]
 
 import os
@@ -135,13 +136,14 @@ def run(package=None):
     #usb.util.release_interface(dev, 1)
     #usb.util.dispose_resources(dev)
 
-def pwm_data(img):
-    board = 0 # boards -> 128 or 1
+def pwm_data(img, board_nr=0):
+    board = 0
 
     buf = bytearray()
     for i in range(NUM_ROWS):
-        index = int(i*ROW+ROW/2*board)
+        index = int(i*ROW+ROW/2*board_nr)
         relevant = sort_led_pixels(img[index:index+int(ROW/2)])
+        #print list(relevant)
         #print ROW, index, LEDS_PER_BOARD
 
         # pwm calculation
@@ -149,10 +151,15 @@ def pwm_data(img):
         for j, pixel in enumerate(relevant):
             pixel = pixel >> 4
             for k in range(PWM_STEPS):
-                led_id = LEDS_PER_BOARD / 3
-                if k <= pixel:
-                    address = (k*NUM_COLORS+(j % NUM_COLORS))*LEDS_PER_BOARD + int(j/NUM_COLORS)
+                if k < pixel:
+                    # everything in bits -> caution
+                    # get basic address for color
+                    address = LEDS_PER_BOARD*PWM_STEPS*(j % NUM_COLORS)
+                    address += (k)*LEDS_PER_BOARD
+                    # add led id (0-LEDS_PER_BOARD)
+                    address += int(j/NUM_COLORS)
                     #print 'a', address, PWM_STEPS, LEDS_PER_BOARD, j
+                    # 360 bytes address -> 2880 bits
                     pwm[int(address/8)] += 1 << (address % 8)
                 else:
                     break
@@ -162,89 +169,20 @@ def pwm_data(img):
         if i > 127:
             break
 
-    print len(buf)
-
     return buf[:360*128]
 
-def sort_led_pixels(row):
+def sort_led_pixels(row): # RGB
     if len(row) != LEDS_PER_BOARD*3:
         raise IndexError(
             'Your software does not deliver the right amount of pixels: '
             + str(len(row)))
 
-    # mapping of pixels, because the ST board has really strange pin orders
-    map_arr = [
-        26, # PE10
-        25, # PE9
-        24, # PE8
-        23, # PE7
-        49, # PG1
-        48, # PG0
-        47, # PF15
-        46, # PF14
-        45, # PF13
-        44, # PF12
-        43, # PF11
-        42, # PF10
-        41, # PF9
-        40, # PF8
-        39, # PF7
-        38, # PF6
-        37, # PF5
-        36, # PF4
-        35, # PF3
-        34, # PF2
-        33, # PF1
-        32, # PF0
-        63, # PG15
-        19, # PE3
-        20, # PE4
-        21, # PE5
-        22, # PE6
-        18, # PE2
-        16, # PE0
-        17, # PE1
-        62, # PG14
-        61, # PG13
-        60, # PG12
-        59, # PG11
-        58, # PG10
-         0, # PD0
-         1, # PD1
-         2, # PD2
-         3, # PD3
-         4, # PD4
-         5, # PD5
-         6, # PD6
-         7, # PD7
-        57, # PG9
-        56, # PG8
-        55, # PG7
-        54, # PG6
-        53, # PG5
-        52, # PG4
-        51, # PG3
-        50, # PG2
-        15, # PD15
-        14, # PD14
-        13, # PD13
-        12, # PD12
-        11, # PD11
-         8, # PD8
-         9, # PD9
-        10, # PD10
-        11, # PE11
-        12, # PE12
-        13, # PE13
-        14, # PE14
-        15, # PE15
-    ]
     result = bytearray(len(row));
-    for i, value in enumerate(row):
-        index = led_arr[int(i/NUM_COLORS)]
-        result[i] = row[index*NUM_COLORS + i % NUM_COLORS]
+    for i in range(64):
+        index = LED_ARR[i]
+        result[index*3]   = row[i*3]
+        result[index*3+1] = row[i*3+1]
+        result[index*3+2] = row[i*3+2]
 
     #return row
     return result
-    #return map(lambda i: row[map_arr[int(i/NUM_COLORS)]*NUM_COLORS+i%NUM_COLORS], range(len(row)))
-
