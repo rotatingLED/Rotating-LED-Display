@@ -3,6 +3,8 @@
 import time
 import serial
 import threading
+import led
+import fcntl
 
 class Syncboard(object):
     def __init__(self, port, handle_function=None):
@@ -129,6 +131,18 @@ class Syncboard(object):
         self.setVar('reset', '1')
         time.sleep(0.001)
         self.setVar('reset', '0')
+
+        # reset not only the boards, but also the usb connection
+        boards = led.get_boards(find_all=True)
+        for b in boards:
+            print "Reset Board on Bus %i, Device %i" % (b.bus, b.address)
+
+            fd = open('/dev/bus/usb/%03i/%03i' % (b.bus, b.address), 'w')
+            # defined somewhere in the c libraries of the system
+            USBDEVFS_RESET = 21780
+            fcntl.ioctl(fd, USBDEVFS_RESET, 0);
+            b.reset()
+        
 
     def flash_led_boards(self):
         self.setVar('boot0', '1')

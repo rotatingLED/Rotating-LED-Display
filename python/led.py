@@ -95,7 +95,7 @@ def divideTimeDelta(td1, td2):
 # main script!
 def init(find_all=False):
     global dev
-    dev = usb.core.find(idVendor=0xffff, idProduct=0x5740, find_all = find_all)
+    dev = get_boards(find_all=find_all)
 
     if dev is None:
         raise ValueError('Device not found')
@@ -109,6 +109,8 @@ def init(find_all=False):
         dev.set_configuration()
     return dev
 
+def get_boards(find_all=False):
+    return usb.core.find(idVendor=0xffff, idProduct=0x5740, find_all = find_all)
 """
 print 'configs:'
 for cfg in dev:
