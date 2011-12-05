@@ -119,7 +119,11 @@ for cfg in dev:
             print '\t\t' + str(ep.bEndpointAddress)
 """
 
-def run(dev, package=None, endpoint=3):
+def run(dev, package=None, endpoint=3, timeout=None):
+    """ send a package of bytes to an endpoint of a usb device
+        the param "timeout" is in miliseconds and will raise an
+        exception, if the execution time exceeds this value.
+    """
     if package is None:
         package = [0]*360*128
         #package = (([1]+[0]*7)*15*3)*128
@@ -131,7 +135,7 @@ def run(dev, package=None, endpoint=3):
     report_all = 1
 
     #while count < 10:
-    wrote = dev.write(3, package, 1)
+    wrote = dev.write(endpoint, package, 1, timeout=timeout)
 
     count += 1
     if count % report_all == 0:

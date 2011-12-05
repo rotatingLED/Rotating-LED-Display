@@ -35,14 +35,14 @@ class RotatingLed(object):
         self.board_threads = []
         for b in boards:
            print "found board", b
-           t = image.Board(b, data)
+           t = image.Board(b)
            t.start()
            self.board_threads.append(t)
 
         # start synchronisation
         try:
             self.sync = syncboard.Syncboard('/dev/ttyUSB0', handle_serial_event)
-            self.sync.setVar('dip', '60') # remove later, just a debugging option
+            self.sync.setVar('dip', '180') # remove later, just a debugging option
             self.sync.startReading()
         except serial.SerialException:
             print 'Sync board not found!'
