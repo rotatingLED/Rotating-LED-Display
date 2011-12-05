@@ -149,55 +149,10 @@ def run(dev, package=None, endpoint=3, timeout=None):
     #usb.util.release_interface(dev, 1)
     #usb.util.dispose_resources(dev)
 
-def pwm_data_4bit(img, board_nr=0):
-    board = 0
-
-    buf = bytearray()
-    for i in range(NUM_ROWS):
-        index = int(i*ROW_4BIT+ROW_4BIT/BOARDS*board_nr)
-        relevant = sort_led_pixels(img[index:index+int(ROW/BOARDS)])
-        #print list(relevant)
-        #print ROW, index, LEDS_PER_BOARD
-
-        # pwm calculation
-        pwm = bytearray(int(PWM_STEPS * LEDS_PER_BOARD * NUM_COLORS / 8))
-        for j_wrong, pixel in enumerate(relevant):
-            p1 = pixel & 15
-            p2 = (pixel & 240) >> 4
-            # change j because it has wrong values (4bit)
-            j = j_wrong*2
-            for k in range(PWM_STEPS):
-                if k < p1:
-                    # everything in bits -> caution
-                    # get basic address for color
-                    address = LEDS_PER_BOARD*PWM_STEPS*(j % NUM_COLORS)
-                    address += (k)*LEDS_PER_BOARD
-                    # add led id (0-LEDS_PER_BOARD)
-                    address += int(j/NUM_COLORS)
-                    #print 'a', address, PWM_STEPS, LEDS_PER_BOARD, j
-                    # 360 bytes address -> 2880 bits
-                    pwm[int(address/8)] += 1 << (address % 8)
-                else:
-                    break
-            j += 1
-            for k in range(PWM_STEPS):
-                if k < p2:
-                    # everything in bits -> caution
-                    # get basic address for color
-                    address = LEDS_PER_BOARD*PWM_STEPS*(j % NUM_COLORS)
-                    address += (k)*LEDS_PER_BOARD
-                    # add led id (0-LEDS_PER_BOARD)
-                    address += int(j/NUM_COLORS)
-                    #print 'a', address, PWM_STEPS, LEDS_PER_BOARD, j
-                    # 360 bytes address -> 2880 bits
-                    pwm[int(address/8)] += 1 << (address % 8)
-                else:
-                    break
-
-        buf += pwm
-    return buf
-
 def pwm_data(img, board_nr=0):
+    """ this takes data that is 8 bit long, the four bit stuff is
+        done in cython.
+    """
     board = 0
 
     buf = bytearray()
