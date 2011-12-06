@@ -101,6 +101,7 @@ void sort_led_pixels(unsigned char* row, unsigned char* result){
   }
 }
 
+/*
 void sort_led_pixels_2bit(unsigned char* row, unsigned char* result){
   // incoming: 64 4bit numbers -> outgoing: 64 8bit numbers
   unsigned char index;
@@ -129,6 +130,34 @@ void sort_led_pixels_2bit(unsigned char* row, unsigned char* result){
     }
   }
 }
+*/
+//
+#define SHIFT_STEP(shift) \
+       targetLed = LED_ARR[targetIndex / NUM_COLORS]; \
+       colorOffset = targetIndex % NUM_COLORS;    \
+       \
+       result[targetLed * 3 + colorOffset] = (value >> shift) & 3; \
+       targetIndex++
+
+
+void sort_led_pixels_2bit(unsigned char* row, unsigned char* result) {
+   // incoming: 64 4bit numbers -> outgoing: 64 8bit numbers
+   int i;
+   int targetIndex = 0;
+   unsigned char value;
+   int targetLed;
+
+   int colorOffset;
+
+   for (i = 0; i < LEDS_PER_BOARD * NUM_COLORS / 4; i++) {
+       value = row[i];
+
+       SHIFT_STEP(6);
+       SHIFT_STEP(4);
+       SHIFT_STEP(2);
+       SHIFT_STEP(0);
+   }
+}
 
 
 void pwm_data_4bit_c(unsigned char* img, unsigned char board_nr, unsigned char* pwm_data){
@@ -137,7 +166,6 @@ void pwm_data_4bit_c(unsigned char* img, unsigned char board_nr, unsigned char* 
   unsigned char pixel;
   int address;
   int i,j,k, temp;
-  unsigned char* buf;
   unsigned char* pwm;
 
   pwm = pwm_data;
@@ -173,7 +201,6 @@ void pwm_data_2bit_c(unsigned char* img, unsigned char board_nr, unsigned char* 
   unsigned char pixel;
   int address;
   int i,j,k, temp;
-  unsigned char* buf;
   unsigned char* pwm;
 
   pwm = pwm_data;
@@ -181,6 +208,19 @@ void pwm_data_2bit_c(unsigned char* img, unsigned char board_nr, unsigned char* 
     index = i*ROW_2BIT+ROW_2BIT/BOARDS*board_nr;
     sort_led_pixels_2bit(& img[index], relevant);
 
+    /*
+    if (i == 0){
+      for(j=0;j<192;j++){
+        printf("%i ",relevant[j]);
+        if (j % 3 == 2) printf("\n");
+      }
+    }
+    */
+
+    // clean image -> make zeros
+    for (j=0;j<LEDS_PER_BOARD*NUM_COLORS/4;j++){
+      pwm[j] = 0;
+    }
     // pwm calculation
     // pixel should already have the right size - because its 4 bit
     for(j=0;j<LEDS_PER_BOARD*NUM_COLORS;j++){

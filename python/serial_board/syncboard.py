@@ -59,7 +59,7 @@ class Syncboard(object):
 
         except serial.SerialException, e:
             self._reader_alive = False
-            raise
+            raise e
 
     def close(self):
         self.ser.close();
@@ -134,6 +134,7 @@ class Syncboard(object):
 
         # reset not only the boards, but also the usb connection
         boards = led.get_boards(find_all=True)
+        print boards
         for b in boards:
             print "Reset Board on Bus %i, Device %i" % (b.bus, b.address)
 
@@ -141,7 +142,6 @@ class Syncboard(object):
             # defined somewhere in the c libraries of the system
             USBDEVFS_RESET = 21780
             fcntl.ioctl(fd, USBDEVFS_RESET, 0);
-            b.reset()
         
 
     def flash_led_boards(self):
