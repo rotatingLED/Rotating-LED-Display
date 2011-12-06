@@ -29,7 +29,7 @@ def initialize_buffers():
     image_buffer     = [None]*IMAGE_BUFFER_LENGTH
     image_pwm_buffer = [[str(bytearray(led.PWM_IMAGE_SIZE/led.BOARDS))]*IMAGE_BUFFER_LENGTH,
                         [str(bytearray(led.PWM_IMAGE_SIZE/led.BOARDS))]*IMAGE_BUFFER_LENGTH]
-    image_buffer[0]  = str([255]*led.IMAGE_SIZE)
+    image_buffer[0]  = str(bytearray([255]*led.IMAGE_SIZE))
 
 
 class PwmCalculation(threading.Thread):
@@ -49,8 +49,8 @@ class PwmCalculation(threading.Thread):
                 print 'Buffer underrun!'
             if image_pwm_current < image_current:
                 index = (image_pwm_current+1) % IMAGE_BUFFER_LENGTH
-                fastpwm.pwm_4bit_c(image_buffer[index], 0, image_pwm_buffer[0][index])
-                fastpwm.pwm_4bit_c(image_buffer[index], 1, image_pwm_buffer[1][index])
+                fastpwm.pwm_2bit_c(image_buffer[index], 0, image_pwm_buffer[0][index])
+                fastpwm.pwm_2bit_c(image_buffer[index], 1, image_pwm_buffer[1][index])
                 image_pwm_current += 1
             else:
                 time.sleep(0.01)
@@ -96,10 +96,13 @@ class Board(threading.Thread):
     def _send_current_picture(self):
         """ sends the current picture and no more """
         # 2 boards, so just take one
-        led.run(self.dev, image_pwm_buffer[self.board][self.image_pwm_current],
-                    timeout=5000)
-        #if image_pwm_current > self.image_pwm_current: 
-        #    self.image_pwm_current += 1
+        if self.image_pwm_current >= 0:
+            #for byte in image_pwm_buffer[0][0][:100]:
+                #print "%02x" % ord(byte)
+            led.run(self.dev, image_pwm_buffer[self.board][self.image_pwm_current],
+                        timeout=5000)
+        if image_pwm_current > self.image_pwm_current: 
+            self.image_pwm_current += 1
 
     def stop(self):
         """ stop the thread and make it possible to 'join' threads """

@@ -57,9 +57,10 @@ class RotatingLed(object):
             #self.server.serve_forever()
         else:
             # just show a debug picture
-            fh = open('testbild.bin', 'rs')
-            image.image_buffer[0] = fh.read()
-            print 'testbild_size', len(image.image_buffer[0])
+            fh = open('testbild.bin', 'rb')
+            image.image_buffer[1] = fh.read()
+            print 'testbild_size', len(image.image_buffer[1])
+            image.image_current += 1
             while(1):
                 time.sleep(1)
 
