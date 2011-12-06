@@ -83,9 +83,25 @@ int main(void) {
 
   // Turn on/off LED(s)
   register int i=0;
-  register int j=0;
+  register int current_led=-1;
   while(1){
-    GPIOB->ODR = ~(1 << 10); //color: red
+    /*
+    GPIOB->ODR = 0xffff;
+    i++;
+    GPIOD->ODR = 0xffff;
+    GPIOE->ODR = 0xffff;
+    GPIOF->ODR = 0xffff;
+    GPIOG->ODR = 0xffff;
+
+    sleep(1);
+    GPIOD->ODR = 0x0000;
+    GPIOE->ODR = 0x0000;
+    GPIOF->ODR = 0x0000;
+    GPIOG->ODR = 0x0000;
+    */
+    
+    asm volatile ("cpsid i");
+    GPIOB->ODR = (1 << 10); //color: blue
     GPIOD->ODR = frame_buffer[++current_led];
     GPIOE->ODR = frame_buffer[++current_led];
     GPIOF->ODR = frame_buffer[++current_led];
@@ -161,83 +177,13 @@ int main(void) {
     GPIOF->ODR = frame_buffer[++current_led];
     GPIOG->ODR = frame_buffer[++current_led];
 
-    GPIOB->ODR = ~(1 << 11); //color: green
-    GPIOD->ODR = frame_buffer[++current_led];
-    GPIOE->ODR = frame_buffer[++current_led];
-    GPIOF->ODR = frame_buffer[++current_led];
-    GPIOG->ODR = frame_buffer[++current_led];
+    GPIOD->ODR = 0;
+    GPIOE->ODR = 0;
+    GPIOF->ODR = 0;
+    GPIOG->ODR = 0;
 
-    GPIOD->ODR = frame_buffer[++current_led];
-    GPIOE->ODR = frame_buffer[++current_led];
-    GPIOF->ODR = frame_buffer[++current_led];
-    GPIOG->ODR = frame_buffer[++current_led];
+    GPIOB->ODR = (1 << 11); //color: red
 
-    GPIOD->ODR = frame_buffer[++current_led];
-    GPIOE->ODR = frame_buffer[++current_led];
-    GPIOF->ODR = frame_buffer[++current_led];
-    GPIOG->ODR = frame_buffer[++current_led];
-
-    GPIOD->ODR = frame_buffer[++current_led];
-    GPIOE->ODR = frame_buffer[++current_led];
-    GPIOF->ODR = frame_buffer[++current_led];
-    GPIOG->ODR = frame_buffer[++current_led];
-
-    GPIOD->ODR = frame_buffer[++current_led];
-    GPIOE->ODR = frame_buffer[++current_led];
-    GPIOF->ODR = frame_buffer[++current_led];
-    GPIOG->ODR = frame_buffer[++current_led];
-
-    GPIOD->ODR = frame_buffer[++current_led];
-    GPIOE->ODR = frame_buffer[++current_led];
-    GPIOF->ODR = frame_buffer[++current_led];
-    GPIOG->ODR = frame_buffer[++current_led];
-
-    GPIOD->ODR = frame_buffer[++current_led];
-    GPIOE->ODR = frame_buffer[++current_led];
-    GPIOF->ODR = frame_buffer[++current_led];
-    GPIOG->ODR = frame_buffer[++current_led];
-
-    GPIOD->ODR = frame_buffer[++current_led];
-    GPIOE->ODR = frame_buffer[++current_led];
-    GPIOF->ODR = frame_buffer[++current_led];
-    GPIOG->ODR = frame_buffer[++current_led];
-
-    GPIOD->ODR = frame_buffer[++current_led];
-    GPIOE->ODR = frame_buffer[++current_led];
-    GPIOF->ODR = frame_buffer[++current_led];
-    GPIOG->ODR = frame_buffer[++current_led];
-
-    GPIOD->ODR = frame_buffer[++current_led];
-    GPIOE->ODR = frame_buffer[++current_led];
-    GPIOF->ODR = frame_buffer[++current_led];
-    GPIOG->ODR = frame_buffer[++current_led];
-
-    GPIOD->ODR = frame_buffer[++current_led];
-    GPIOE->ODR = frame_buffer[++current_led];
-    GPIOF->ODR = frame_buffer[++current_led];
-    GPIOG->ODR = frame_buffer[++current_led];
-
-    GPIOD->ODR = frame_buffer[++current_led];
-    GPIOE->ODR = frame_buffer[++current_led];
-    GPIOF->ODR = frame_buffer[++current_led];
-    GPIOG->ODR = frame_buffer[++current_led];
-
-    GPIOD->ODR = frame_buffer[++current_led];
-    GPIOE->ODR = frame_buffer[++current_led];
-    GPIOF->ODR = frame_buffer[++current_led];
-    GPIOG->ODR = frame_buffer[++current_led];
-
-    GPIOD->ODR = frame_buffer[++current_led];
-    GPIOE->ODR = frame_buffer[++current_led];
-    GPIOF->ODR = frame_buffer[++current_led];
-    GPIOG->ODR = frame_buffer[++current_led];
-
-    GPIOD->ODR = frame_buffer[++current_led];
-    GPIOE->ODR = frame_buffer[++current_led];
-    GPIOF->ODR = frame_buffer[++current_led];
-    GPIOG->ODR = frame_buffer[++current_led];
-
-    GPIOB->ODR = ~(1 << 12); //color: blue
     GPIOD->ODR = frame_buffer[++current_led];
     GPIOE->ODR = frame_buffer[++current_led];
     GPIOF->ODR = frame_buffer[++current_led];
@@ -313,9 +259,99 @@ int main(void) {
     GPIOF->ODR = frame_buffer[++current_led];
     GPIOG->ODR = frame_buffer[++current_led];
 
-    if (current_led >= FRAME_BUFFER_LENGTH){
+    GPIOC->ODR = 0;
+    GPIOD->ODR = 0;
+    GPIOE->ODR = 0;
+    GPIOF->ODR = 0;
+    GPIOG->ODR = 0;
+
+    GPIOB->ODR = (1 << 12); //color: green
+
+    GPIOD->ODR = frame_buffer[++current_led];
+    GPIOE->ODR = frame_buffer[++current_led];
+    GPIOF->ODR = frame_buffer[++current_led];
+    GPIOG->ODR = frame_buffer[++current_led];
+
+    GPIOD->ODR = frame_buffer[++current_led];
+    GPIOE->ODR = frame_buffer[++current_led];
+    GPIOF->ODR = frame_buffer[++current_led];
+    GPIOG->ODR = frame_buffer[++current_led];
+
+    GPIOD->ODR = frame_buffer[++current_led];
+    GPIOE->ODR = frame_buffer[++current_led];
+    GPIOF->ODR = frame_buffer[++current_led];
+    GPIOG->ODR = frame_buffer[++current_led];
+
+    GPIOD->ODR = frame_buffer[++current_led];
+    GPIOE->ODR = frame_buffer[++current_led];
+    GPIOF->ODR = frame_buffer[++current_led];
+    GPIOG->ODR = frame_buffer[++current_led];
+
+    GPIOD->ODR = frame_buffer[++current_led];
+    GPIOE->ODR = frame_buffer[++current_led];
+    GPIOF->ODR = frame_buffer[++current_led];
+    GPIOG->ODR = frame_buffer[++current_led];
+
+    GPIOD->ODR = frame_buffer[++current_led];
+    GPIOE->ODR = frame_buffer[++current_led];
+    GPIOF->ODR = frame_buffer[++current_led];
+    GPIOG->ODR = frame_buffer[++current_led];
+
+    GPIOD->ODR = frame_buffer[++current_led];
+    GPIOE->ODR = frame_buffer[++current_led];
+    GPIOF->ODR = frame_buffer[++current_led];
+    GPIOG->ODR = frame_buffer[++current_led];
+
+    GPIOD->ODR = frame_buffer[++current_led];
+    GPIOE->ODR = frame_buffer[++current_led];
+    GPIOF->ODR = frame_buffer[++current_led];
+    GPIOG->ODR = frame_buffer[++current_led];
+
+    GPIOD->ODR = frame_buffer[++current_led];
+    GPIOE->ODR = frame_buffer[++current_led];
+    GPIOF->ODR = frame_buffer[++current_led];
+    GPIOG->ODR = frame_buffer[++current_led];
+
+    GPIOD->ODR = frame_buffer[++current_led];
+    GPIOE->ODR = frame_buffer[++current_led];
+    GPIOF->ODR = frame_buffer[++current_led];
+    GPIOG->ODR = frame_buffer[++current_led];
+
+    GPIOD->ODR = frame_buffer[++current_led];
+    GPIOE->ODR = frame_buffer[++current_led];
+    GPIOF->ODR = frame_buffer[++current_led];
+    GPIOG->ODR = frame_buffer[++current_led];
+
+    GPIOD->ODR = frame_buffer[++current_led];
+    GPIOE->ODR = frame_buffer[++current_led];
+    GPIOF->ODR = frame_buffer[++current_led];
+    GPIOG->ODR = frame_buffer[++current_led];
+
+    GPIOD->ODR = frame_buffer[++current_led];
+    GPIOE->ODR = frame_buffer[++current_led];
+    GPIOF->ODR = frame_buffer[++current_led];
+    GPIOG->ODR = frame_buffer[++current_led];
+
+    GPIOD->ODR = frame_buffer[++current_led];
+    GPIOE->ODR = frame_buffer[++current_led];
+    GPIOF->ODR = frame_buffer[++current_led];
+    GPIOG->ODR = frame_buffer[++current_led];
+
+    GPIOD->ODR = frame_buffer[++current_led];
+    GPIOE->ODR = frame_buffer[++current_led];
+    GPIOF->ODR = frame_buffer[++current_led];
+    GPIOG->ODR = frame_buffer[++current_led];
+
+    GPIOD->ODR = 0;
+    GPIOE->ODR = 0;
+    GPIOF->ODR = 0;
+    GPIOG->ODR = 0;
+
+
+    if (current_led >= (FRAME_BUFFER_LENGTH-1)){
       current_led = -1;
     }
+    asm volatile ("cpsie i");
     /*
     i++;
     GPIOC->ODR = 0xffff;

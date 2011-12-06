@@ -168,16 +168,20 @@ void Virtual_Com_Port_Reset(void)
   SetEPTxStatus(ENDP2, EP_TX_NAK);
 
   /* Initialize Endpoint 3 */
-  SetEPType(ENDP3, EP_ISOCHRONOUS);
-  //SetEPRxAddr(ENDP3, ENDP3_RXADDR);
-  //SetEPRxCount(ENDP3, 0x40);
+  SetEPType(ENDP3, EP_BULK);
+  SetEPRxAddr(ENDP3, ENDP3_RXADDR);
+  SetEPRxCount(ENDP3, USB_OUT_DATA_SIZE);//0x40);
+
+  /*
   SetEPDblBuffAddr(ENDP3, ENDP3_BUF0Addr, ENDP3_BUF1Addr);
   SetEPDblBuffCount(ENDP3, EP_DBUF_OUT, USB_OUT_DATA_SIZE);
   ClearDTOG_RX(ENDP3);
   ClearDTOG_TX(ENDP3);
   ToggleDTOG_TX(ENDP3);
-  SetEPRxStatus(ENDP3, EP_RX_VALID);
-  SetEPTxStatus(ENDP3, EP_TX_DIS);
+  */
+  
+  SetEPRxStatus(ENDP3, EP_RX_VALID); //for both double/single buffered
+  SetEPTxStatus(ENDP3, EP_TX_DIS); //for both double/single buffered
 
   SetEPRxValid(ENDP0);
 

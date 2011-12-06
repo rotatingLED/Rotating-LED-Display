@@ -97,52 +97,83 @@ void EP3_OUT_Callback(void)
 {
   uint16_t data_len;
   
-  /* Get the received data buffer and update the counter */
-  //USB_Rx_Cnt = USB_SIL_Read(EP3_OUT, frame_buffer);
+  // Get the received data buffer and update the counter
+  data_len = USB_SIL_Read(EP3_OUT, (uint8_t*)& frame_buffer[32*current_usb_frame]);
   
-  /* USB data will be immediately processed, this allow next USB traffic being 
-  NAKed till the end of the USART Xfer */
-  /*if (frame_buffer[254] = 1 && frame_buffer[255] == 2){
-    GPIOC->ODR = 0xffff;
-    //sleep(10);
-    GPIOC->ODR = 0x0000;
-  }*/
+  // USB data will be immediately processed, this allow next USB traffic being 
+  // NAKed till the end of the USART Xfer
+  //if (frame_buffer[0] == 1){
+  //if (data_len == 720){
+  /*
+  GPIOD->ODR = 0xffff;
+  GPIOB->ODR = (1 << 11);
+  sleep(10);
+  GPIOD->ODR = 0x0000;
+  for(int i=0;i<360;i++){
+    if (frame_buffer[i] > 0){
+      GPIOE->ODR = 0xffff;
+      GPIOB->ODR = (1 << 10); //color: blue
+      sleep(10);
+      GPIOE->ODR = 0x0000;
+    }
+  }
+  if (data_len == 1){
+    GPIOF->ODR = 1;//0xffff;
+    GPIOB->ODR = (1 << 12);
+    sleep(10);
+    GPIOF->ODR = 0x0000;
+  }
+  //}
+  */
   
   //not used
   //USB_To_USART_Send_Data(frame_buffer, USB_Rx_Cnt);
   
+/*  
   if (GetENDPOINT(ENDP3) & EP_DTOG_TX) {
-    /*read from ENDP1_BUF0Addr buffer*/
+    //read from ENDP1_BUF0Addr buffer
     data_len = GetEPDblBuf0Count(ENDP3);
     PMAToUserBufferCopy((uint8_t*)& frame_buffer[256*current_usb_frame], ENDP3_BUF0Addr, data_len);
-    /*
-    if (data_len > 0){
-      //for(int i = 512*current_usb_frame;i<512*(current_usb_frame+1);i++){
-        //frame_buffer[i] = 1;
-      //}
-      if (frame_buffer[255] == 255){
-        GPIOC->ODR = 0xffff;
-        sleep(10);
-        GPIOC->ODR = 0x0000;
-      }
+    
+//    if (data_len > 0){
+//      //for(int i = 512*current_usb_frame;i<512*(current_usb_frame+1);i++){
+//        //frame_buffer[i] = 1;
+//      //}
+//      if (frame_buffer[255] == 255){
+//        GPIOC->ODR = 0xffff;
+//        sleep(10);
+//        GPIOC->ODR = 0x0000;
+//      }
+//    }
+
+    //frame_buffer[256*current_usb_frame+128] = 0;
+    if (frame_buffer[256*current_usb_frame+129] != 0){
+      frame_buffer[256*current_usb_frame+129] = 0;
     }
-    */
+    //frame_buffer[256*current_usb_frame+130] = 0;
+//      for(int i = 256*current_usb_frame+129;i<(256*(current_usb_frame+1));i++){
+//        frame_buffer[i] = 0;
+//      }
   } else {
-    /*read from ENDP1_BUF1Addr buffer*/
+    //read from ENDP1_BUF1Addr buffer
     data_len = GetEPDblBuf1Count(ENDP3);
     PMAToUserBufferCopy((uint8_t*)& frame_buffer[256*current_usb_frame], ENDP3_BUF1Addr, data_len);
   }
+*/
 
-  if (++current_usb_frame >= NUM_USB_FRAMES){
+  ++current_usb_frame;
+  if (data_len != 64){
+    //sleep(5000);
+  }
+  if (current_usb_frame >= NUM_USB_FRAMES){
     current_usb_frame = 0;
   }
-
-  FreeUserBuffer(ENDP3, EP_DBUF_OUT);
+  //FreeUserBuffer(ENDP3, EP_DBUF_OUT); // double buffering
 
 #ifndef STM32F10X_CL
-  /* Enable the receive of data on EP3 */
-  //SetEPRxValid(ENDP3);
-#endif /* STM32F10X_CL */
+  // Enable the receive of data on EP3
+  SetEPRxValid(ENDP3);
+#endif
 }
 
 
