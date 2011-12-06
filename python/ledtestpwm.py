@@ -5,7 +5,6 @@ import time
 led.init()
 
 img = bytearray(led.ROW*led.NUM_ROWS);
-print led.ROW
 for col in range(3):
     for j in range(64):
         for i, pixel in enumerate(img):
