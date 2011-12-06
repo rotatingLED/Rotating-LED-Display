@@ -1,17 +1,17 @@
 # Name: Makefile
-# Project: Lasersteuerung
+# Project: PA
 # Author: Andreas Butti
-# Creation Date: 15.08.2011
+# Creation Date: 29.11.2011
 
 DEVICE  = atmega168
-F_CPU   = 8000000
-#FUSE_L  = 0xe2
-#FUSE_H  = 0xdf
+F_CPU   = 12000000
+FUSE_L  = 0x8f
+FUSE_H  = 0xdf
 AVRDUDE = avrdude -c usbtiny -p $(DEVICE) # edit this line for your programmer
 
 
 CFLAGS  = 
-OBJECTS = main.o driver/hw.o driver/adc.o
+OBJECTS = main.o driver/hw.o driver/adc.o driver/uart.o
 
 COMPILE = avr-gcc -Wall -Os -DF_CPU=$(F_CPU) $(CFLAGS) -mmcu=$(DEVICE)
 
@@ -33,7 +33,7 @@ flash: main.hex
 
 # rule for deleting dependent files (those which can be built by Make):
 clean:
-	rm -f main.hex main.lst main.obj main.cof main.list main.map main.eep.hex main.elf *.o main.s
+	rm -f main.hex main.lst main.obj main.cof main.list main.map main.eep.hex main.elf *.o main.s $(OBJECTS)
 
 
 # Generic rule for compiling C files:
