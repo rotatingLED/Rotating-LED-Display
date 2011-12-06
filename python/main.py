@@ -7,20 +7,15 @@ import SocketServer
 from serial_board import syncboard
 import serial
 
-def handle_serial_event(key, value):
-    """ callback function for Syncboard """
-    print key, value
-
-    #if led.image_current > led.image_pwm_current
-    if key == 'rota':
-        t = int(value, 16)
-        print t
 
 
 class RotatingLed(object):
 
     calc_thread = None
     board_threads = []
+
+    def __init__(self, init_server=True):
+        self.init_server = init_server
 
     def start(self):
         """ starts the whole program to run an led animation """
@@ -41,22 +36,25 @@ class RotatingLed(object):
 
         # start synchronisation
         try:
-            self.sync = syncboard.Syncboard('/dev/ttyUSB0', handle_serial_event)
-            self.sync.setVar('dip', '180') # remove later, just a debugging option
+            self.sync = syncboard.Syncboard('/dev/ttyUSB0', self.handle_serial_event)
+            #self.sync.setVar('dip', '180') # remove later, just a debugging option
+            # adc threshhold
+            self.sync.setVar('adc', '200')
             self.sync.startReading()
         except serial.SerialException:
             print 'Sync board not found!'
 
 
-        # start server
-        HOST, PORT = "localhost", 28900
-        self.server = SocketServer.TCPServer((HOST, PORT), TcpServer.MyTCPHandler)
-        self.server.serve_forever()
+        if self.init_server():
+            # start server
+            HOST, PORT = "localhost", 28900
+            self.server = SocketServer.TCPServer((HOST, PORT), TcpServer.MyTCPHandler)
+            self.server.serve_forever()
 
-        # start server
-        HOST, PORT = "localhost", 28900
-        #self.server = SocketServer.TCPServer((HOST, PORT), TcpServer.MyTCPHandler)
-        #self.server.serve_forever()
+            # start server
+            HOST, PORT = "localhost", 28900
+            #self.server = SocketServer.TCPServer((HOST, PORT), TcpServer.MyTCPHandler)
+            #self.server.serve_forever()
 
     def stop(self):
         """ stops the whole program to run an led animation """
@@ -72,11 +70,22 @@ class RotatingLed(object):
         self.sync.stopReading()
         self.sync.close()
 
+    def handle_serial_event(self, key, value):
+        """ callback function for Syncboard """
+        print key, value
+
+        #if led.image_current > led.image_pwm_current
+        if key == 'rota':
+            t = int(value, 16)
+            print t
+            for b in board_threads:
+                b.send_rotation_time(t)
+
 if __name__ == "__main__":
-    b = RotatingLed()
+    main = RotatingLed()
     try:
-        b.start()
+        main.start(init_server = False)
     except Exception:
         import traceback
         traceback.print_exc()
-        b.stop() 
+        #main.stop() 
