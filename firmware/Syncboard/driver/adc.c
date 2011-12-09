@@ -14,13 +14,16 @@ void adc_init() {
 	/* nach Aktivieren des ADC wird ein "Dummy-Readout" empfohlen, man liest
 	  also einen Wert und verwirft diesen, um den ADC "warmlaufen zu lassen" */
 
-	adc_read(0);
+	adc_read();
 }
 
-uint8_t adc_read(uint8_t adc) {
+void adc_select(uint8_t adc) {
 	ADMUX &= ~0x7; // Letze 3 bit löschen
 	ADMUX |= adc & 0x7; // X => ADCX selected
+}
 
+
+uint8_t adc_read() {
 	ADCSRA |= (1 << ADSC);            // eine Wandlung "single conversion"
 	while(ADCSRA & (1 << ADSC));      // auf Abschluss der Konvertierung warten
 	return ADCH;                      // ADC auslesen und zurückgeben (8bit, ansonsten ADCW)

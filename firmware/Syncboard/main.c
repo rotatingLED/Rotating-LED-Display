@@ -8,15 +8,51 @@
 #include "driver/hw.h"
 #include "driver/uart.h"
 #include <util/delay.h> // _delay_ms
+#include "time/time.h"
+#include "utils.h"
 #include <string.h>
 
+/**
+ * UART Baudrate
+ */
 #define UART_BAUD_RATE 57600
 
+/**
+ * Configuration variables
+ */
 uint8_t adcThreshold = 60;
+uint16_t interruptDelay = 10000;
+uint8_t displayAdcDebug = 0;
 
+uint8_t ledMask = 0x01;
+
+uint8_t debugInterruptPrescaler = 0xff;
+
+/**
+ * Times
+ */
+
+// Time when turned off
+struct Time timeOff;
+
+// Time when turned on
+struct Time timeOn;
+
+// The difference between on and off
+struct Time diff;
+
+// Center time betweeen on and off
+struct Time centerOnTime;
+
+// Last center time betweeen on and off
+struct Time lastCenterOnTime;
+
+
+/**
+ *  Prototypes
+ */
 void configuration();
-
-void uartPutTime(struct Time * t);
+void handleLightDown();
 
 /**
  * Main Loop
@@ -24,23 +60,28 @@ void uartPutTime(struct Time * t);
 int main(void) {
 	uint8_t lastState = 0;
 	uint8_t state = 0;
-
-	struct Time timeOff;
-	struct Time timeOn;
-	struct Time diff;
-
-	struct Time centerOnTime;
-	struct Time lastCenterOnTime;
-
-	struct Time tmp;
+	uint8_t lastAdc = 0;
+	uint8_t c;
 
 	hw_init();
 	uart_init(UART_BAUD_SELECT(UART_BAUD_RATE, F_CPU));
 
 	getTime(&centerOnTime);
 
+	adc_select(7);
+
 	while (1) {
-		uint8_t v = adc_read(7);
+		uint8_t v = adc_read();
+
+		if(displayAdcDebug) {
+			if(lastAdc != v) {
+				lastAdc = v;
+				uart_puts("adc  ->");
+				uart_puti(v);
+				uart_putc('\n');
+			}
+		}
+
 		state = v > adcThreshold;
 
 		lastCenterOnTime = centerOnTime;
@@ -51,44 +92,18 @@ int main(void) {
 			if (state == 0) {
 				getTime(&timeOff);
 
-				timeDiff(&timeOff, &timeOn, &diff);
-
-				uart_puts("on   =>");
-				uartPutTime(&timeOn);
-				uart_putc('\n');
-				uart_puts("off  =>");
-				uartPutTime(&timeOff);
-				uart_putc('\n');
-				uart_puts("diff =>");
-				uartPutTime(&diff);
-				uart_putc('\n');
-
-				tmp = diff;
-				tmp.parts /= 2;
-				tmp.time /= 2;
-
-				timeAdd(&tmp, &timeOff, &centerOnTime);
-
-				uart_puts("cent =>");
-				uartPutTime(&centerOnTime);
-				uart_putc('\n');
-
-				timeDiff(&centerOnTime, &lastCenterOnTime, &tmp);
-
-				uart_puts("rota =>");
-				uartPutTime(&tmp);
-				uart_putc('\n');
-
-
-				uart_putc('\n');
+				handleLightDown();
 			} else {
 				getTime(&timeOn);
 			}
 
+			setYellowLed(state && (ledMask & 0x02));
+
 			// TODO: handle change
 		}
 
-		if (uart_getc() == 'c') {
+		c = uart_getc();
+		if (c == 'c') {
 			configuration();
 		}
 	}
@@ -96,81 +111,49 @@ int main(void) {
 	return 0;
 }
 
-void uartPutTime(struct Time * t) {
-	uint8_t * ptr = (uint8_t *) t;
-	uint8_t i;
+void handleLightDown() {
+	struct Time tmp;
+	struct Time rotationTimer;
+	struct Time syncTime;
 
-	for (i = 0; i < sizeof(struct Time); i++) {
-		uart_puth(*ptr);
-		ptr++;
-	}
+	timeSub(&timeOff, &timeOn, &diff);
+	timeDiff(&diff, 2, &tmp);
+	timeAdd(&tmp, &timeOff, &centerOnTime);
+	timeSub(&centerOnTime, &lastCenterOnTime, &rotationTimer);
+
+	tmp.parts = interruptDelay;
+	tmp.time = 0;
+	timeAdd(&centerOnTime, &tmp, &syncTime);
+
+	syncInteruptOnTime(&syncTime);
+
+	uart_puts("on   =>");
+	uartPutTime(&timeOn);
+	uart_putc('\n');
+
+	uart_puts("off  =>");
+	uartPutTime(&timeOff);
+	uart_putc('\n');
+
+	uart_puts("diff =>");
+	uartPutTime(&diff);
+	uart_putc('\n');
+
+	uart_puts("cent =>");
+	uartPutTime(&centerOnTime);
+	uart_putc('\n');
+
+	uart_puts("rota =>");
+	uartPutTime(&rotationTimer);
+	uart_putc('\n');
+
+	uart_puts("sync =>");
+	uartPutTime(&syncTime);
+	uart_putc('\n');
+
+	uart_putc('\n');
 }
 
-void clearString16(char * buffer) {
-	uint8_t i;
-	for (i = 0; i < 16; i++) {
-		buffer[i] = 0;
-	}
-}
-
-uint8_t myatoi(const char * str, uint16_t * i) {
-	*i = 0;
-	uint8_t v;
-
-	while (*str) {
-		v = ((*str) - '0');
-		if (v >= 10) {
-			return 1;
-		}
-		(*i) *= 10;
-		(*i) += v;
-		str++;
-	}
-	return 0;
-}
-
-uint8_t readString16(char * buffer, const char * delim) {
-	unsigned int chr;
-	char c;
-	uint8_t i = 0;
-
-	while (1) {
-		chr = uart_getc();
-
-		if (chr & UART_FRAME_ERROR) {
-			/* Framing Error by UART       */
-			uart_puts("uer UART_FRAME_ERROR\n");
-			return 1;
-		}
-		if (chr & UART_OVERRUN_ERROR) {
-			/* Overrun condition by UART   */
-			uart_puts("uer UART_OVERRUN_ERROR\n");
-			return 1;
-		}
-		if (chr & UART_FRAME_ERROR) {
-			/* receive ringbuffer overflow */
-			uart_puts("uer UART_BUFFER_OVERFLOW\n");
-			return 1;
-		}
-		if (chr & UART_NO_DATA) {
-			/* no receive data available   */
-			_delay_ms(1);
-			continue;
-		}
-
-		c = chr;
-
-		if (i >= 15) {
-			return 2; // overflow
-		}
-
-		if (strrchr(delim, c) != NULL) {
-			return 0; // end found
-		}
-
-		buffer[i++] = c;
-	}
-}
 
 uint8_t parseCmd(const char * command) {
 	char name[16] = { 0 };
@@ -179,9 +162,27 @@ uint8_t parseCmd(const char * command) {
 
 	if (strcmp(command, "list") == 0) {
 		uart_puts("$ list\n");
+
 		uart_puts("$ adc: adcThreshold = ");
 		uart_puti(adcThreshold);
 		uart_putc('\n');
+
+		uart_puts("$ adcd: displayAdcDebug = ");
+		uart_puti(displayAdcDebug);
+		uart_putc('\n');
+
+		uart_puts("$ int: interruptDelay = ");
+		uart_puti(interruptDelay);
+		uart_putc('\n');
+
+		uart_puts("$ led: ledMask = ");
+		uart_puti(ledMask);
+		uart_putc('\n');
+
+		uart_puts("$ dip: debugInterruptPrescaler = ");
+		uart_puti(debugInterruptPrescaler);
+		uart_putc('\n');
+
 		uart_putc('>');
 	} else if (strcmp(command, "set") == 0) {
 		if (readString16(name, "=") == 0 && readString16(value, "\n\r ") == 0 && myatoi(value, &iValue) == 0) {
@@ -192,6 +193,14 @@ uint8_t parseCmd(const char * command) {
 
 			if (strcmp("adc", name) == 0) {
 				adcThreshold = iValue;
+			} else if (strcmp("adcd", name) == 0) {
+				displayAdcDebug = iValue;
+			} else if (strcmp("int", name) == 0) {
+				interruptDelay = iValue;
+			} else if (strcmp("led", name) == 0) {
+				ledMask = iValue;
+			} else if (strcmp("dip", name) == 0) {
+				debugInterruptPrescaler = iValue;
 			} else {
 				uart_puts("\nerr UNKNOWN_VAR");
 			}
