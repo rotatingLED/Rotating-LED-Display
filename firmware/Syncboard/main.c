@@ -26,6 +26,8 @@ uint8_t displayAdcDebug = 0;
 
 uint8_t ledMask = 0x01;
 
+uint8_t debugInterruptPrescaler = 0xff;
+
 /**
  * Times
  */
@@ -177,6 +179,10 @@ uint8_t parseCmd(const char * command) {
 		uart_puti(ledMask);
 		uart_putc('\n');
 
+		uart_puts("$ dip: debugInterruptPrescaler = ");
+		uart_puti(debugInterruptPrescaler);
+		uart_putc('\n');
+
 		uart_putc('>');
 	} else if (strcmp(command, "set") == 0) {
 		if (readString16(name, "=") == 0 && readString16(value, "\n\r ") == 0 && myatoi(value, &iValue) == 0) {
@@ -193,6 +199,8 @@ uint8_t parseCmd(const char * command) {
 				interruptDelay = iValue;
 			} else if (strcmp("led", name) == 0) {
 				ledMask = iValue;
+			} else if (strcmp("dip", name) == 0) {
+				debugInterruptPrescaler = iValue;
 			} else {
 				uart_puts("\nerr UNKNOWN_VAR");
 			}

@@ -24,6 +24,8 @@ void hw_init() {
 	// TCCR1B = (1 << CS10) | (1 << CS12); // Prescaler 1024
 	TIMSK1 |= (1 << OCIE1A) | (1 << OCIE1B); // enable timer
 
+	DDRC |= (1 << PC3); // INTERRUPT OUTPUT
+
 	// Enable interrupts
 	sei();
 }
@@ -50,6 +52,8 @@ void getTime(struct Time * t) {
 
 static uint8_t ledBlink = 0;
 
+static uint8_t prescalerCount = 0;
+
 /**
  * Timer interrupt (regelmässig)
  */
@@ -60,6 +64,19 @@ ISR(TIMER1_COMPA_vect)
 		PORTD |= (1 << PD6);
 	} else {
 		PORTD &= ~(1 << PD6);
+	}
+
+	if(debugInterruptPrescaler != 0xff){
+		if(prescalerCount == 0) {
+			PORTC |= (1 << PC3);
+			asm volatile("NOP");
+			asm volatile("NOP");
+			asm volatile("NOP");
+			PORTC &= ~(1 << PD3);
+			prescalerCount = debugInterruptPrescaler;
+		} else {
+			prescalerCount--;
+		}
 	}
 
 	time++;
@@ -81,10 +98,10 @@ ISR(TIMER1_COMPB_vect)
 {
 	if(timePending) {
 		if(time == syncTime.time) {
-			uart_puts("!!int!!\n");
+//			uart_puts("!!int!!\n");
 			timePending = 0;
 		} else if(time > syncTime.time) {
-			uart_puts("err SYNC_TIME_TO_SHORT\n");
+//			uart_puts("err SYNC_TIME_TO_SHORT\n");
 			timePending = 0;
 		}
 	}
