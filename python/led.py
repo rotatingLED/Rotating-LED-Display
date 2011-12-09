@@ -88,17 +88,21 @@ def divideTimeDelta(td1, td2):
     return float(us1) / us2
 
 # main script!
-dev = None
-def init():
+def init(find_all=False):
     global dev
-    dev = usb.core.find(idVendor=0xffff, idProduct=0x5740)
+    dev = usb.core.find(idVendor=0xffff, idProduct=0x5740, find_all = find_all)
 
     if dev is None:
         raise ValueError('Device not found')
 
     # set the active configuration. With no arguments, the first
     # configuration will be the active one
-    dev.set_configuration()
+    if find_all:
+        for d in dev:
+            d.set_configuration()
+    else:
+        dev.set_configuration()
+    return dev
 
 """
 print 'configs:'
@@ -110,7 +114,7 @@ for cfg in dev:
             print '\t\t' + str(ep.bEndpointAddress)
 """
 
-def run(package=None):
+def run(dev, package=None):
     if package is None:
         package = [0]*360*128
         #package = (([1]+[0]*7)*15*3)*128
