@@ -5,6 +5,8 @@
 #include <avr/interrupt.h>  // for sei()
 #include <util/atomic.h>
 
+#include "uart.h"
+
 #include "hw.h"
 #include "adc.h"
 
@@ -20,13 +22,13 @@ void hw_init() {
 	// initialize timer
 	TCCR1B = (1 << CS10); // Prescaler 1
 	// TCCR1B = (1 << CS10) | (1 << CS12); // Prescaler 1024
-	TIMSK1 |= (1 << OCIE1A); // enable timer
+	TIMSK1 |= (1 << OCIE1A) | (1 << OCIE1B); // enable timer
 
 	// Enable interrupts
 	sei();
 }
 
-void setGreenLed(uint8_t led) {
+void setYellowLed(uint8_t led) {
 	if (led) {
 		PORTD |= (1 << PD7);
 	} else {
@@ -49,17 +51,42 @@ void getTime(struct Time * t) {
 static uint8_t ledBlink = 0;
 
 /**
- * Timer interrupt
+ * Timer interrupt (regelmässig)
  */
 ISR(TIMER1_COMPA_vect)
 {
 	ledBlink = !ledBlink;
-	if (ledBlink) {
+	if (ledBlink && (ledMask & 0x01)) {
 		PORTD |= (1 << PD6);
 	} else {
 		PORTD &= ~(1 << PD6);
 	}
 
 	time++;
+}
+
+struct Time syncTime;
+uint8_t timePending = 0;
+
+void syncInteruptOnTime(struct Time * time) {
+	syncTime = *time;
+	OCR1B = syncTime.parts;
+	timePending = 1;
+}
+
+/**
+ * Timer interrupt für LED Synchonisationsinterrupt
+ */
+ISR(TIMER1_COMPB_vect)
+{
+	if(timePending) {
+		if(time == syncTime.time) {
+			uart_puts("!!int!!\n");
+			timePending = 0;
+		} else if(time > syncTime.time) {
+			uart_puts("err SYNC_TIME_TO_SHORT\n");
+			timePending = 0;
+		}
+	}
 }
 

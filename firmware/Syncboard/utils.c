@@ -5,14 +5,22 @@
 #include "time/time.h"
 #include <util/delay.h> // _delay_ms
 
-
 void uartPutTime(struct Time * t) {
-	uint8_t * ptr = (uint8_t *) t;
+	uint8_t * ptr;
 	uint8_t i;
 
-	for (i = 0; i < sizeof(struct Time); i++) {
-		uart_puth(*ptr);
-		ptr++;
+	ptr = (uint8_t *) &t->time;
+
+	for (i = sizeof(uint32_t); i > 0; i--) {
+		uart_puth(ptr[i - 1]);
+	}
+
+	uart_putc('.');
+
+	ptr = (uint8_t *) &t->parts;
+
+	for (i = sizeof(uint16_t); i > 0; i--) {
+		uart_puth(ptr[i - 1]);
 	}
 }
 
@@ -69,6 +77,13 @@ uint8_t readString16(char * buffer, const char * delim) {
 		}
 
 		c = chr;
+
+		// Backspace
+		if (c == 8 && i > 0) {
+			i--;
+			buffer[i] = 0;
+			continue;
+		}
 
 		if (i >= 15) {
 			return 2; // overflow

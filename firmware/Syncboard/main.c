@@ -24,6 +24,8 @@ uint8_t adcThreshold = 60;
 uint16_t interruptDelay = 10000;
 uint8_t displayAdcDebug = 0;
 
+uint8_t ledMask = 0x01;
+
 /**
  * Times
  */
@@ -57,14 +59,17 @@ int main(void) {
 	uint8_t lastState = 0;
 	uint8_t state = 0;
 	uint8_t lastAdc = 0;
+	uint8_t c;
 
 	hw_init();
 	uart_init(UART_BAUD_SELECT(UART_BAUD_RATE, F_CPU));
 
 	getTime(&centerOnTime);
 
+	adc_select(7);
+
 	while (1) {
-		uint8_t v = adc_read(7);
+		uint8_t v = adc_read();
 
 		if(displayAdcDebug) {
 			if(lastAdc != v) {
@@ -90,10 +95,13 @@ int main(void) {
 				getTime(&timeOn);
 			}
 
+			setYellowLed(state && (ledMask & 0x02));
+
 			// TODO: handle change
 		}
 
-		if (uart_getc() == 'c') {
+		c = uart_getc();
+		if (c == 'c') {
 			configuration();
 		}
 	}
@@ -103,32 +111,44 @@ int main(void) {
 
 void handleLightDown() {
 	struct Time tmp;
+	struct Time rotationTimer;
+	struct Time syncTime;
 
 	timeSub(&timeOff, &timeOn, &diff);
+	timeDiff(&diff, 2, &tmp);
+	timeAdd(&tmp, &timeOff, &centerOnTime);
+	timeSub(&centerOnTime, &lastCenterOnTime, &rotationTimer);
+
+	tmp.parts = interruptDelay;
+	tmp.time = 0;
+	timeAdd(&centerOnTime, &tmp, &syncTime);
+
+	syncInteruptOnTime(&syncTime);
 
 	uart_puts("on   =>");
 	uartPutTime(&timeOn);
 	uart_putc('\n');
+
 	uart_puts("off  =>");
 	uartPutTime(&timeOff);
 	uart_putc('\n');
+
 	uart_puts("diff =>");
 	uartPutTime(&diff);
 	uart_putc('\n');
-
-	timeDiff(&diff, 2, &tmp);
-
-	timeAdd(&tmp, &timeOff, &centerOnTime);
 
 	uart_puts("cent =>");
 	uartPutTime(&centerOnTime);
 	uart_putc('\n');
 
-	timeSub(&centerOnTime, &lastCenterOnTime, &tmp);
-
 	uart_puts("rota =>");
-	uartPutTime(&tmp);
+	uartPutTime(&rotationTimer);
 	uart_putc('\n');
+
+	uart_puts("sync =>");
+	uartPutTime(&syncTime);
+	uart_putc('\n');
+
 	uart_putc('\n');
 }
 
@@ -153,6 +173,10 @@ uint8_t parseCmd(const char * command) {
 		uart_puti(interruptDelay);
 		uart_putc('\n');
 
+		uart_puts("$ led: ledMask = ");
+		uart_puti(ledMask);
+		uart_putc('\n');
+
 		uart_putc('>');
 	} else if (strcmp(command, "set") == 0) {
 		if (readString16(name, "=") == 0 && readString16(value, "\n\r ") == 0 && myatoi(value, &iValue) == 0) {
@@ -167,6 +191,8 @@ uint8_t parseCmd(const char * command) {
 				displayAdcDebug = iValue;
 			} else if (strcmp("int", name) == 0) {
 				interruptDelay = iValue;
+			} else if (strcmp("led", name) == 0) {
+				ledMask = iValue;
 			} else {
 				uart_puts("\nerr UNKNOWN_VAR");
 			}

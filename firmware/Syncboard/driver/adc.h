@@ -11,7 +11,7 @@
  * Init ADC
  */
 void adc_init();
-uint8_t adc_read(uint8_t adc);
-
+uint8_t adc_read();
+void adc_select(uint8_t adc);
 
 #endif /* __ADC_H__ */

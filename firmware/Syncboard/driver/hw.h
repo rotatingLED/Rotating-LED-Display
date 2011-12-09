@@ -10,7 +10,10 @@
 #include "../time/time.h"
 
 void hw_init();
-void setGreenLed(uint8_t led);
+void setYellowLed(uint8_t led);
 void getTime(struct Time * time);
+void syncInteruptOnTime(struct Time * time);
+
+extern uint8_t ledMask;
 
 #endif /* __HW_H__ */
