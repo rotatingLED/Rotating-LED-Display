@@ -6,6 +6,9 @@ LED Display Data server
 import BaseHTTPServer
 import time
 import sys
+import led
+import image
+import multiboards
 
 
 HOST_NAME = 'localhost'
@@ -54,6 +57,10 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
          s.wfile.write("</body></html>")
 
 
+   def is_rpc_path_valid(self):
+       return self.path == '/image'
+           
+        
    def do_POST(self):
         """Handles the HTTP POST request.
 
@@ -80,6 +87,7 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
                 size_remaining -= len(L[-1])
             data = ''.join(L)
 
+            """
             # In previous versions of SimpleXMLRPCServer, _dispatch
             # could be overridden in this class, instead of in
             # SimpleXMLRPCDispatcher. To maintain backwards compatibility,
@@ -88,11 +96,14 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             response = self.server._marshaled_dispatch(
                     data, getattr(self, '_dispatch', None)
                 )
-        except: # This should only happen if the module is buggy
+            """
+        except Exception as e: # This should only happen if the module is buggy
+            print 'Exception: ', e
             # internal error, report as HTTP server error
             self.send_response(500)
             self.end_headers()
         else:
+            response = ''
             # got a valid XML RPC response
             self.send_response(200)
             self.send_header("Content-type", "text/xml")
@@ -103,6 +114,11 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             # shut down the connection
             self.wfile.flush()
             self.connection.shutdown(1)
+
+            # process data
+            print len(data), list(data)
+            image.image_buffer[image.image_current % image.IMAGE_BUFFER_LENGTH] = data
+            image.image_current += 1
 
    def report_404 (self):
             # Report a 404 error
@@ -120,6 +136,20 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
 
 if __name__ == '__main__':
+   # start threads:
+   calc = PwmCalculation()
+   calc.start()
+
+   led.init()
+   boards = led.init(find_all=True)
+   threads = []
+   for b in boards:
+       print "found board", b
+       t = image.Board(b, data)
+       t.start()
+       threads.append(t)
+
+
    server_class = BaseHTTPServer.HTTPServer
    httpd = server_class((HOST_NAME, PORT_NUMBER), RedirectHandler)
    print time.asctime(), "Server Starts - %s:%s" % (HOST_NAME, PORT_NUMBER)

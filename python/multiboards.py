@@ -27,30 +27,31 @@ def pwm_1led(index):
     
 
 
-img = bytearray(led.ROW*led.NUM_ROWS);
-leds = [0]*360*128
-for col_nr in range(3):
-    for i in range(64):
-        col = pwm_1led(i)
+if __name__ == '__main__':
+    img = bytearray(led.ROW*led.NUM_ROWS);
+    leds = [0]*360*128
+    for col_nr in range(3):
+        for i in range(64):
+            col = pwm_1led(i)
 
-        if col_nr == 0:
-            data = (15*col + 240*[0])*128
-        elif col_nr == 1:
-            data = (120*[0]+15*col + 120*[0])*128
-        else:
-            data = (240*[0] + 15*col)*128
-        #led.run(data)
-        time.sleep(0.1)
+            if col_nr == 0:
+                data = (15*col + 240*[0])*128
+            elif col_nr == 1:
+                data = (120*[0]+15*col + 120*[0])*128
+            else:
+                data = (240*[0] + 15*col)*128
+            #led.run(data)
+            time.sleep(0.1)
+            break
         break
-    break
 
-boards = led.init(find_all=True)
-threads = []
-for b in boards:
-    print "found board", b
-    t = Board(b, data)
-    t.start()
-    threads.append(t)
+    boards = led.init(find_all=True)
+    threads = []
+    for b in boards:
+        print "found board", b
+        t = Board(b, data)
+        t.start()
+        threads.append(t)
 
-for t in threads:
-    t.join()
+    for t in threads:
+        t.join()
