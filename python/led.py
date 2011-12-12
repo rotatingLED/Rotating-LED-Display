@@ -9,6 +9,9 @@ NUM_ROWS = 1000
 ROW = BOARDS*LEDS_PER_BOARD*NUM_COLORS
 ROW_4BIT = ROW / 2
 
+PWM_BOARD_ROW_SIZE = PWM_STEPS * LEDS_PER_BOARD * NUM_COLORS / 8
+PWM_IMAGE_SIZE     = PWM_BOARD_ROW_SIZE*BOARDS*NUM_ROWS
+
 # mapping of pixels, because the ST board has really strange pin orders
 LED_ARR = [
     26, # PE10

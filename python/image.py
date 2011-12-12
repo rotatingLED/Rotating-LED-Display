@@ -9,8 +9,9 @@ image_buffer = [None]*IMAGE_BUFFER_LENGTH
 image_pwm_buffer = [None]*IMAGE_BUFFER_LENGTH
 
 class PwmCalculation(threading.Thread):
-    def __init__(self):
+    def __init__(self, debug=FALSE):
         threading.Thread.__init__(self)
+        self.debug = debug
 
     def run(self):
         i = 0
