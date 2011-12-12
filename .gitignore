@@ -5,3 +5,4 @@
 usb-client-test/Debug/USB-Test
 .ropeproject
 *.pyc
+*.pyo
