@@ -15,8 +15,6 @@ void uartPutTime(struct Time * t) {
 		uart_puth(ptr[i - 1]);
 	}
 
-	uart_putc('.');
-
 	ptr = (uint8_t *) &t->parts;
 
 	for (i = sizeof(uint16_t); i > 0; i--) {

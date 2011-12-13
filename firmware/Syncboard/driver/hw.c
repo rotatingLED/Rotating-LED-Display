@@ -50,6 +50,18 @@ void getTime(struct Time * t) {
 	SREG = sregTtmp; // Wiederherstellen
 }
 
+/**
+ * Interrupt auf Leitung ausgeben
+ */
+void sendInterrupt() {
+	PORTC |= (1 << PC3);
+	asm volatile("NOP");
+	asm volatile("NOP");
+	asm volatile("NOP");
+	PORTC &= ~(1 << PD3);
+}
+
+
 static uint8_t ledBlink = 0;
 
 static uint8_t prescalerCount = 0;
@@ -68,11 +80,7 @@ ISR(TIMER1_COMPA_vect)
 
 	if(debugInterruptPrescaler != 0xff){
 		if(prescalerCount == 0) {
-			PORTC |= (1 << PC3);
-			asm volatile("NOP");
-			asm volatile("NOP");
-			asm volatile("NOP");
-			PORTC &= ~(1 << PD3);
+			simulateEvent();
 			prescalerCount = debugInterruptPrescaler;
 		} else {
 			prescalerCount--;

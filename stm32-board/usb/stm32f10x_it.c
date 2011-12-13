@@ -17,6 +17,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
+#include "stm32f10x_exti.h"
 #include "usb_lib.h"
 #include "usb_istr.h"
 #include "hw_config.h"
@@ -191,7 +192,7 @@ void EVAL_COM1_IRQHandler(void)
 *******************************************************************************/
 void OTG_FS_IRQHandler(void)
 {
-  STM32_PCD_OTG_ISR_Handler(); 
+  STM32_PCD_OTG_ISR_Handler();
 }
 #endif /* STM32F10X_CL */
 
@@ -212,6 +213,23 @@ void OTG_FS_IRQHandler(void)
 /*void PPP_IRQHandler(void)
 {
 }*/
+
+/**
+  * @brief  This function handles EXTI0 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void EXTI0_IRQHandler(void) {
+    GPIOG->ODR = 0xffff;
+
+  //  //Check if EXTI_Line0 is asserted
+//  if(EXTI_GetITStatus(EXTI_Line0) != RESET) {
+//    GPIOG->ODR = ~GPIOG->ODR;
+//  }
+//
+//  //we need to clear line pending bit manually
+//  EXTI_ClearITPendingBit(EXTI_Line0);
+}
 
 /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/
 
