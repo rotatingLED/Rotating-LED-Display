@@ -1,3 +1,7 @@
+import os
+os.environ['PYUSB_LOG_FILENAME'] = 'test.log'
+#os.environ['PYUSB_DEBUG_LEVEL'] = 'debug'
+
 import usb.core
 import usb.util
 
@@ -79,10 +83,6 @@ LED_ARR = [
     30, # PE14
     31, # PE15
 ]
-
-import os
-os.environ['PYUSB_LOG_FILENAME'] = 'test.log'
-#os.environ['PYUSB_DEBUG_LEVEL'] = 'debug'
 
 import datetime
 
