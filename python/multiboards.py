@@ -9,11 +9,15 @@ class Board(threading.Thread):
         threading.Thread.__init__(self)
         self.data = data
         self.dev = dev
+        self.running = True
 
     def run(self):
         i = 0
-        while i < 10:
+        while self.running:
             led.run(self.dev, data)
+    
+    def stop():
+        self.running = False
 
 
 def pwm_1led(index):
