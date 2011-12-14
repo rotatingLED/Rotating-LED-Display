@@ -45,7 +45,7 @@ public class Sender {
 		Image img = Image.loadImage(in);
 		in.close();
 
-		client.sendImage(img, sequence);
+		client.sendImage(img, sequence, false);
 	}
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {

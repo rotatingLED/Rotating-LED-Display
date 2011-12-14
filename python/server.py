@@ -116,7 +116,7 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             self.connection.shutdown(1)
 
             # process data
-            print len(data), list(data)
+            print len(data) #, list(data)
             image.image_buffer[image.image_current % image.IMAGE_BUFFER_LENGTH] = data
             image.image_current += 1
 

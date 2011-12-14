@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import ch.zhaw.pa.model.Image;
+import ch.zhaw.pa.util.GzUtil;
 
 public class TcpClient {
 	private Socket socket;
@@ -20,21 +21,32 @@ public class TcpClient {
 		this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 	}
 
-	public void sendImage(Image img, int sequence) throws IOException {
+	public void sendImage(Image img, int sequence, boolean compress) throws IOException {
 		sendMessageType(MessageType.IMAGE);
 		sendInt(sequence);
 
 		byte[] data = img.getData();
 
-		// size
-		sendInt(data.length);
+		sendInt(compress ? 1 : 0);
 
-		out.write(data);
+		if (compress) {
+			// size
+			sendInt(data.length);
 
-		String ret = readLine();
-		if (!"OK".equals(ret)) {
-			throw new IOException("Recived message error \"" + ret + "\"");
+			out.write(data);
+		} else {
+			byte[] compressed = GzUtil.compress(data);
+			
+			// size
+			sendInt(compressed.length);
+
+			out.write(compressed);
 		}
+
+//		String ret = readLine();
+//		if (!"OK".equals(ret)) {
+//			throw new IOException("Recived message error \"" + ret + "\"");
+//		}
 	}
 
 	private String readLine() throws IOException {

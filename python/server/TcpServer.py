@@ -9,7 +9,8 @@ class MyTCPHandler(SocketServer.BaseRequestHandler):
 
 			typeId = int(self.recPart())
 			seqId = int(self.recPart())
-			print 'typeId = ', typeId, ' sequence= ', seqId
+			compressed = int(self.recPart())
+			print 'typeId = ', typeId, ' sequence= ', seqId, ' compressed=', compressed
 
 			if typeId == 1: # image
 				dataLen = int(self.recPart())
