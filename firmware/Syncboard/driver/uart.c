@@ -476,9 +476,9 @@ Returns:  none
 void uart_puth(uint8_t i)
 {
     register char c;
-    c = pgm_read_byte(HEX_CHARS + (i & 0x0f));
-    uart_putc(c);
     c = pgm_read_byte(HEX_CHARS + ((i & 0xf0) >> 4));
+    uart_putc(c);
+    c = pgm_read_byte(HEX_CHARS + (i & 0x0f));
     uart_putc(c);
 }/* uart_puth */
 

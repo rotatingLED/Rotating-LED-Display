@@ -10,7 +10,7 @@
 #include "hw.h"
 #include "adc.h"
 
-uint32_t time = 0;
+volatile uint32_t time = 0;
 
 void hw_init() {
 	// LEDs
@@ -87,7 +87,7 @@ ISR(TIMER1_COMPA_vect)
 		}
 	}
 
-	time++;
+	time = time + 1;
 }
 
 struct Time syncTime;

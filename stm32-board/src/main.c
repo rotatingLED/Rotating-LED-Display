@@ -30,6 +30,7 @@ void Periph_Configuration(void);
 void GPIO_Configuration(void);
 void NVIC_Configuration(void);
 void ExtInterrupt_Configuration();
+void Timer_Configuration();
 
 void stdio_tests(void);
 void dcc_tests(void);
@@ -67,6 +68,10 @@ int main(void) {
 
   // Sync interrupt configuration
   ExtInterrupt_Configuration();
+  __enable_irq();
+
+  // Initialize Timer
+  Timer_Configuration();
 
   // Setup SysTick Timer for 1 millisecond interrupts, also enables Systick and Systick-Interrupt
   // needed for SysTick_Handler
@@ -81,18 +86,26 @@ int main(void) {
 
   // TODO: DEBUG
   GPIOB->ODR = (1 << 10); //color: blue
+
+  int x = 0;
+
   while (1) {
     GPIOD->ODR = 0xffff;
     GPIOE->ODR = 0xffff;
     GPIOF->ODR = 0xffff;
-    //    GPIOG->ODR = 0xffff;
+    GPIOG->ODR = 0xffff;
 
     sleep(1);
     GPIOD->ODR = 0x0000;
     GPIOE->ODR = 0x0000;
     GPIOF->ODR = 0x0000;
-    //    GPIOG->ODR = 0x0000;
-    sleep(20);
+    GPIOG->ODR = 0x0000;
+    sleep(50);
+    x++;
+    if (x == 100) {
+      x = 0;
+      GPIOB->ODR = (1 << 10); //color: blue
+    }
   }
   // TODO: END DEBUG
 
@@ -119,6 +132,7 @@ int main(void) {
      */
 
     asm volatile ("cpsid i");
+    //Interrupts sperren
     GPIOB->ODR = (1 << 10); //color: blue
     GPIOD->ODR = frame_buffer[++current_led];
     GPIOE->ODR = frame_buffer[++current_led];
@@ -422,13 +436,27 @@ int main(void) {
   }
 }
 
+void Timer_Configuration() {
+  RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;
+  // TIM3->DIER = TIM_DIER_UIE; // Update interrupt enable
+  TIM3->CR1 = TIM_CR1_CEN;
+  // TIM3->ARR = 562;
+  TIM3->ARR = 5;
+  TIM3->PSC = 0; // f=72MHz, ARR=5, PSC=0 => fpixclk = 12MHz
+
+
+  //TIM3->ARR //Auto reload register
+
+  int value = TIM_GetCounter(TIM3);
+}
+
 void ExtInterrupt_Configuration() {
   //EXTI structure to init EXT
   EXTI_InitTypeDef EXTI_InitStructure;
   //NVIC structure to set up NVIC controller
   NVIC_InitTypeDef NVIC_InitStructure;
   //Connect EXTI Line to Button Pin
-  GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource13);
+  GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource0);
   //Configure Button EXTI line
   EXTI_InitStructure.EXTI_Line = EXTI_Line0;
   //select interrupt mode
@@ -517,7 +545,7 @@ void GPIO_Configuration(void) {
   // GPIO B13 Interrupt pin
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
   GPIO_Init(GPIOB, &GPIO_InitStructure);
 
   // GPIO C

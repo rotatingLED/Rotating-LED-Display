@@ -117,7 +117,10 @@ void simulateEvent() {
 		getTime(&timeOff);
 		handleLightDown();
 //		_delay_ms(2);
-		getTime(&timeOn);
+
+		timeOn = timeOff;
+
+//		getTime(&timeOn);
 		sendInterrupt();
 	}
 }
@@ -138,10 +141,10 @@ void handleLightDown() {
 
 // TODO: DEBUG	syncInteruptOnTime(&syncTime);
 
-//	uart_puts("on   =>");
+//	uart_puts("on=");
 //	uartPutTime(&timeOn);
 //	uart_puts("\n");
-//
+
 //	uart_puts("off  =>");
 //	uartPutTime(&timeOff);
 //	uart_puts("\n");
