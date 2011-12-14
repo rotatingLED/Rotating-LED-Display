@@ -4,19 +4,22 @@ import threading
 
 # one image ~ 200K
 IMAGE_BUFFER_LENGTH = 64
-image_current = 0
-image_pwm_current = 0
-image_buffer = [None]*IMAGE_BUFFER_LENGTH
-image_pwm_buffer = [None]*IMAGE_BUFFER_LENGTH
+def initialize_buffers:
+    global image_current, image_pwm_current, image_buffer, image_pwm_buffer
+    image_current = 0
+    image_pwm_current = 0
+    image_buffer = [None]*IMAGE_BUFFER_LENGTH
+    image_pwm_buffer = [None]*IMAGE_BUFFER_LENGTH
 
 class PwmCalculation(threading.Thread):
     def __init__(self, debug=False):
         threading.Thread.__init__(self)
         self.debug = debug
+        self.running = True
 
     def run(self):
         i = 0
-        while 1:
+        while self.running:
             # check if the calculation is too slow -> then 
             if (image_current - IMAGE_BUFFER_LENGTH) >= image_pwm_current:
                 # maybe raise an exception?
@@ -26,6 +29,9 @@ class PwmCalculation(threading.Thread):
                 image_pwm_buffer[index] = led.pwm_data_4bit()
             else:
                 time.sleep(0.01)
+
+    def stop(self):
+        self.running = False
 
 
 class Board(threading.Thread):

@@ -136,19 +136,6 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
 
 if __name__ == '__main__':
-   # start threads:
-   calc = image.PwmCalculation(debug=True)
-   calc.start()
-
-   boards = led.init(find_all=True)
-   threads = []
-   for b in boards:
-       print "found board", b
-       t = image.Board(b, data)
-       t.start()
-       threads.append(t)
-
-
    server_class = BaseHTTPServer.HTTPServer
    httpd = server_class((HOST_NAME, PORT_NUMBER), RedirectHandler)
    print time.asctime(), "Server Starts - %s:%s" % (HOST_NAME, PORT_NUMBER)

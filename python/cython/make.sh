@@ -9,7 +9,7 @@ gcc -c -O2 -fPIC -I/usr/include/python2.7/ fastpwm.c || exit $?
 gcc -shared fastpwm.o -o fastpwm.so || exit $?
 
 # Compile the object file
-gcc -c -O2 -fPIC fastpwmc.c || exit $?
+#gcc -c -O2 -fPIC fastpwmc.c || exit $?
 
 # Link it into a shared library
-gcc -shared fastpwmc.o -o fastpwmc.so || exit $?
+#gcc -shared fastpwmc.o -o fastpwmc.so || exit $?
