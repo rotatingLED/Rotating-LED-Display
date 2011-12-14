@@ -137,10 +137,9 @@ class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
 if __name__ == '__main__':
    # start threads:
-   calc = image.PwmCalculation()
-   calc.start(debug=True)
+   calc = image.PwmCalculation(debug=True)
+   calc.start()
 
-   led.init()
    boards = led.init(find_all=True)
    threads = []
    for b in boards:

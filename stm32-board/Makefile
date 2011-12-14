@@ -190,6 +190,7 @@ SRC += $(CMSISCOREDIR)/core_cm3.c
 #SRC += $(CMSISDEVDIR)/system_stm32f10x.c
 ## used parts of the STM-Library
 SRC += $(STMSPDSRCDIR)/stm32f10x_usart.c
+SRC += $(STMSPDSRCDIR)/stm32f10x_exti.c
 SRC += $(STMSPDSRCDIR)/stm32f10x_flash.c
 SRC += $(STMSPDSRCDIR)/stm32f10x_gpio.c
 SRC += $(STMSPDSRCDIR)/stm32f10x_rcc.c

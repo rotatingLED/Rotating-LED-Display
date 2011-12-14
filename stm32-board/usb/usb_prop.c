@@ -156,10 +156,19 @@ void Virtual_Com_Port_Reset(void)
   SetEPRxValid(ENDP0);
 
   /* Initialize Endpoint 1 */
+  /*
   SetEPType(ENDP1, EP_BULK);
   SetEPTxAddr(ENDP1, ENDP1_TXADDR);
   SetEPTxStatus(ENDP1, EP_TX_NAK);
   SetEPRxStatus(ENDP1, EP_RX_DIS);
+  */
+
+  /* Initialize Endpoint 4 */
+  SetEPType(ENDP1, EP_BULK);
+  SetEPRxAddr(ENDP1, ENDP1_TXADDR);
+  SetEPRxCount(ENDP1, 40);//only 8 byte wanted here
+  SetEPRxStatus(ENDP1, EP_RX_VALID); //for both double/single buffered
+  SetEPTxStatus(ENDP1, EP_TX_DIS); //for both double/single buffered
 
   /* Initialize Endpoint 2 */
   SetEPType(ENDP2, EP_INTERRUPT);
@@ -167,11 +176,12 @@ void Virtual_Com_Port_Reset(void)
   SetEPRxStatus(ENDP2, EP_RX_DIS);
   SetEPTxStatus(ENDP2, EP_TX_NAK);
 
+
+
   /* Initialize Endpoint 3 */
   SetEPType(ENDP3, EP_BULK);
   SetEPRxAddr(ENDP3, ENDP3_RXADDR);
   SetEPRxCount(ENDP3, USB_OUT_DATA_SIZE);//0x40);
-
   /*
   SetEPDblBuffAddr(ENDP3, ENDP3_BUF0Addr, ENDP3_BUF1Addr);
   SetEPDblBuffCount(ENDP3, EP_DBUF_OUT, USB_OUT_DATA_SIZE);
@@ -179,10 +189,9 @@ void Virtual_Com_Port_Reset(void)
   ClearDTOG_TX(ENDP3);
   ToggleDTOG_TX(ENDP3);
   */
-  
   SetEPRxStatus(ENDP3, EP_RX_VALID); //for both double/single buffered
   SetEPTxStatus(ENDP3, EP_TX_DIS); //for both double/single buffered
-
+  
   SetEPRxValid(ENDP0);
 
   /* Set this device to response on default address */

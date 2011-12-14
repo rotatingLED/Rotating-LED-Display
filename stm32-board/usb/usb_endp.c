@@ -168,6 +168,20 @@ void EP3_OUT_Callback(void)
   if (current_usb_frame >= NUM_USB_FRAMES){
     current_usb_frame = 0;
   }
+  if (synchro_enable == 1){
+    uint32_t* p = frame_buffer[32*current_usb_frame];
+    int i = 0;
+    if (p[0] == 255){
+      for(i=1;i<64;i++){
+        if (p[i] != 0){
+          break;
+        }
+        if (i == 64){
+          synchro_enable = 0;
+        }
+      }
+    }
+  }
   //FreeUserBuffer(ENDP3, EP_DBUF_OUT); // double buffering
 
 #ifndef STM32F10X_CL
@@ -176,6 +190,27 @@ void EP3_OUT_Callback(void)
 #endif
 }
 
+void EP1_OUT_Callback(void)
+{
+  uint16_t data_len;
+  uint8_t buf_ctrl[8];
+  
+  // Get the received data buffer and update the counter
+  data_len = USB_SIL_Read(EP1_OUT, buf_ctrl);
+
+  // process:
+  //   1: synchronisation enable - wait for synchronisation frame
+  //   2: change timer speed
+  if (buf_ctrl == 1){
+    synchro_enable = true;
+  }else if (buf_ctrl == 2){
+    timer_speed = (uint32_t)buf_ctrl[1];
+  }
+#ifndef STM32F10X_CL
+  // Enable the receive of data on EP4
+  SetEPRxValid(ENDP1);
+#endif
+}
 
 /*******************************************************************************
 * Function Name  : SOF_Callback / INTR_SOFINTR_Callback

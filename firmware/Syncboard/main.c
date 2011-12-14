@@ -28,6 +28,8 @@ uint8_t ledMask = 0x01;
 
 uint8_t debugInterruptPrescaler = 0xff;
 
+uint8_t inConfiguration = 0;
+
 /**
  * Times
  */
@@ -46,7 +48,6 @@ struct Time centerOnTime;
 
 // Last center time betweeen on and off
 struct Time lastCenterOnTime;
-
 
 /**
  *  Prototypes
@@ -71,44 +72,54 @@ int main(void) {
 	adc_select(7);
 
 	while (1) {
-		uint8_t v = adc_read();
+		if (debugInterruptPrescaler == 0xff) {
+			uint8_t v = adc_read();
 
-		if(displayAdcDebug) {
-			if(lastAdc != v) {
-				lastAdc = v;
-				uart_puts("adc  ->");
-				uart_puti(v);
-				uart_putc('\n');
-			}
-		}
-
-		state = v > adcThreshold;
-
-		lastCenterOnTime = centerOnTime;
-
-		if (state != lastState) {
-			lastState = state;
-
-			if (state == 0) {
-				getTime(&timeOff);
-
-				handleLightDown();
-			} else {
-				getTime(&timeOn);
+			if (displayAdcDebug) {
+				if (lastAdc != v) {
+					lastAdc = v;
+					uart_puts("adc  ->");
+					uart_puti(v);
+					uart_puts("\n");
+				}
 			}
 
-			setYellowLed(state && (ledMask & 0x02));
+			state = v > adcThreshold;
 
-			// TODO: handle change
+			if (state != lastState) {
+				lastState = state;
+
+				if (state == 0) {
+					getTime(&timeOff);
+
+					handleLightDown();
+				} else {
+					getTime(&timeOn);
+				}
+
+				setYellowLed(state && (ledMask & 0x02));
+			}
 		}
 
 		c = uart_getc();
 		if (c == 'c') {
+			inConfiguration = 1;
 			configuration();
+			inConfiguration = 0;
 		}
 	}
 
 	return 0;
+}
+
+void simulateEvent() {
+	if (inConfiguration == 0) {
+		getTime(&timeOff);
+		handleLightDown();
+//		_delay_ms(2);
+		getTime(&timeOn);
+		sendInterrupt();
+	}
 }
 
 void handleLightDown() {
@@ -125,35 +136,36 @@ void handleLightDown() {
 	tmp.time = 0;
 	timeAdd(&centerOnTime, &tmp, &syncTime);
 
-	syncInteruptOnTime(&syncTime);
+// TODO: DEBUG	syncInteruptOnTime(&syncTime);
 
-	uart_puts("on   =>");
-	uartPutTime(&timeOn);
-	uart_putc('\n');
+//	uart_puts("on   =>");
+//	uartPutTime(&timeOn);
+//	uart_puts("\n");
+//
+//	uart_puts("off  =>");
+//	uartPutTime(&timeOff);
+//	uart_puts("\n");
+//
+//	uart_puts("diff =>");
+//	uartPutTime(&diff);
+//	uart_puts("\n");
+//
+//	uart_puts("cent =>");
+//	uartPutTime(&centerOnTime);
+//	uart_puts("\n");
 
-	uart_puts("off  =>");
-	uartPutTime(&timeOff);
-	uart_putc('\n');
-
-	uart_puts("diff =>");
-	uartPutTime(&diff);
-	uart_putc('\n');
-
-	uart_puts("cent =>");
-	uartPutTime(&centerOnTime);
-	uart_putc('\n');
-
-	uart_puts("rota =>");
+	uart_puts("rota=");
 	uartPutTime(&rotationTimer);
-	uart_putc('\n');
+	uart_puts("\n");
 
-	uart_puts("sync =>");
-	uartPutTime(&syncTime);
-	uart_putc('\n');
+//	uart_puts("sync =>");
+//	uartPutTime(&syncTime);
+//	uart_puts("\n");
+//
+//	uart_puts("\n");
 
-	uart_putc('\n');
+	lastCenterOnTime = centerOnTime;
 }
-
 
 uint8_t parseCmd(const char * command) {
 	char name[16] = { 0 };
@@ -165,27 +177,27 @@ uint8_t parseCmd(const char * command) {
 
 		uart_puts("$ adc: adcThreshold = ");
 		uart_puti(adcThreshold);
-		uart_putc('\n');
+		uart_puts("\n");
 
 		uart_puts("$ adcd: displayAdcDebug = ");
 		uart_puti(displayAdcDebug);
-		uart_putc('\n');
+		uart_puts("\n");
 
 		uart_puts("$ int: interruptDelay = ");
 		uart_puti(interruptDelay);
-		uart_putc('\n');
+		uart_puts("\n");
 
 		uart_puts("$ led: ledMask = ");
 		uart_puti(ledMask);
-		uart_putc('\n');
+		uart_puts("\n");
 
 		uart_puts("$ dip: debugInterruptPrescaler = ");
 		uart_puti(debugInterruptPrescaler);
-		uart_putc('\n');
+		uart_puts("\n");
 
 		uart_putc('>');
 	} else if (strcmp(command, "set") == 0) {
-		if (readString16(name, "=") == 0 && readString16(value, "\n\r ") == 0 && myatoi(value, &iValue) == 0) {
+		if (readString16(name, "=") == 0 && readString16(value, "\r\n ") == 0 && myatoi(value, &iValue) == 0) {
 			uart_puts("$ set\n$ ");
 			uart_puts(name);
 			uart_putc('=');
@@ -218,7 +230,7 @@ uint8_t parseCmd(const char * command) {
 		uart_puts(command);
 
 		uart_putc('"');
-		uart_putc('\n');
+		uart_puts("\n");
 		uart_putc('>');
 	}
 
@@ -231,7 +243,7 @@ void configuration() {
 	uart_putc('>');
 
 	while (1) {
-		if (readString16(command, "\n\r ")) {
+		if (readString16(command, "\r\n ")) {
 			return;
 		}
 

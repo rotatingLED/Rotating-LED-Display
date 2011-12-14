@@ -16,6 +16,8 @@
 #ifndef __ERRDISPLAY_H__
 #define __ERRDISPLAY_H__
 
+#include <stdint.h>
+
 typedef enum {
 	ERROR_INIT_SYSCLOCK_FAILED = 1,  // 0001
 	ERROR_EXIT = 2,                  // 0010
@@ -39,5 +41,7 @@ __attribute__((noreturn)) void errdisplay_displayErr(ErrorCodes err);
  * Displays the system is still alive
  */
 void errdisplay_aliveSign();
+
+void sleep(uint32_t t);
 
 #endif /* __ERRDISPLAY_H__ */

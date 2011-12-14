@@ -19,4 +19,7 @@
 extern uint16_t current_usb_frame;
 extern uint16_t frame_buffer[];
 
+extern uint32_t timer_speed;
+extern uint8_t synchro_enable;
+
 #endif

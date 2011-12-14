@@ -1,5 +1,6 @@
 import led
 import time
+import threading
 
 # one image ~ 200K
 IMAGE_BUFFER_LENGTH = 64
@@ -9,7 +10,7 @@ image_buffer = [None]*IMAGE_BUFFER_LENGTH
 image_pwm_buffer = [None]*IMAGE_BUFFER_LENGTH
 
 class PwmCalculation(threading.Thread):
-    def __init__(self, debug=FALSE):
+    def __init__(self, debug=False):
         threading.Thread.__init__(self)
         self.debug = debug
 
@@ -20,7 +21,7 @@ class PwmCalculation(threading.Thread):
             if (image_current - IMAGE_BUFFER_LENGTH) >= image_pwm_current:
                 # maybe raise an exception?
                 print 'Buffer underrun!'
-            if image_pwm_current < image_buff:
+            if image_pwm_current < image_current:
                 index = image_pwm_current % IMAGE_BUFFER_LENGTH
                 image_pwm_buffer[index] = led.pwm_data_4bit()
             else:

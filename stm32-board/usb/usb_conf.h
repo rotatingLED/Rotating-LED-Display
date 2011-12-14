@@ -54,6 +54,8 @@
 #define ENDP3_BUF0Addr      (0x100)
 #define ENDP3_BUF1Addr      (0x300)
 
+#define ENDP4_RXADDR        (0x200)
+
 
 
 /*-------------------------------------------------------------*/
@@ -188,7 +190,7 @@
 #define  EP6_IN_Callback   NOP_Process
 #define  EP7_IN_Callback   NOP_Process
 
-#define  EP1_OUT_Callback   NOP_Process
+//#define  EP1_OUT_Callback   NOP_Process
 #define  EP2_OUT_Callback   NOP_Process
 /*#define  EP3_OUT_Callback   NOP_Process*/
 #define  EP4_OUT_Callback   NOP_Process

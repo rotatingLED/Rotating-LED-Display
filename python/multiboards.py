@@ -4,8 +4,6 @@ import led
 import time
 import threading
 
-led.init()
-
 class Board(threading.Thread):
     def __init__(self, dev, data):
         threading.Thread.__init__(self)
