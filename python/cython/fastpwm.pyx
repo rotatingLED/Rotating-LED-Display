@@ -80,7 +80,7 @@ LED_ARR[61] = 29 # PE13
 LED_ARR[62] = 30 # PE14
 LED_ARR[63] = 31 # PE15
 
-def pwm_test(img, board_nr, pwm_data):
+def pwm_4bit_c(img, board_nr, pwm_data):
     pwm_data_4bit_c(img, board_nr, pwm_data)
 
 def pwm_data_4bit(unsigned char* img, unsigned char board_nr=0):
