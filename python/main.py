@@ -2,10 +2,9 @@
 import led
 import time
 import image
-import multiboards
 from server import TcpServer
 import SocketServer
-from serial import syncboard
+from serial_board import syncboard
 
 def handle_serial_event(key, value):
     """ callback function for Syncboard """
@@ -39,15 +38,15 @@ class RotatingLed(object):
            t.start()
            self.board_threads.append(t)
 
-        # start server
-        HOST, PORT = "localhost", 28900
-        #self.server = SocketServer.TCPServer((HOST, PORT), TcpServer.MyTCPHandler)
-        #self.server.serve_forever()
-
         # start synchronisation
         self.sync = syncboard.Syncboard('/dev/ttyUSB0', handle_serial_event)
         self.sync.setVar('dip', '5') # remove later, just a debugging option
         self.sync.startReading()
+
+        # start server
+        HOST, PORT = "localhost", 28900
+        #self.server = SocketServer.TCPServer((HOST, PORT), TcpServer.MyTCPHandler)
+        #self.server.serve_forever()
 
     def stop(self):
         """ stops the whole program to run an led animation """
@@ -67,8 +66,6 @@ if __name__ == "__main__":
     b = RotatingLed()
     try:
         b.start()
-        while 1:
-            time.sleep(1)
     except Exception:
         import traceback
         traceback.print_exc()
