@@ -15,6 +15,7 @@ ROW_4BIT = ROW / 2
 
 PWM_BOARD_ROW_SIZE = PWM_STEPS * LEDS_PER_BOARD * NUM_COLORS / 8
 PWM_IMAGE_SIZE     = PWM_BOARD_ROW_SIZE*BOARDS*NUM_ROWS
+IMAGE_SIZE         = ROW_4BIT * NUM_ROWS
 
 # mapping of pixels, because the ST board has really strange pin orders
 LED_ARR = [
@@ -118,7 +119,7 @@ for cfg in dev:
             print '\t\t' + str(ep.bEndpointAddress)
 """
 
-def run(dev, package=None):
+def run(dev, package=None, endpoint=3):
     if package is None:
         package = [0]*360*128
         #package = (([1]+[0]*7)*15*3)*128
