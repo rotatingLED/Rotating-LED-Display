@@ -26,7 +26,6 @@ def initialize_buffers():
     image_current = 0
     image_pwm_current = -1
     image_buffer     = [None]*IMAGE_BUFFER_LENGTH
-    print led.PWM_IMAGE_SIZE
     image_pwm_buffer = [[str(bytearray(led.PWM_IMAGE_SIZE))]*IMAGE_BUFFER_LENGTH,
                         [str(bytearray(led.PWM_IMAGE_SIZE))]*IMAGE_BUFFER_LENGTH]
     image_buffer[0]  = str([255]*led.IMAGE_SIZE)
@@ -49,8 +48,6 @@ class PwmCalculation(threading.Thread):
                 print 'Buffer underrun!'
             if image_pwm_current < image_current:
                 index = (image_pwm_current+1) % IMAGE_BUFFER_LENGTH
-                print 'index', index
-                print 'buf', image_current, image_pwm_current, len(image_buffer), len(image_pwm_buffer[0][0]),
                 fastpwm.pwm_4bit_c(image_buffer[index], 0, image_pwm_buffer[0][index])
                 fastpwm.pwm_4bit_c(image_buffer[index], 1, image_pwm_buffer[1][index])
                 image_pwm_current += 1
