@@ -53,6 +53,11 @@ class RotatingLed(object):
         self.server = SocketServer.TCPServer((HOST, PORT), TcpServer.MyTCPHandler)
         self.server.serve_forever()
 
+        # start server
+        HOST, PORT = "localhost", 28900
+        #self.server = SocketServer.TCPServer((HOST, PORT), TcpServer.MyTCPHandler)
+        #self.server.serve_forever()
+
     def stop(self):
         """ stops the whole program to run an led animation """
         self.server.shutdown()
