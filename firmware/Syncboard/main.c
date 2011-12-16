@@ -71,6 +71,7 @@ int main(void) {
 
 	adc_select(7);
 
+
 	while (1) {
 		if (debugInterruptPrescaler == 0xff) {
 			uint8_t v = adc_read();
@@ -116,12 +117,14 @@ void simulateEvent() {
 	if (inConfiguration == 0) {
 		getTime(&timeOff);
 		handleLightDown();
-//		_delay_ms(2);
+		//		_delay_ms(2);
 
 		timeOn = timeOff;
 
-//		getTime(&timeOn);
+		//		getTime(&timeOn);
+		setYellowLed(ledMask & 0x02);
 		sendInterrupt();
+		setYellowLed(0);
 	}
 }
 
@@ -139,33 +142,33 @@ void handleLightDown() {
 	tmp.time = 0;
 	timeAdd(&centerOnTime, &tmp, &syncTime);
 
-// TODO: DEBUG	syncInteruptOnTime(&syncTime);
+	// TODO: DEBUG	syncInteruptOnTime(&syncTime);
 
-//	uart_puts("on=");
-//	uartPutTime(&timeOn);
-//	uart_puts("\n");
+	//	uart_puts("on=");
+	//	uartPutTime(&timeOn);
+	//	uart_puts("\n");
 
-//	uart_puts("off  =>");
-//	uartPutTime(&timeOff);
-//	uart_puts("\n");
-//
-//	uart_puts("diff =>");
-//	uartPutTime(&diff);
-//	uart_puts("\n");
-//
-//	uart_puts("cent =>");
-//	uartPutTime(&centerOnTime);
-//	uart_puts("\n");
+	//	uart_puts("off  =>");
+	//	uartPutTime(&timeOff);
+	//	uart_puts("\n");
+	//
+	//	uart_puts("diff =>");
+	//	uartPutTime(&diff);
+	//	uart_puts("\n");
+	//
+	//	uart_puts("cent =>");
+	//	uartPutTime(&centerOnTime);
+	//	uart_puts("\n");
 
 	uart_puts("rota=");
 	uartPutTime(&rotationTimer);
 	uart_puts("\n");
 
-//	uart_puts("sync =>");
-//	uartPutTime(&syncTime);
-//	uart_puts("\n");
-//
-//	uart_puts("\n");
+	//	uart_puts("sync =>");
+	//	uartPutTime(&syncTime);
+	//	uart_puts("\n");
+	//
+	//	uart_puts("\n");
 
 	lastCenterOnTime = centerOnTime;
 }
