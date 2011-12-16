@@ -131,14 +131,12 @@ def handle_serial_event(key, value):
         print t
 
 if __name__ == '__main__':
+    print 'configuration'
     sync = Syncboard('/dev/ttyUSB0', handle_serial_event)
     sync.setVar('dip', '11')
     print 'sync.startReading()'
     sync.startReading()
     time.sleep(3);
-
-    print 'configuration'
-
 
     print 'sync.stopReading()'
     sync.stopReading()

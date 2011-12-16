@@ -1,25 +1,32 @@
+#!/usr/bin/env python
 import led
 import time
 import image
-import multiboards
-import server.TcpServer
+from server import TcpServer
 import SocketServer
-from serial import syncboard
+from serial_board import syncboard
+import serial
 
 def handle_serial_event(key, value):
     """ callback function for Syncboard """
     print key, value
 
+    #if led.image_current > led.image_pwm_current
     if key == 'rota':
         t = int(value, 16)
         print t
 
 
-class RotatingLedBoard(object):
+class RotatingLed(object):
+
     calc_thread = None
     board_threads = []
+
     def start(self):
         """ starts the whole program to run an led animation """
+        # initialize buffers
+        image.initialize_buffers()
+
         # start threads:
         self.calc_thread = image.PwmCalculation(debug=True)
         self.calc_thread.start()
@@ -32,22 +39,28 @@ class RotatingLedBoard(object):
            t.start()
            self.board_threads.append(t)
 
-        # initialize buffers
-        image.initialize_buffers()
+        # start synchronisation
+        try:
+            self.sync = syncboard.Syncboard('/dev/ttyUSB0', handle_serial_event)
+            self.sync.setVar('dip', '5') # remove later, just a debugging option
+            self.sync.startReading()
+        except serial.SerialException:
+            print 'Sync board not found!'
+
 
         # start server
         HOST, PORT = "localhost", 28900
-        server = SocketServer.TCPServer((HOST, PORT), MyTCPHandler)
-        server.serve_forever()
+        self.server = SocketServer.TCPServer((HOST, PORT), TcpServer.MyTCPHandler)
+        self.server.serve_forever()
 
-        # start synchronisation
-        self.sync = syncboard.Syncboard('/dev/ttyUSB0', handle_serial_event)
-        self.sync.setVar('dip', '5') # remove later, just a debugging option
-        self.sync.startReading()
+        # start server
+        HOST, PORT = "localhost", 28900
+        #self.server = SocketServer.TCPServer((HOST, PORT), TcpServer.MyTCPHandler)
+        #self.server.serve_forever()
 
     def stop(self):
         """ stops the whole program to run an led animation """
-        server.shutdown()
+        self.server.shutdown()
 
         self.calc_thread.stop()
         self.calc_thread.join()
@@ -60,12 +73,10 @@ class RotatingLedBoard(object):
         self.sync.close()
 
 if __name__ == "__main__":
-    b = RotatingLedBoard()
-    while 1:
-        try:
-            b.start()
-            while 1:
-                time.sleep(1)
-        except Exception, e:
-            print e
-            b.stop() 
+    b = RotatingLed()
+    try:
+        b.start()
+    except Exception:
+        import traceback
+        traceback.print_exc()
+        b.stop() 
