@@ -41,13 +41,25 @@ void dcc_tests(void);
  * Sys clock handler
  */
 void SysTick_Handler(void) {
-  static uint16_t cnt = 0;
-
+  if (row_clock_counter % 1000 > 500){
+    GPIOB->ODR = (1 << 10); //color: blue
+  GPIOG->ODR = 0xFFFF;
+  GPIOG->ODR = 0;
+  }else{
+    GPIOB->ODR = (1 << 11);
+  GPIOG->ODR = 0xFFFF;
+  GPIOG->ODR = 0;
+  }
+  row_clock_counter += 0x10000;
+  row_clock_counter &= 0xFFFF0000;
+  //row_clock_counter++;
+  /*
   cnt++;
   if (cnt >= 1000) {
     cnt = 0;
     //errdisplay_aliveSign();
   }
+  */
 }
 
 void USB_HP_CAN1_TX_IRQHandler(void) {
@@ -83,38 +95,36 @@ int main(void) {
   // USB example
   Set_System();
   Set_USBClock();
-
-  // TODO: DEBUG
-  GPIOB->ODR = (1 << 10); //color: blue
-
-  int x = 0;
-
-  while (1) {
-    GPIOD->ODR = 0xffff;
-    GPIOE->ODR = 0xffff;
-    GPIOF->ODR = 0xffff;
-    GPIOG->ODR = 0xffff;
-
-    sleep(1);
-    GPIOD->ODR = 0x0000;
-    GPIOE->ODR = 0x0000;
-    GPIOF->ODR = 0x0000;
-    GPIOG->ODR = 0x0000;
-    sleep(50);
-    x++;
-    if (x == 100) {
-      x = 0;
-      GPIOB->ODR = (1 << 10); //color: blue
-    }
-  }
-  // TODO: END DEBUG
-
   USB_Interrupts_Config();
   USB_Init();
 
   // Turn on/off LED(s)
-  register int i = 0;
   register int current_led = -1;
+  register int current_row = 0;
+  uint32_t time_temp = 0;
+
+  int i = 0;
+  uint32_t time_per_column = 500 << 16;
+  uint32_t time_end = 0;
+  uint16_t led_temp[2] = {0xFFFF, 0};
+  /*
+  while(1){
+    asm volatile ("cpsid i");
+    time_end = row_clock_counter + SysTick->VAL + time_per_column;
+    time_temp = row_clock_counter + SysTick->VAL;
+    time_end = row_clock_counter + time_per_column;
+    GPIOB->ODR = (1 << 10); //color: blue
+    GPIOD->ODR = led_temp[i];
+    ++i;
+    i = i % 2;
+
+    asm volatile ("cpsie i");
+    
+    while(time_end > time_temp){ //TIM_GetCounter(TIM3)
+      time_temp = row_clock_counter + SysTick->VAL;
+    }
+  }
+  */
   while (1) {
     /*
      GPIOB->ODR = 0xffff;
@@ -131,8 +141,78 @@ int main(void) {
      GPIOG->ODR = 0x0000;
      */
 
-    asm volatile ("cpsid i");
     //Interrupts sperren
+    asm volatile ("cpsid i");
+
+    // wait for synchronisation -> just show red
+    if (synchro_enable == 1 || (wait_for_start == 1 && start_frame_interrupt)){
+      GPIOB->ODR = (1 << 11); //color: red
+      GPIOD->ODR = 0xFFFF;
+      GPIOE->ODR = 0xFFFF;
+      GPIOF->ODR = 0xFFFF;
+      GPIOG->ODR = 0xFFFF;
+      continue;
+    }
+
+    // when the frame interrupt came, get the next frame
+    if (start_frame_interrupt == 1){
+      start_frame_interrupt = 0;
+
+      uint32_t mod_multi_frame = current_multi_frame % MULTI_FRAMES_IN_IMAGE;
+      current_multi_frame = current_multi_frame - mod_multi_frame 
+                                      + MULTI_FRAMES_IN_IMAGE;
+      if (endp3_locked == 1){
+          SetEPRxValid(ENDP3);
+      }
+      if (current_multi_frame >= current_usb_multi_frame){
+        // this is a buffer underrun, the interrupt already came
+        // and the buffer is not ready, therefore enable synchro
+        // enable_synchronisation();
+        // continue;
+      }else{
+        // here we have the data, just reset the stuff right
+        // -1 because current_led starts negative
+        current_led = mod_multi_frame * MULTI_FRAME_SIZE - 1;
+        current_row = 0;
+      }
+    }else{
+      //two things to test in this part: buffer underruns and overruns
+      
+      time_temp = row_clock_counter + SysTick->VAL;
+      // check if current_led needs to be set back,
+      // because the clock is not ready, yet
+      if (row_interrupt_time + current_row*time_per_pixel < time_temp){
+        //check if the interrupt has not come, then it has nothing todo with time
+        // set current_led to the last pixel
+        current_led -= FRAME_SIZE;
+      }else{
+        // here we have the case, that the time needs to be left as it is
+        // or set forward except the image is in the last row, then always set back
+        if (current_row == NUM_ROWS-1){
+          current_led -= FRAME_SIZE;
+        }else{
+          // add rows
+          current_row++;
+          // if there was no interrupt: set the actual current_led
+          if (current_led >= (FRAME_BUFFER_LENGTH - 1)) {
+            current_led = -1;
+          }
+          // check for multi frames
+          if ((current_led % MULTI_FRAME_SIZE) == (MULTI_FRAME_SIZE - 1)){
+            current_multi_frame++;
+            // unlock usb endpoint 3 which is the data carrier
+            if (endp3_locked == 1){
+              endp3_locked = 0;
+              // set the endpoint free!
+              release_endp3 = 1;
+            }
+            // now check for whole images, so that it's never possible to jump to
+            // the next image, if the interrupt for the next image came
+          }
+        }
+      }
+
+    }
     GPIOB->ODR = (1 << 10); //color: blue
     GPIOD->ODR = frame_buffer[++current_led];
     GPIOE->ODR = frame_buffer[++current_led];
@@ -367,7 +447,6 @@ int main(void) {
     GPIOD->ODR = frame_buffer[++current_led];
     GPIOE->ODR = frame_buffer[++current_led];
     GPIOF->ODR = frame_buffer[++current_led];
-    GPIOG->ODR = frame_buffer[++current_led];
 
     GPIOD->ODR = frame_buffer[++current_led];
     GPIOE->ODR = frame_buffer[++current_led];
@@ -379,10 +458,14 @@ int main(void) {
     GPIOF->ODR = 0;
     GPIOG->ODR = 0;
 
-    if (current_led >= (FRAME_BUFFER_LENGTH - 1)) {
-      current_led = -1;
+    // this needs to be at the end, because you could have a buffer overrun,
+    // if you gave it free in the beginning
+    if (release_endp3 == 1){
+      release_endp3 = 0;
+      SetEPRxValid(ENDP3);
     }
     asm volatile ("cpsie i");
+    //uint16_t value = TIM_GetCounter(TIM3);
     /*
      i++;
      GPIOC->ODR = 0xffff;
@@ -427,7 +510,7 @@ int main(void) {
      GPIOC->ODR = 0xffff;
      GPIOC->ODR = 0x0000;
      i = 0;
-
+*/
      //GPIOD->ODR = 0xFFFF;
      /*GPIOC->BRR = GPIO_Pin_All;
      GPIOC->BSRR = GPIO_Pin_All;
@@ -441,13 +524,12 @@ void Timer_Configuration() {
   // TIM3->DIER = TIM_DIER_UIE; // Update interrupt enable
   TIM3->CR1 = TIM_CR1_CEN;
   // TIM3->ARR = 562;
-  TIM3->ARR = 5;
-  TIM3->PSC = 0; // f=72MHz, ARR=5, PSC=0 => fpixclk = 12MHz
-
-
+  TIM3->ARR = 250;
+  TIM3->PSC = 0; 
+  //old
+  // f=72MHz, ARR=5, PSC=0 => fpixclk = 12MHz
   //TIM3->ARR //Auto reload register
 
-  int value = TIM_GetCounter(TIM3);
 }
 
 void ExtInterrupt_Configuration() {

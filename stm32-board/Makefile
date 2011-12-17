@@ -676,6 +676,11 @@ $(SRCARM:.c=.s) : %.s : %.c $(BUILDONCHANGE)
 	@echo $(MSG_ASMFROMC_ARM) $< to $@
 	$(CC) -S $(CFLAGS) $(CONLYFLAGS) $< -o $@
 
+flash:
+	ssh beagle "sudo led/python/flash_boards.py"
+	make program
+	ssh beagle "sudo led/python/reset_boards.py"
+
 # Target: clean project.
 clean: begin clean_list end
 

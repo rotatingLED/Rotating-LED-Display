@@ -42,7 +42,7 @@ class RotatingLed(object):
         # start synchronisation
         try:
             self.sync = syncboard.Syncboard('/dev/ttyUSB0', handle_serial_event)
-            self.sync.setVar('dip', '5') # remove later, just a debugging option
+            self.sync.setVar('dip', '60') # remove later, just a debugging option
             self.sync.startReading()
         except serial.SerialException:
             print 'Sync board not found!'

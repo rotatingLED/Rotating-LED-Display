@@ -161,10 +161,22 @@ void EP3_OUT_Callback(void)
   }
 */
 
-  ++current_usb_frame;
-  if (data_len != 64){
-    //sleep(5000);
+  //FreeUserBuffer(ENDP3, EP_DBUF_OUT); // double buffering
+
+#ifndef STM32F10X_CL
+  // check if we have enough space for a new packet
+  if ((current_usb_frame % MULTI_FRAME_SIZE) == (MULTI_FRAME_SIZE - 1)){
+    current_usb_multi_frame++;
+    if (current_usb_frame < (current_usb_multi_frame - 1)){
+      // Enable the receive of data on EP3
+      SetEPRxValid(ENDP3);
+    }else{
+      // buffer is full -> wait
+      endp3_locked = 1;
+    }
   }
+#endif
+  ++current_usb_frame;
   if (current_usb_frame >= NUM_USB_FRAMES){
     current_usb_frame = 0;
   }
@@ -182,12 +194,6 @@ void EP3_OUT_Callback(void)
       }
     }
   }
-  //FreeUserBuffer(ENDP3, EP_DBUF_OUT); // double buffering
-
-#ifndef STM32F10X_CL
-  // Enable the receive of data on EP3
-  SetEPRxValid(ENDP3);
-#endif
 }
 
 void EP1_OUT_Callback(void)
@@ -204,7 +210,7 @@ void EP1_OUT_Callback(void)
   if (buf_ctrl == 1){
     synchro_enable = true;
   }else if (buf_ctrl == 2){
-    timer_speed = (uint32_t)buf_ctrl[1];
+    time_per_pixel = (uint32_t)buf_ctrl[1];
   }
 #ifndef STM32F10X_CL
   // Enable the receive of data on EP4

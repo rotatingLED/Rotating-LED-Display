@@ -118,9 +118,25 @@ class Syncboard(object):
             raise Exception('Unexpected answer: "%s"' % line)
 
         self.ser.write('exit\n')        
+        line = self.readLineTimeout()
+        if line != '>$ exit':
+            raise Exception('Unexpected answer: "%s"' % line)
 
         if readerAlive:
             sync.startReading()
+
+    def reset_led_boards(self):
+        self.setVar('reset', '1')
+        time.sleep(0.001)
+        self.setVar('reset', '0')
+
+    def flash_led_boards(self):
+        self.setVar('boot0', '1')
+        self.setVar('reset', '1')
+        time.sleep(0.001)
+        self.setVar('reset', '0')
+        time.sleep(0.001)
+        self.setVar('boot0', '0')
 
 def handle_serial_event(key, value):
     """ callback function for Syncboard """

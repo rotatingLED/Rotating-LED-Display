@@ -22,6 +22,7 @@
 #include "usb_istr.h"
 #include "hw_config.h"
 #include "platform_config.h"
+#include "led_config.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -204,13 +205,26 @@ void OTG_FS_IRQHandler(void)
  * @retval None
  */
 void EXTI0_IRQHandler(void) {
+  static uint8_t temp = 10;
   //Check if EXTI_Line0 is asserted
   if (EXTI_GetITStatus(EXTI_Line0) != RESET) {
-    GPIOB->ODR = (1 << 11); //color: red
+    //GPIOB->ODR = (1 << temp); //color: red
+    //GPIOD->ODR = 0xFFFF;
+    //if (++temp >= 13){
+    //  temp = 10;
+    //}
+    //restart = 1
+    // synchronize on next frame
+    start_frame_interrupt = 1;
+    row_interrupt_time  = row_clock_counter + SysTick->VAL;
   }
 
   //we need to clear line pending bit manually
   EXTI_ClearITPendingBit(EXTI_Line0);
+}
+
+void TIM2_IRQHandler(void) {
+    TIM_ClearFlag(TIM2, TIM_FLAG_Update);
 }
 
 /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/
