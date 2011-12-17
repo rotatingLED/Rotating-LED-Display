@@ -201,6 +201,14 @@ uint8_t parseCmd(const char * command) {
 		uart_puti(debugInterruptPrescaler);
 		uart_puts("\n");
 
+		uart_puts("$ boot0 = ");
+		uart_puti((DDRC & (1 << 2)) == 0 ? 0 : 1);
+		uart_puts("\n");
+
+		uart_puts("$ reset = ");
+		uart_puti((DDRB & (1 << 5)) == 0 ? 0 : 1);
+		uart_puts("\n");
+
 		uart_putc('>');
 	} else if (strcmp(command, "set") == 0) {
 		if (readString16(name, "=") == 0 && readString16(value, "\r\n ") == 0 && myatoi(value, &iValue) == 0) {
@@ -219,6 +227,25 @@ uint8_t parseCmd(const char * command) {
 				ledMask = iValue;
 			} else if (strcmp("dip", name) == 0) {
 				debugInterruptPrescaler = iValue;
+			} else if (strcmp("boot0", name) == 0) {
+				if(iValue) {
+					// output schalten
+					DDRC |= (1 << 2);
+					PORTC |= (1 << 2);
+				} else {
+					// hochomig
+					DDRC &= ~(1 << 2);
+					PORTC &= ~(1 << 2);
+				}
+			} else if (strcmp("reset", name) == 0) {
+				if(iValue) {
+					// output schalten
+					DDRB |= (1 << 5);
+					PORTB &= ~(1 << 5);
+				} else {
+					// hochomig
+					DDRB &= ~(1 << 5);
+				}
 			} else {
 				uart_puts("\nerr UNKNOWN_VAR");
 			}
