@@ -95,7 +95,7 @@ def divideTimeDelta(td1, td2):
 # main script!
 def init(find_all=False):
     global dev
-    dev = usb.core.find(idVendor=0xffff, idProduct=0x5740, find_all = find_all)
+    dev = get_boards(find_all=find_all)
 
     if dev is None:
         raise ValueError('Device not found')
@@ -109,6 +109,8 @@ def init(find_all=False):
         dev.set_configuration()
     return dev
 
+def get_boards(find_all=False):
+    return usb.core.find(idVendor=0xffff, idProduct=0x5740, find_all = find_all)
 """
 print 'configs:'
 for cfg in dev:
@@ -119,7 +121,11 @@ for cfg in dev:
             print '\t\t' + str(ep.bEndpointAddress)
 """
 
-def run(dev, package=None, endpoint=3):
+def run(dev, package=None, endpoint=3, timeout=None):
+    """ send a package of bytes to an endpoint of a usb device
+        the param "timeout" is in miliseconds and will raise an
+        exception, if the execution time exceeds this value.
+    """
     if package is None:
         package = [0]*360*128
         #package = (([1]+[0]*7)*15*3)*128
@@ -131,7 +137,7 @@ def run(dev, package=None, endpoint=3):
     report_all = 1
 
     #while count < 10:
-    wrote = dev.write(3, package, 1)
+    wrote = dev.write(endpoint, package, 1, timeout=timeout)
 
     count += 1
     if count % report_all == 0:
@@ -145,55 +151,10 @@ def run(dev, package=None, endpoint=3):
     #usb.util.release_interface(dev, 1)
     #usb.util.dispose_resources(dev)
 
-def pwm_data_4bit(img, board_nr=0):
-    board = 0
-
-    buf = bytearray()
-    for i in range(NUM_ROWS):
-        index = int(i*ROW_4BIT+ROW_4BIT/BOARDS*board_nr)
-        relevant = sort_led_pixels(img[index:index+int(ROW/BOARDS)])
-        #print list(relevant)
-        #print ROW, index, LEDS_PER_BOARD
-
-        # pwm calculation
-        pwm = bytearray(int(PWM_STEPS * LEDS_PER_BOARD * NUM_COLORS / 8))
-        for j_wrong, pixel in enumerate(relevant):
-            p1 = pixel & 15
-            p2 = (pixel & 240) >> 4
-            # change j because it has wrong values (4bit)
-            j = j_wrong*2
-            for k in range(PWM_STEPS):
-                if k < p1:
-                    # everything in bits -> caution
-                    # get basic address for color
-                    address = LEDS_PER_BOARD*PWM_STEPS*(j % NUM_COLORS)
-                    address += (k)*LEDS_PER_BOARD
-                    # add led id (0-LEDS_PER_BOARD)
-                    address += int(j/NUM_COLORS)
-                    #print 'a', address, PWM_STEPS, LEDS_PER_BOARD, j
-                    # 360 bytes address -> 2880 bits
-                    pwm[int(address/8)] += 1 << (address % 8)
-                else:
-                    break
-            j += 1
-            for k in range(PWM_STEPS):
-                if k < p2:
-                    # everything in bits -> caution
-                    # get basic address for color
-                    address = LEDS_PER_BOARD*PWM_STEPS*(j % NUM_COLORS)
-                    address += (k)*LEDS_PER_BOARD
-                    # add led id (0-LEDS_PER_BOARD)
-                    address += int(j/NUM_COLORS)
-                    #print 'a', address, PWM_STEPS, LEDS_PER_BOARD, j
-                    # 360 bytes address -> 2880 bits
-                    pwm[int(address/8)] += 1 << (address % 8)
-                else:
-                    break
-
-        buf += pwm
-    return buf
-
 def pwm_data(img, board_nr=0):
+    """ this takes data that is 8 bit long, the four bit stuff is
+        done in cython.
+    """
     board = 0
 
     buf = bytearray()
