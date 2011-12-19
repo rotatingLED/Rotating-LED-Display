@@ -153,6 +153,7 @@ SRC += src/syscalls.c
 
 SRC += src/errdisplay.c
 SRC += src/led_config.c
+SRC += src/serial.c
 
 
 SRC += usb/hw_config.c
@@ -680,6 +681,11 @@ flash:
 	ssh beagle "sudo led/python/flash_boards.py"
 	make program
 	ssh beagle "sudo led/python/reset_boards.py"
+
+flash_test:
+	ssh beagle "sudo led/python/flash_boards.py; sleep 1"
+	make program
+	ssh beagle "sudo led/python/reset_boards.py; sleep 0.1; sudo led/python/test.py"
 
 # Target: clean project.
 clean: begin clean_list end

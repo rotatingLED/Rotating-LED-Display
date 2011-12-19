@@ -163,35 +163,57 @@ void EP3_OUT_Callback(void)
 
   //FreeUserBuffer(ENDP3, EP_DBUF_OUT); // double buffering
 
-#ifndef STM32F10X_CL
-  // check if we have enough space for a new packet
-  if ((current_usb_frame % MULTI_FRAME_SIZE) == (MULTI_FRAME_SIZE - 1)){
-    current_usb_multi_frame++;
-    if (current_usb_frame < (current_usb_multi_frame - 1)){
-      // Enable the receive of data on EP3
-      SetEPRxValid(ENDP3);
-    }else{
-      // buffer is full -> wait
-      endp3_locked = 1;
-    }
-  }
-#endif
-  ++current_usb_frame;
-  if (current_usb_frame >= NUM_USB_FRAMES){
-    current_usb_frame = 0;
-  }
   if (synchro_enable == 1){
-    uint32_t* p = frame_buffer[32*current_usb_frame];
+    //GPIOB->ODR = (1 << 12); GPIOD->ODR = 0xFFFF; sleep(500);
+    uint8_t* p = & frame_buffer[32*current_usb_frame];
     int i = 0;
     if (p[0] == 255){
       for(i=1;i<64;i++){
         if (p[i] != 0){
           break;
         }
-        if (i == 64){
+        if (i == 63){
+          // now we have a synchro frame
           synchro_enable = 0;
+          start_frame_interrupt = 0;
+          wait_for_start = 1;
+
+          // reset all the stuff
+          current_usb_frame = 0;
+          current_multi_frame = 0;
+          current_usb_multi_frame = 0;
         }
       }
+    }
+    //if (wait_for_start == 1 && synchro_enable == 0){
+    //  GPIOB->ODR = (1 << 10); GPIOD->ODR = 0xFFFF; sleep(500);
+    //}
+    //GPIOB->ODR = (1 << 12); GPIOD->ODR = 0xFFFF; sleep(500);
+    SetEPRxValid(ENDP3);
+  }else{
+    if ((current_usb_frame % NUM_USB_FRAMES_IN_MULTI_FRAME) 
+          == (NUM_USB_FRAMES_IN_MULTI_FRAME - 1)){
+      current_usb_multi_frame++;
+      // check if we have enough space for a new packet (buffer full)
+      // underruns may not to be checked here, thats the job of the display loop
+      if (current_usb_multi_frame >= (current_multi_frame + MULTI_FRAME_SIZE)){
+        SetEPRxValid(ENDP3);
+        // buffer is full -> wait
+        //endp3_locked = 1;
+      }else{
+        // Enable the receive of data on EP3
+        SetEPRxValid(ENDP3);
+      }
+    }else{
+      // Enable the receive of data on EP3
+      SetEPRxValid(ENDP3);
+    }
+
+    // increase the usb frames and reset it if it reaches the 
+    // maximal height of the buffer
+    ++current_usb_frame;
+    if (current_usb_frame >= NUM_USB_FRAMES){
+      current_usb_frame = 0;
     }
   }
 }

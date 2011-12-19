@@ -215,7 +215,9 @@ void EXTI0_IRQHandler(void) {
     //}
     //restart = 1
     // synchronize on next frame
-    start_frame_interrupt = 1;
+    if (synchro_enable == 0){
+      start_frame_interrupt = 1;
+    }
     row_interrupt_time  = row_clock_counter + SysTick->VAL;
   }
 

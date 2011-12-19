@@ -31,7 +31,7 @@
 #define GPIO_Pin_LED1                       GPIO_Pin_13
 
 
-#define USB_DISCONNECT                      GPIOD
+#define USB_DISCONNECT                      GPIOB
 #define USB_DISCONNECT_PIN                  GPIO_Pin_9
 #define RCC_APB2Periph_GPIO_DISCONNECT      RCC_APB2Periph_GPIOD
 #define EVAL_COM1_IRQHandler                USART1_IRQHandler

@@ -135,18 +135,18 @@ void Virtual_Com_Port_init(void)
 *******************************************************************************/
 void Virtual_Com_Port_Reset(void)
 {
-  /* Set Virtual_Com_Port DEVICE as not configured */
+  // Set Virtual_Com_Port DEVICE as not configured
   pInformation->Current_Configuration = 0;
 
-  /* Current Feature initialization */
+  // Current Feature initialization
   pInformation->Current_Feature = Virtual_Com_Port_ConfigDescriptor[7];
 
-  /* Set Virtual_Com_Port DEVICE with the default Interface*/
+  // Set Virtual_Com_Port DEVICE with the default Interfac
   pInformation->Current_Interface = 0;
 
   SetBTABLE(BTABLE_ADDRESS);
 
-  /* Initialize Endpoint 0 */
+  // Initialize Endpoint 0
   SetEPType(ENDP0, EP_CONTROL);
   SetEPTxStatus(ENDP0, EP_TX_STALL);
   SetEPRxAddr(ENDP0, ENDP0_RXADDR);
@@ -155,7 +155,7 @@ void Virtual_Com_Port_Reset(void)
   SetEPRxCount(ENDP0, Device_Property.MaxPacketSize);
   SetEPRxValid(ENDP0);
 
-  /* Initialize Endpoint 1 */
+  // Initialize Endpoint 1
   /*
   SetEPType(ENDP1, EP_BULK);
   SetEPTxAddr(ENDP1, ENDP1_TXADDR);
@@ -163,14 +163,14 @@ void Virtual_Com_Port_Reset(void)
   SetEPRxStatus(ENDP1, EP_RX_DIS);
   */
 
-  /* Initialize Endpoint 4 */
+  // Initialize Endpoint 4
   SetEPType(ENDP1, EP_BULK);
   SetEPRxAddr(ENDP1, ENDP1_TXADDR);
   SetEPRxCount(ENDP1, 40);//only 8 byte wanted here
   SetEPRxStatus(ENDP1, EP_RX_VALID); //for both double/single buffered
   SetEPTxStatus(ENDP1, EP_TX_DIS); //for both double/single buffered
 
-  /* Initialize Endpoint 2 */
+  // Initialize Endpoint 2
   SetEPType(ENDP2, EP_INTERRUPT);
   SetEPTxAddr(ENDP2, ENDP2_TXADDR);
   SetEPRxStatus(ENDP2, EP_RX_DIS);
@@ -178,7 +178,7 @@ void Virtual_Com_Port_Reset(void)
 
 
 
-  /* Initialize Endpoint 3 */
+  // Initialize Endpoint 3
   SetEPType(ENDP3, EP_BULK);
   SetEPRxAddr(ENDP3, ENDP3_RXADDR);
   SetEPRxCount(ENDP3, USB_OUT_DATA_SIZE);//0x40);
@@ -194,7 +194,7 @@ void Virtual_Com_Port_Reset(void)
   
   SetEPRxValid(ENDP0);
 
-  /* Set this device to response on default address */
+  // Set this device to response on default address
   SetDeviceAddress(0);
 
   bDeviceState = ATTACHED;

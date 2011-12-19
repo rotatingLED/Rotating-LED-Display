@@ -24,6 +24,7 @@
 #include "usb/usb_pwr.h"
 
 #include "src/led_config.h"
+#include "src/serial.h"
 
 /* Private function prototypes -----------------------------------------------*/
 void Periph_Configuration(void);
@@ -41,6 +42,7 @@ void dcc_tests(void);
  * Sys clock handler
  */
 void SysTick_Handler(void) {
+  /*
   if (row_clock_counter % 1000 > 500){
     GPIOB->ODR = (1 << 10); //color: blue
   GPIOG->ODR = 0xFFFF;
@@ -50,6 +52,7 @@ void SysTick_Handler(void) {
   GPIOG->ODR = 0xFFFF;
   GPIOG->ODR = 0;
   }
+  */
   row_clock_counter += 0x10000;
   row_clock_counter &= 0xFFFF0000;
   //row_clock_counter++;
@@ -98,16 +101,17 @@ int main(void) {
   USB_Interrupts_Config();
   USB_Init();
 
+  USART1_Init();
   // Turn on/off LED(s)
-  register int current_led = -1;
-  register int current_row = 0;
+  register int32_t current_led = -1;
+  register int32_t current_row = 0;
   uint32_t time_temp = 0;
 
+  /*
   int i = 0;
   uint32_t time_per_column = 500 << 16;
   uint32_t time_end = 0;
   uint16_t led_temp[2] = {0xFFFF, 0};
-  /*
   while(1){
     asm volatile ("cpsid i");
     time_end = row_clock_counter + SysTick->VAL + time_per_column;
@@ -126,6 +130,14 @@ int main(void) {
   }
   */
   while (1) {
+    sleep(1);
+    SerialPrintf("synchro_enable=%i\r\n", synchro_enable);
+    SerialPrintf("wait_for_start=%i\r\n", wait_for_start);
+    SerialPrintf("current_led=%i\r\n", current_led);
+    SerialPrintf("current_multi_frame=%i\r\n", current_multi_frame);
+    SerialPrintf("current_usb_multi_frame=%i\r\n", current_usb_multi_frame);
+    SerialPrintf("current_row=%i\r\n", current_row);
+    SerialPrintf("sof_i=%i\r\n", start_frame_interrupt);
     /*
      GPIOB->ODR = 0xffff;
      i++;
@@ -144,13 +156,14 @@ int main(void) {
     //Interrupts sperren
     asm volatile ("cpsid i");
 
-    // wait for synchronisation -> just show red
-    if (synchro_enable == 1 || (wait_for_start == 1 && start_frame_interrupt)){
+    // wait for s/nchronisation -> just show 
+    if (synchro_enable == 1 || (wait_for_start == 1 && start_frame_interrupt == 0)){
       GPIOB->ODR = (1 << 11); //color: red
       GPIOD->ODR = 0xFFFF;
       GPIOE->ODR = 0xFFFF;
       GPIOF->ODR = 0xFFFF;
       GPIOG->ODR = 0xFFFF;
+      asm volatile ("cpsie i");
       continue;
     }
 
@@ -159,16 +172,26 @@ int main(void) {
       start_frame_interrupt = 0;
 
       uint32_t mod_multi_frame = current_multi_frame % MULTI_FRAMES_IN_IMAGE;
-      current_multi_frame = current_multi_frame - mod_multi_frame 
-                                      + MULTI_FRAMES_IN_IMAGE;
+
+      if (wait_for_start == 1){
+        wait_for_start = 0; // if it was set reset it
+      }else{
+        current_multi_frame = current_multi_frame - mod_multi_frame + MULTI_FRAMES_IN_IMAGE;
+      }
+      // release the endpoint 3, because the buffers are not full, 
+      // if theres a new frame -> new data needed
       if (endp3_locked == 1){
           SetEPRxValid(ENDP3);
+          endp3_locked = 0;
       }
       if (current_multi_frame >= current_usb_multi_frame){
         // this is a buffer underrun, the interrupt already came
         // and the buffer is not ready, therefore enable synchro
+        current_led = -1;
         // enable_synchronisation();
-        // continue;
+        asm volatile ("cpsie i");
+      GPIOB->ODR = (1 << 11); GPIOD->ODR = 0xFFFF; sleep(500);
+        continue;
       }else{
         // here we have the data, just reset the stuff right
         // -1 because current_led starts negative
@@ -176,7 +199,7 @@ int main(void) {
         current_row = 0;
       }
     }else{
-      //two things to test in this part: buffer underruns and overruns
+      //two main things to test in this part: buffer underruns and overruns
       
       time_temp = row_clock_counter + SysTick->VAL;
       // check if current_led needs to be set back,
@@ -184,12 +207,14 @@ int main(void) {
       if (row_interrupt_time + current_row*time_per_pixel < time_temp){
         //check if the interrupt has not come, then it has nothing todo with time
         // set current_led to the last pixel
-        current_led -= FRAME_SIZE;
+        current_led -= FRAME_SIZE/2;
       }else{
         // here we have the case, that the time needs to be left as it is
         // or set forward except the image is in the last row, then always set back
-        if (current_row == NUM_ROWS-1){
-          current_led -= FRAME_SIZE;
+        // checks for whole images, so that it's never possible to jump to
+        // the next image, if the interrupt for the next image didn't come
+        if (current_row >= NUM_ROWS-1){
+          current_led -= FRAME_SIZE/2;
         }else{
           // add rows
           current_row++;
@@ -200,18 +225,15 @@ int main(void) {
           // check for multi frames
           if ((current_led % MULTI_FRAME_SIZE) == (MULTI_FRAME_SIZE - 1)){
             current_multi_frame++;
-            // unlock usb endpoint 3 which is the data carrier
+            // unlock usb endpoint 3 which is the data carrier, because there's space now
             if (endp3_locked == 1){
               endp3_locked = 0;
               // set the endpoint free!
               release_endp3 = 1;
             }
-            // now check for whole images, so that it's never possible to jump to
-            // the next image, if the interrupt for the next image came
           }
         }
       }
-
     }
     GPIOB->ODR = (1 << 10); //color: blue
     GPIOD->ODR = frame_buffer[++current_led];
@@ -447,6 +469,7 @@ int main(void) {
     GPIOD->ODR = frame_buffer[++current_led];
     GPIOE->ODR = frame_buffer[++current_led];
     GPIOF->ODR = frame_buffer[++current_led];
+    GPIOG->ODR = frame_buffer[++current_led];
 
     GPIOD->ODR = frame_buffer[++current_led];
     GPIOE->ODR = frame_buffer[++current_led];
@@ -594,30 +617,32 @@ void GPIO_Configuration(void) {
   GPIO_InitTypeDef GPIO_InitStructure;
 
 #if defined(USE_STM3210B_EVAL) || defined(USE_EK_STM32F)
-  /* Enable the USART2 Pins Software Remapping */
-  GPIO_PinRemapConfig(GPIO_Remap_USART2, ENABLE);
+  // Enable the USART2 Pins Software Remapping 
+  //GPIO_PinRemapConfig(GPIO_Remap_USART2, ENABLE);
 #endif
 
-  /* Configure USART1 TX (PA.09) as alternate function push-pull */
+  // Configure USART1 TX (PA.09) as alternate function push-pull 
+  /*
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
   GPIO_Init(GPIOA, &GPIO_InitStructure);
 
-  /* Configure USART2 TX as alternate function push-pull */
+  // Configure USART2 TX as alternate function push-pull 
   GPIO_InitStructure.GPIO_Pin = GPIO_TxPin;
   GPIO_Init(GPIOx, &GPIO_InitStructure);
 
-  /* Configure USART1 RX (PA.10) as input floating */
+  // Configure USART1 RX (PA.10) as input floating 
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
   GPIO_Init(GPIOA, &GPIO_InitStructure);
 
-  /* Configure USART2 RX as input floating */
+  // Configure USART2 RX as input floating 
   GPIO_InitStructure.GPIO_Pin = GPIO_RxPin;
   GPIO_Init(GPIOx, &GPIO_InitStructure);
+  */
 
-  /* Configure GPIO for LEDs as Output push-pull */
+  // Configure GPIO for LEDs as Output push-pull 
   // GPIO B
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
@@ -662,13 +687,13 @@ void GPIO_Configuration(void) {
 #if defined(USE_MINI_STM32)
   /* touch-controller's CS (PA4), SD-Card's CS (PB6) and DataFlash CS (PB7) high = unselect */
   /* PB6 and PB7 both have an external 4,7kOhm pull-up */
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
+  //GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
 #if 1
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
-  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  //GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
+  //GPIO_Init(GPIOA, &GPIO_InitStructure);
 #else
-  GPIO_Init(GPIOA, &GPIO_InitStructure);
-  GPIO_SetBits(GPIOA, GPIO_Pin_4);
+  //GPIO_Init(GPIOA, &GPIO_InitStructure);
+  //GPIO_SetBits(GPIOA, GPIO_Pin_4);
 #endif
 #endif /* defined(USE_MINI_STM32) */
 }

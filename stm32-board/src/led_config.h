@@ -20,10 +20,10 @@
 
 #define NUM_FRAMES_IN_MULTI_FRAME          8
 
-#define MULTI_FRAME_SIZE        (FRAME_SIZE * NUM_FRAMES_IN_MULTI_FRAME) // 2880
+#define MULTI_FRAME_SIZE        (FRAME_SIZE * NUM_FRAMES_IN_MULTI_FRAME) // 2880 -> 16 multi frames in buffer
 
 #define MULTI_FRAMES_IN_IMAGE   (NUM_ROWS / NUM_FRAMES_IN_MULTI_FRAME)
-#define NUM_USB_FRAMES_IN_MULTI_FRAME      (MULTI_FRAME_SIZE / 64)
+#define NUM_USB_FRAMES_IN_MULTI_FRAME      (MULTI_FRAME_SIZE / 64)       // 45
 
 void enable_synchronisation();
 

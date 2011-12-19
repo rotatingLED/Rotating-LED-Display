@@ -259,12 +259,14 @@ void USART_Config_Default(void)
         - Hardware flow control disabled
         - Receive and transmit enabled
   */
+  /*
   USART_InitStructure.USART_BaudRate = 9600;
   USART_InitStructure.USART_WordLength = USART_WordLength_8b;
   USART_InitStructure.USART_StopBits = USART_StopBits_1;
   USART_InitStructure.USART_Parity = USART_Parity_Odd;
   USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
   USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+  */
 }
 
 /*******************************************************************************
@@ -277,8 +279,8 @@ void USART_Config_Default(void)
 *******************************************************************************/
 bool USART_Config(void)
 {
-
-  /* set the Stop bit*/
+/*
+  // set the Stop bit
   switch (linecoding.format)
   {
     case 0:
@@ -297,7 +299,7 @@ bool USART_Config(void)
     }
   }
 
-  /* set the parity bit*/
+  // set the parity bit
   switch (linecoding.paritytype)
   {
     case 0:
@@ -316,11 +318,11 @@ bool USART_Config(void)
     }
   }
 
-  /*set the data type : only 8bits and 9bits is supported */
+  //set the data type : only 8bits and 9bits is supported 
   switch (linecoding.datatype)
   {
     case 0x07:
-      /* With this configuration a parity (Even or Odd) should be set */
+      // With this configuration a parity (Even or Odd) should be set 
       USART_InitStructure.USART_WordLength = USART_WordLength_8b;
       break;
     case 0x08:
@@ -345,6 +347,7 @@ bool USART_Config(void)
   USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
   USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
  
+ */
   return (TRUE);
 }
 
