@@ -3,11 +3,14 @@
 
 #include <stdint.h>
 
+// CAUTION: the comments with the numbers are not always right anymore!
 //3 Farben, 
 #define PWM_STEPS               2
 #define NUM_COLORS              3
 #define LEDS_PER_BOARD          64
-#define NUM_FRAMES              128 // least common multiple: 46080
+
+// 3*128 ~ about 1 frame 
+#define NUM_FRAMES              (9*128)//old 128 // least common multiple: 46080
 #define NUM_ROWS                344
 
 // 2880 bits = 360 bytes
@@ -17,14 +20,16 @@
 
 #define FRAME_BUFFER_LENGTH     (NUM_FRAMES * FRAME_SIZE / 2) //because of word
 
-#define NUM_USB_FRAMES          FRAME_BUFFER_LENGTH * 2 / 64 //720 //new value 45 //1024 bytes per usb frame
+#define NUM_USB_FRAMES          (FRAME_BUFFER_LENGTH * 2 / 64) //old 720 //new value 45 //1024 bytes per usb frame
 
 #define NUM_FRAMES_IN_MULTI_FRAME          8
 
-#define MULTI_FRAME_SIZE        (FRAME_SIZE * NUM_FRAMES_IN_MULTI_FRAME) // 2880 -> 16 multi frames in buffer
+#define MULTI_FRAME_SIZE        (FRAME_SIZE * NUM_FRAMES_IN_MULTI_FRAME) //old  2880 -> 16 multi frames in buffer
+
+#define NUM_MULTI_FRAMES        (FRAME_BUFFER_LENGTH *2 / MULTI_FRAME_SIZE) //144
 
 #define MULTI_FRAMES_IN_IMAGE   (NUM_ROWS / NUM_FRAMES_IN_MULTI_FRAME)
-#define NUM_USB_FRAMES_IN_MULTI_FRAME      (MULTI_FRAME_SIZE / 64)       // 45
+#define NUM_USB_FRAMES_IN_MULTI_FRAME      (MULTI_FRAME_SIZE / 64)       // old 45
 
 void enable_synchronisation();
 

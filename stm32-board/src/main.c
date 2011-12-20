@@ -53,8 +53,10 @@ void SysTick_Handler(void) {
   GPIOG->ODR = 0;
   }
   */
-  row_clock_counter += 0x10000;
-  row_clock_counter &= 0xFFFF0000;
+
+  //row_clock_counter += 0x10000;
+  //row_clock_counter &= 0xFFFF0000;
+
   //row_clock_counter++;
   /*
   cnt++;
@@ -85,12 +87,9 @@ int main(void) {
   ExtInterrupt_Configuration();
   __enable_irq();
 
-  // Initialize Timer
-  Timer_Configuration();
-
   // Setup SysTick Timer for 1 millisecond interrupts, also enables Systick and Systick-Interrupt
   // needed for SysTick_Handler
-  if (SysTick_Config(SystemCoreClock / 1000)) {
+  if (SysTick_Config(SystemCoreClock / 183)){//1000)) {
     // Display error
     errdisplay_displayErr(ERROR_INIT_SYSCLOCK_FAILED);
   }
@@ -102,11 +101,15 @@ int main(void) {
   USB_Init();
 
   USART1_Init();
+
+  // Initialize Timer
+  Timer_Configuration();
+
   // Turn on/off LED(s)
   register int32_t current_led = -1;
   register int32_t current_row = 0;
   register uint16_t temp = 0;
-  uint32_t time_temp = 0;
+  uint32_t now = 0;
 
   /*
   int i = 0;
@@ -130,15 +133,21 @@ int main(void) {
     }
   }
   */
+  time_per_pixel = 15 << 16;
+//#define DEBUG
   while (1) {
+#ifdef DEBUG
     sleep(1);
     SerialPrintf("synchro_enable=%i\r\n", synchro_enable);
+    SerialPrintf("time_per_pixel=%i\r\n", time_per_pixel);
     SerialPrintf("wait_for_start=%i\r\n", wait_for_start);
     SerialPrintf("current_led=%i\r\n", current_led);
     SerialPrintf("current_multi_frame=%i\r\n", current_multi_frame);
     SerialPrintf("current_usb_multi_frame=%i\r\n", current_usb_multi_frame);
     SerialPrintf("current_row=%i\r\n", current_row);
     SerialPrintf("sof_i=%i\r\n", start_frame_interrupt);
+    SerialPrintf("row_clock_counter=%i\r\n", row_clock_counter);
+#endif
     /*
      GPIOB->ODR = 0xffff;
      i++;
@@ -190,9 +199,9 @@ int main(void) {
         // this is a buffer underrun, the interrupt already came
         // and the buffer is not ready, therefore enable synchro
         current_led = -1;
-        // enable_synchronisation();
+        enable_synchronisation();
         asm volatile ("cpsie i");
-      GPIOB->ODR = (1 << 11); GPIOD->ODR = 0xFFFF; sleep(500);
+        GPIOB->ODR = (1 << 11); GPIOD->ODR = 0xFFFF; sleep(500);
         continue;
       }else{
         // here we have the data, just reset the stuff right
@@ -203,10 +212,10 @@ int main(void) {
     }else{
       //two main things to test in this part: buffer underruns and overruns
       
-      time_temp = row_clock_counter + SysTick->VAL;
+      now = row_clock_counter + TIM_GetCounter(TIM2);
       // check if current_led needs to be set back,
       // because the clock is not ready, yet
-      if (row_interrupt_time + current_row*time_per_pixel < time_temp){
+      if (row_interrupt_time + current_row*time_per_pixel > now){
         //check if the interrupt has not come, then it has nothing todo with time
         // set current_led to the last pixel
         current_led -= FRAME_SIZE/2;
@@ -220,6 +229,11 @@ int main(void) {
         }else{
           // add rows
           current_row++;
+          // release an endpoint if it was flagged before
+          if (release_endp3 == 1){
+            release_endp3 = 0;
+            SetEPRxValid(ENDP3);
+          }
           // if there was no interrupt: set the actual current_led
           if (current_led >= (FRAME_BUFFER_LENGTH - 1)) {
             current_led = -1;
@@ -230,7 +244,7 @@ int main(void) {
             // unlock usb endpoint 3 which is the data carrier, because there's space now
             if (endp3_locked == 1){
               endp3_locked = 0;
-              // set the endpoint free!
+              // set the endpoint free, but only then when the next row starts
               release_endp3 = 1;
             }
           }
@@ -293,12 +307,6 @@ int main(void) {
     GPIOF->ODR = 0;
     GPIOG->ODR = 0;
 
-    // this needs to be at the end, because you could have a buffer overrun,
-    // if you gave it free in the beginning
-    if (release_endp3 == 1){
-      release_endp3 = 0;
-      SetEPRxValid(ENDP3);
-    }
     asm volatile ("cpsie i");
     //uint16_t value = TIM_GetCounter(TIM3);
     /*
@@ -355,15 +363,36 @@ int main(void) {
 }
 
 void Timer_Configuration() {
-  RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;
-  // TIM3->DIER = TIM_DIER_UIE; // Update interrupt enable
-  TIM3->CR1 = TIM_CR1_CEN;
-  // TIM3->ARR = 562;
-  TIM3->ARR = 250;
-  TIM3->PSC = 0; 
-  //old
-  // f=72MHz, ARR=5, PSC=0 => fpixclk = 12MHz
-  //TIM3->ARR //Auto reload register
+#define TIMER_TAKT 12000000                                            /* Timer wird mit 10kHz getaktet */
+  TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
+  NVIC_InitTypeDef NVIC_InitStructure;
+  uint16_t PrescalerValue;
+
+  RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE); // TIMER 2 Takt freigeben
+
+  PrescalerValue = (uint16_t)(SystemCoreClock / TIMER_TAKT) - 1; // Vorteiler berechnen
+  SerialPrintf("clock=%i\r\n", SystemCoreClock);
+  SerialPrintf("prescale=%i\r\n", PrescalerValue);
+
+  // Timer Grundkonfiguration
+  TIM_TimeBaseStructure.TIM_Period = 0xffff; // Timer zählt von 0 ... 5000
+  TIM_TimeBaseStructure.TIM_Prescaler = PrescalerValue;
+  TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+  TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+  TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure); // Timer einstellen
+
+  //Timer Vorteiler-Taktkonfiguration
+  TIM_PrescalerConfig(TIM2, PrescalerValue, TIM_PSCReloadMode_Immediate); // Auto-Reload
+
+  // Timer aktivieren
+  TIM_Cmd(TIM2, ENABLE);
+  // Timer Interruptkonfiguration
+  //Clear TIM2 update pending flag
+  TIM_ClearFlag(TIM2, TIM_FLAG_Update);
+  TIM_ITConfig(TIM2, TIM_IT_Update, ENABLE); // Interrupt bei Überlauf
+
+
+  //NVIC_EnableIRQ(TIM2_IRQn);
 
 }
 
@@ -388,12 +417,19 @@ void ExtInterrupt_Configuration() {
   //select NVIC channel to configure
   NVIC_InitStructure.NVIC_IRQChannel = EXTI0_IRQn;
   //set priority to lowest
-  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x0F;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
   //set subpriority to lowest
-  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x0F;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;
   //enable IRQ channel
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
   //update NVIC registers
+  NVIC_Init(&NVIC_InitStructure);
+
+  // Enable the TIM2 Interrupt
+  NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x0F;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x08;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
   NVIC_Init(&NVIC_InitStructure);
 }
 

@@ -197,10 +197,10 @@ void EP3_OUT_Callback(void)
       current_usb_multi_frame++;
       // check if we have enough space for a new packet (buffer full)
       // underruns may not to be checked here, thats the job of the display loop
-      if (current_usb_multi_frame >= (current_multi_frame + MULTI_FRAME_SIZE)){
-        SetEPRxValid(ENDP3);
+      if (current_usb_multi_frame >= (current_multi_frame + NUM_MULTI_FRAMES)){
+        //SetEPRxValid(ENDP3); //must not be here
         // buffer is full -> wait
-        //endp3_locked = 1;
+        endp3_locked = 1;
       }else{
         // Enable the receive of data on EP3
         SetEPRxValid(ENDP3);
@@ -231,10 +231,13 @@ void EP1_OUT_Callback(void)
   // process:
   //   1: synchronisation enable - wait for synchronisation frame
   //   2: change timer speed
-  if (buf_ctrl == 1){
+  //GPIOB->ODR = (1 << 12); GPIOD->ODR = 0xFFFF; sleep(500);
+  if (buf_ctrl[0] == 1){
     synchro_enable = true;
-  }else if (buf_ctrl == 2){
-    time_per_pixel = (uint32_t)buf_ctrl[1];
+    SerialPrintf("set synchro_enable=%u\r\n", synchro_enable);
+  }else if (buf_ctrl[0] == 2){
+    time_per_pixel = *((uint32_t*) & buf_ctrl[1]);
+    SerialPrintf("set time_per_pixel=%u\r\n", time_per_pixel);
   }
 #ifndef STM32F10X_CL
   // Enable the receive of data on EP4

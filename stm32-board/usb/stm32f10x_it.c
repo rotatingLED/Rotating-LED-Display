@@ -218,7 +218,7 @@ void EXTI0_IRQHandler(void) {
     if (synchro_enable == 0){
       start_frame_interrupt = 1;
     }
-    row_interrupt_time  = row_clock_counter + SysTick->VAL;
+    row_interrupt_time  = row_clock_counter + TIM_GetCounter(TIM2);
   }
 
   //we need to clear line pending bit manually
@@ -228,6 +228,15 @@ void EXTI0_IRQHandler(void) {
 
 void TIM2_IRQHandler(void) {
     TIM_ClearFlag(TIM2, TIM_FLAG_Update);
+    TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
+    row_clock_counter += 0x10000;
+    row_clock_counter &= 0xFFFF0000;
+    //SerialPrintf("timer=%i\r\n", row_clock_counter);
+    //sleep(100000);
+  //if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET) {
+    // Überlauf des Zählregisters
+    //TIM_ClearFlag(TIM2, TIM_FLAG_Update);
+  //}
 }
 
 /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/

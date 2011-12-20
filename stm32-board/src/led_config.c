@@ -6,7 +6,7 @@ uint16_t frame_buffer[FRAME_BUFFER_LENGTH];
 
 volatile uint16_t current_usb_frame = 0;
 
-volatile uint32_t time_per_pixel = 500 << 16;
+volatile uint32_t time_per_pixel = 15 << 16;
 volatile uint8_t synchro_enable = 1;
 volatile uint8_t wait_for_start = 1;
 
