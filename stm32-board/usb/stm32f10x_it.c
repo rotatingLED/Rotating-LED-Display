@@ -223,6 +223,7 @@ void EXTI0_IRQHandler(void) {
 
   //we need to clear line pending bit manually
   EXTI_ClearITPendingBit(EXTI_Line0);
+  SerialPrintf("interrupt=\r\n");
 }
 
 void TIM2_IRQHandler(void) {

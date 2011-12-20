@@ -684,7 +684,7 @@ flash:
 
 flash_test:
 	ssh beagle "sudo led/python/flash_boards.py; sleep 1"
-	make program
+	make program || (sleep 1 && make program)
 	ssh beagle "sudo led/python/reset_boards.py; sleep 0.1; sudo led/python/test.py"
 
 # Target: clean project.

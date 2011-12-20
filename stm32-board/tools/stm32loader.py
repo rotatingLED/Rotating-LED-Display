@@ -56,7 +56,7 @@ class CommandInterface:
             timeout=5               # set a timeout value, None for waiting forever
         )
         while self.sp.inWaiting() > 0:
-            self.ser.read(1)
+            self.sp.read(1)
 
 
     def _wait_for_ask(self, info = ""):

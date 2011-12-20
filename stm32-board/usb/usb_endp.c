@@ -163,6 +163,7 @@ void EP3_OUT_Callback(void)
 
   //FreeUserBuffer(ENDP3, EP_DBUF_OUT); // double buffering
 
+  // SerialPrintf("usb\r\n");
   if (synchro_enable == 1){
     //GPIOB->ODR = (1 << 12); GPIOD->ODR = 0xFFFF; sleep(500);
     uint8_t* p = & frame_buffer[32*current_usb_frame];
@@ -216,6 +217,7 @@ void EP3_OUT_Callback(void)
       current_usb_frame = 0;
     }
   }
+  // SerialPrintf("usb_end\r\n");
 }
 
 void EP1_OUT_Callback(void)

@@ -4,19 +4,20 @@
 #include <stdint.h>
 
 //3 Farben, 
-#define PWM_STEPS               15
+#define PWM_STEPS               2
 #define NUM_COLORS              3
 #define LEDS_PER_BOARD          64
 #define NUM_FRAMES              128 // least common multiple: 46080
-#define NUM_ROWS                1000
+#define NUM_ROWS                344
 
-//2880 bits = 360 bytes
+// 2880 bits = 360 bytes
+// new:  384 =  48 bytes
 #define FRAME_SIZE              (PWM_STEPS * NUM_COLORS * LEDS_PER_BOARD / 8)
 #define IMAGE_SIZE              (NUM_ROWS * FRAME_SIZE)
 
-#define NUM_USB_FRAMES          720 //new value 45 //1024 bytes per usb frame
-
 #define FRAME_BUFFER_LENGTH     (NUM_FRAMES * FRAME_SIZE / 2) //because of word
+
+#define NUM_USB_FRAMES          FRAME_BUFFER_LENGTH * 2 / 64 //720 //new value 45 //1024 bytes per usb frame
 
 #define NUM_FRAMES_IN_MULTI_FRAME          8
 
