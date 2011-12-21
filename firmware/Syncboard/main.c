@@ -11,7 +11,7 @@
 #include "time/time.h"
 #include "utils.h"
 #include <string.h>
-
+//#include <avr/wdt.h> // Watchdog
 /**
  * UART Baudrate
  */
@@ -20,8 +20,8 @@
 /**
  * Configuration variables
  */
-uint8_t adcThreshold = 120;
-uint16_t interruptDelay = 10000;
+uint8_t adcThreshold = 255;
+uint16_t interruptDelay = 100;
 uint8_t displayAdcDebug = 0;
 
 uint8_t ledMask = 0x03;
@@ -68,12 +68,14 @@ int main(void) {
 	hw_init();
 	uart_init(UART_BAUD_SELECT(UART_BAUD_RATE, F_CPU));
 
+	uart_puts("\r\n\r\nstartup!\r\n");
+
 	getTime(&centerOnTime);
 
-	// TODO: 7 for real board
-	adc_select(7);
+	//adc_select(6);
 
 	while (1) {
+		//wdt_reset();
 		uint8_t v = adc_read();
 
 		if (debugInterruptPrescaler == 0xff) {
@@ -104,7 +106,9 @@ int main(void) {
 		c = uart_getc();
 		if (c == 'c') {
 			inConfiguration = 1;
+
 			configuration();
+
 			inConfiguration = 0;
 		} else if (c == 'a') {
 			printAdc(v);
@@ -117,8 +121,8 @@ int main(void) {
 void printAdc(uint8_t v) {
 	uart_puts("adc  ->");
 	uart_puti(v);
-//	uart_putc(' ');
-//	uart_putc('0' + (PINC & (1 << 5) ? 1 : 0));
+	//	uart_putc(' ');
+	//	uart_putc('0' + (PINC & (1 << 5) ? 1 : 0));
 	uart_puts("\n");
 }
 
@@ -131,9 +135,9 @@ void simulateEvent() {
 		timeOn = timeOff;
 
 		//		getTime(&timeOn);
-		setYellowLed(ledMask & 0x02);
-		sendInterrupt();
-		setYellowLed(0);
+//		setYellowLed(ledMask & 0x02);
+//		sendInterrupt();
+//		setYellowLed(0);
 	}
 }
 
@@ -153,31 +157,31 @@ void handleLightDown() {
 
 	syncInteruptOnTime(&syncTime);
 
-//	uart_puts("on=");
-//	uartPutTime(&timeOn);
-//	uart_puts("\n");
-//
-//	uart_puts("off=");
-//	uartPutTime(&timeOff);
-//	uart_puts("\n");
-//
-//	uart_puts("diff=");
-//	uartPutTime(&diff);
-//	uart_puts("\n");
-//
-//	uart_puts("cent=");
-//	uartPutTime(&centerOnTime);
-//	uart_puts("\n");
+	//	uart_puts("on=");
+	//	uartPutTime(&timeOn);
+	//	uart_puts("\n");
+	//
+	//	uart_puts("off=");
+	//	uartPutTime(&timeOff);
+	//	uart_puts("\n");
+	//
+	//	uart_puts("diff=");
+	//	uartPutTime(&diff);
+	//	uart_puts("\n");
+	//
+	//	uart_puts("cent=");
+	//	uartPutTime(&centerOnTime);
+	//	uart_puts("\n");
 
 	uart_puts("rota=");
 	uartPutTime(&rotationTimer);
 	uart_puts("\n");
 
-//	uart_puts("sync=");
-//	uartPutTime(&syncTime);
-//	uart_puts("\n");
-//
-//	uart_puts("\n");
+	//	uart_puts("sync=");
+	//	uartPutTime(&syncTime);
+	//	uart_puts("\n");
+	//
+	//	uart_puts("\n");
 
 	lastCenterOnTime = centerOnTime;
 }
@@ -267,6 +271,19 @@ uint8_t parseCmd(const char * command) {
 	} else if (strcmp(command, "exit") == 0) {
 		uart_puts("$ exit\n");
 		return 0;
+//	} else if (strcmp(command, "reset") == 0) {
+//		uart_puts("$ reset\n");
+//
+//		wdt_enable(WDTO_500MS);
+//
+//		while (1) {
+//			_delay_ms(100);
+//			setYellowLed(0);
+//			_delay_ms(100);
+//			setYellowLed(1);
+//		}
+//
+//		return 0;
 	} else {
 		uart_puts("err UNKNOWN_COMMAND \"");
 

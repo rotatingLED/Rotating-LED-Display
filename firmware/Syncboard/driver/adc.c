@@ -6,7 +6,7 @@
 void adc_init() {
 	ADMUX = (0 << REFS1) | (1 << REFS0); // AVCC with external capacitor at AREF pin
 	ADMUX |= (1 << ADLAR); // 255 Steps, 8bit
-	ADMUX |= 7; // X => ADCX selected
+	ADMUX |= 6; // X => ADCX selected
 
 	// set analog to digital converter
 	// to be enabled, with a clock prescale of 1/128
