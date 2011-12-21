@@ -7,7 +7,7 @@
 #define NUM_ROWS          344
 #define ROW               BOARDS*LEDS_PER_BOARD*NUM_COLORS
 #define ROW_4BIT          ROW / 2
-#define ROW_4BIT          ROW / 4
+#define ROW_2BIT          ROW / 4
 #define PWM_BOARD_ROW_SIZE      PWM_STEPS * LEDS_PER_BOARD * NUM_COLORS / 8
 #define PWM_IMAGE_SIZE          PWM_BOARD_ROW_SIZE*BOARDS*NUM_ROWS
 //extern "C" void pwm_data_4bit(unsigned char* img, unsigned char board_nr, unsigned char* pwm_data);
@@ -108,15 +108,15 @@ void sort_led_pixels_2bit(unsigned char* row, unsigned char* result){
   for(i=0;i<LEDS_PER_BOARD;i++){
     index = LED_ARR[i];
     i_new = i / 4;
-    if (i & 3){
+    if (i % 4 == 3 ){
       result[index*3]   = (row[i_new*3+2] >> 2) & 3;
       result[index*3+1] = (row[i_new*3+2] >> 4) & 3;
       result[index*3+2] = (row[i_new*3+2] >> 6) & 3;
-    }else if (i & 2){
+    }else if (i % 4==2){
       result[index*3]   = (row[i_new*3+1] >> 4) & 3;
       result[index*3+1] = (row[i_new*3+1] >> 6) & 3;
       result[index*3+2] =  row[i_new*3+2]       & 3;
-    }else if (i & 1){
+    }else if (i % 4==1){
       // second pixel
       result[index*3]   = (row[i_new*3  ] >> 6) & 3;
       result[index*3+1] =  row[i_new*3+1]       & 3;
@@ -188,12 +188,16 @@ void pwm_data_2bit_c(unsigned char* img, unsigned char board_nr, unsigned char* 
       pixel = relevant[j];
       // change j because it has wrong values (4bit)
       for(k=0;k<PWM_STEPS;k++){
-        if (k < pixel){
+        if (pixel > 0){
+          // choose color
           address = LEDS_PER_BOARD*PWM_STEPS*temp;
+          // choose pwm step
           address += k*LEDS_PER_BOARD;
+          // choose led
           address += j/NUM_COLORS;
-          // 360 bytes address -> 2880 bits
+          // 48 bytes address -> 384 bits
           pwm[address/8] += 1 << (address & 7);
+          pixel = pixel >> 1;
         }else{
           break;
         }

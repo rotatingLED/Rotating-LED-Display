@@ -77,26 +77,35 @@ class Board(threading.Thread):
         # realtime stuff - the shit!
         while self.running:
             if self.synchronize:
-                send_control_data(1, [0]*7)
-                time.sleep(0.001)
+                self.send_control_data(1, [0]*7)
+                time.sleep(0.01)
+                led.run(self.dev, [255] + [0]*63)
+                self.synchronize = False
             else:
                 self._send_current_picture()
 
-    def _send_current_picture():
+    def _send_current_picture(self):
         """ sends the current picture and no more """
         # 2 boards, so just take one
         led.run(self.dev, image_pwm_buffer[self.board][self.image_pwm_current])
         if image_pwm_current > self.image_pwm_current: 
             self.image_pwm_current += 1
 
-    def stop():
+    def stop(self):
         """ stop the thread and make it possible to 'join' threads """
         self.running = False
 
-    def send_control_data(command, data):
+    def send_control_data(self, command, data):
         """ send data to the control endpoint, which is the endpoint 4 """
-        led.run(self.dev, [command] + data, endpoint=4)
+        led.run(self.dev, [command] + data, endpoint=1)
 
-    def synchronize():
+    def send_rotation_time(self, rotation_time):
+        """ sends the rotation time, but not for the whole thing,
+            just for each pixel """
+        temp = rotation_time/led.NUM_ROWS 
+        self.send_control_data(2, [temp & 255]+[(temp >> 8) & 255]+
+                         [(temp >> 16) & 255] + [(temp >> 24) & 255]);
+
+    def synchronize(self):
         """ synchronizes the board over usb, with synchro data """
         self.synchronize = True
