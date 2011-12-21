@@ -58,7 +58,7 @@ void sendInterrupt() {
 	asm volatile("NOP");
 	asm volatile("NOP");
 	asm volatile("NOP");
-	PORTC &= ~(1 << PD3);
+	PORTC &= ~(1 << PC3);
 }
 
 
@@ -106,10 +106,11 @@ ISR(TIMER1_COMPB_vect)
 {
 	if(timePending) {
 		if(time == syncTime.time) {
-//			uart_puts("!!int!!\n");
+			sendInterrupt();
 			timePending = 0;
 		} else if(time > syncTime.time) {
-//			uart_puts("err SYNC_TIME_TO_SHORT\n");
+			sendInterrupt();
+			//uart_puts("err SYNC_TIME_TO_SHORT\n");
 			timePending = 0;
 		}
 	}

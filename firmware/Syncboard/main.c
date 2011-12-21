@@ -11,7 +11,7 @@
 #include "time/time.h"
 #include "utils.h"
 #include <string.h>
-
+//#include <avr/wdt.h> // Watchdog
 /**
  * UART Baudrate
  */
@@ -20,11 +20,11 @@
 /**
  * Configuration variables
  */
-uint8_t adcThreshold = 60;
-uint16_t interruptDelay = 10000;
+uint8_t adcThreshold = 255;
+uint16_t interruptDelay = 100;
 uint8_t displayAdcDebug = 0;
 
-uint8_t ledMask = 0x01;
+uint8_t ledMask = 0x03;
 
 uint8_t debugInterruptPrescaler = 0xff;
 
@@ -54,6 +54,7 @@ struct Time lastCenterOnTime;
  */
 void configuration();
 void handleLightDown();
+void printAdc(uint8_t v);
 
 /**
  * Main Loop
@@ -67,21 +68,21 @@ int main(void) {
 	hw_init();
 	uart_init(UART_BAUD_SELECT(UART_BAUD_RATE, F_CPU));
 
+	uart_puts("\r\n\r\nstartup!\r\n");
+
 	getTime(&centerOnTime);
 
-	adc_select(7);
-
+	//adc_select(6);
 
 	while (1) {
-		if (debugInterruptPrescaler == 0xff) {
-			uint8_t v = adc_read();
+		//wdt_reset();
+		uint8_t v = adc_read();
 
+		if (debugInterruptPrescaler == 0xff) {
 			if (displayAdcDebug) {
 				if (lastAdc != v) {
+					printAdc(v);
 					lastAdc = v;
-					uart_puts("adc  ->");
-					uart_puti(v);
-					uart_puts("\n");
 				}
 			}
 
@@ -105,12 +106,24 @@ int main(void) {
 		c = uart_getc();
 		if (c == 'c') {
 			inConfiguration = 1;
+
 			configuration();
+
 			inConfiguration = 0;
+		} else if (c == 'a') {
+			printAdc(v);
 		}
 	}
 
 	return 0;
+}
+
+void printAdc(uint8_t v) {
+	uart_puts("adc  ->");
+	uart_puti(v);
+	//	uart_putc(' ');
+	//	uart_putc('0' + (PINC & (1 << 5) ? 1 : 0));
+	uart_puts("\n");
 }
 
 void simulateEvent() {
@@ -122,9 +135,9 @@ void simulateEvent() {
 		timeOn = timeOff;
 
 		//		getTime(&timeOn);
-		setYellowLed(ledMask & 0x02);
-		sendInterrupt();
-		setYellowLed(0);
+//		setYellowLed(ledMask & 0x02);
+//		sendInterrupt();
+//		setYellowLed(0);
 	}
 }
 
@@ -142,21 +155,21 @@ void handleLightDown() {
 	tmp.time = 0;
 	timeAdd(&centerOnTime, &tmp, &syncTime);
 
-	// TODO: DEBUG	syncInteruptOnTime(&syncTime);
+	syncInteruptOnTime(&syncTime);
 
 	//	uart_puts("on=");
 	//	uartPutTime(&timeOn);
 	//	uart_puts("\n");
-
-	//	uart_puts("off  =>");
+	//
+	//	uart_puts("off=");
 	//	uartPutTime(&timeOff);
 	//	uart_puts("\n");
 	//
-	//	uart_puts("diff =>");
+	//	uart_puts("diff=");
 	//	uartPutTime(&diff);
 	//	uart_puts("\n");
 	//
-	//	uart_puts("cent =>");
+	//	uart_puts("cent=");
 	//	uartPutTime(&centerOnTime);
 	//	uart_puts("\n");
 
@@ -164,7 +177,7 @@ void handleLightDown() {
 	uartPutTime(&rotationTimer);
 	uart_puts("\n");
 
-	//	uart_puts("sync =>");
+	//	uart_puts("sync=");
 	//	uartPutTime(&syncTime);
 	//	uart_puts("\n");
 	//
@@ -201,9 +214,18 @@ uint8_t parseCmd(const char * command) {
 		uart_puti(debugInterruptPrescaler);
 		uart_puts("\n");
 
+		uart_puts("$ boot0 = ");
+		uart_puti((DDRC & (1 << 2)) == 0 ? 0 : 1);
+		uart_puts("\n");
+
+		uart_puts("$ reset = ");
+		uart_puti((DDRB & (1 << 5)) == 0 ? 0 : 1);
+		uart_puts("\n");
+
 		uart_putc('>');
 	} else if (strcmp(command, "set") == 0) {
-		if (readString16(name, "=") == 0 && readString16(value, "\r\n ") == 0 && myatoi(value, &iValue) == 0) {
+		if (readString16(name, "=") == 0 && readString16(value, "\r\n ") == 0
+				&& myatoi(value, &iValue) == 0) {
 			uart_puts("$ set\n$ ");
 			uart_puts(name);
 			uart_putc('=');
@@ -219,6 +241,25 @@ uint8_t parseCmd(const char * command) {
 				ledMask = iValue;
 			} else if (strcmp("dip", name) == 0) {
 				debugInterruptPrescaler = iValue;
+			} else if (strcmp("boot0", name) == 0) {
+				if (iValue) {
+					// output schalten
+					DDRC |= (1 << 2);
+					PORTC |= (1 << 2);
+				} else {
+					// hochomig
+					DDRC &= ~(1 << 2);
+					PORTC &= ~(1 << 2);
+				}
+			} else if (strcmp("reset", name) == 0) {
+				if (iValue) {
+					// output schalten
+					DDRB |= (1 << 5);
+					PORTB &= ~(1 << 5);
+				} else {
+					// hochomig
+					DDRB &= ~(1 << 5);
+				}
 			} else {
 				uart_puts("\nerr UNKNOWN_VAR");
 			}
@@ -230,6 +271,19 @@ uint8_t parseCmd(const char * command) {
 	} else if (strcmp(command, "exit") == 0) {
 		uart_puts("$ exit\n");
 		return 0;
+//	} else if (strcmp(command, "reset") == 0) {
+//		uart_puts("$ reset\n");
+//
+//		wdt_enable(WDTO_500MS);
+//
+//		while (1) {
+//			_delay_ms(100);
+//			setYellowLed(0);
+//			_delay_ms(100);
+//			setYellowLed(1);
+//		}
+//
+//		return 0;
 	} else {
 		uart_puts("err UNKNOWN_COMMAND \"");
 
