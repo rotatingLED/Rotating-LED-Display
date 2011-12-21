@@ -20,11 +20,11 @@
 /**
  * Configuration variables
  */
-uint8_t adcThreshold = 60;
+uint8_t adcThreshold = 120;
 uint16_t interruptDelay = 10000;
 uint8_t displayAdcDebug = 0;
 
-uint8_t ledMask = 0x01;
+uint8_t ledMask = 0x03;
 
 uint8_t debugInterruptPrescaler = 0xff;
 
@@ -54,6 +54,7 @@ struct Time lastCenterOnTime;
  */
 void configuration();
 void handleLightDown();
+void printAdc(uint8_t v);
 
 /**
  * Main Loop
@@ -69,19 +70,17 @@ int main(void) {
 
 	getTime(&centerOnTime);
 
+	// TODO: 7 for real board
 	adc_select(7);
 
-
 	while (1) {
-		if (debugInterruptPrescaler == 0xff) {
-			uint8_t v = adc_read();
+		uint8_t v = adc_read();
 
+		if (debugInterruptPrescaler == 0xff) {
 			if (displayAdcDebug) {
 				if (lastAdc != v) {
+					printAdc(v);
 					lastAdc = v;
-					uart_puts("adc  ->");
-					uart_puti(v);
-					uart_puts("\n");
 				}
 			}
 
@@ -107,10 +106,20 @@ int main(void) {
 			inConfiguration = 1;
 			configuration();
 			inConfiguration = 0;
+		} else if (c == 'a') {
+			printAdc(v);
 		}
 	}
 
 	return 0;
+}
+
+void printAdc(uint8_t v) {
+	uart_puts("adc  ->");
+	uart_puti(v);
+//	uart_putc(' ');
+//	uart_putc('0' + (PINC & (1 << 5) ? 1 : 0));
+	uart_puts("\n");
 }
 
 void simulateEvent() {
@@ -142,33 +151,33 @@ void handleLightDown() {
 	tmp.time = 0;
 	timeAdd(&centerOnTime, &tmp, &syncTime);
 
-	// TODO: DEBUG	syncInteruptOnTime(&syncTime);
+	syncInteruptOnTime(&syncTime);
 
-	//	uart_puts("on=");
-	//	uartPutTime(&timeOn);
-	//	uart_puts("\n");
-
-	//	uart_puts("off  =>");
-	//	uartPutTime(&timeOff);
-	//	uart_puts("\n");
-	//
-	//	uart_puts("diff =>");
-	//	uartPutTime(&diff);
-	//	uart_puts("\n");
-	//
-	//	uart_puts("cent =>");
-	//	uartPutTime(&centerOnTime);
-	//	uart_puts("\n");
+//	uart_puts("on=");
+//	uartPutTime(&timeOn);
+//	uart_puts("\n");
+//
+//	uart_puts("off=");
+//	uartPutTime(&timeOff);
+//	uart_puts("\n");
+//
+//	uart_puts("diff=");
+//	uartPutTime(&diff);
+//	uart_puts("\n");
+//
+//	uart_puts("cent=");
+//	uartPutTime(&centerOnTime);
+//	uart_puts("\n");
 
 	uart_puts("rota=");
 	uartPutTime(&rotationTimer);
 	uart_puts("\n");
 
-	//	uart_puts("sync =>");
-	//	uartPutTime(&syncTime);
-	//	uart_puts("\n");
-	//
-	//	uart_puts("\n");
+//	uart_puts("sync=");
+//	uartPutTime(&syncTime);
+//	uart_puts("\n");
+//
+//	uart_puts("\n");
 
 	lastCenterOnTime = centerOnTime;
 }
@@ -211,7 +220,8 @@ uint8_t parseCmd(const char * command) {
 
 		uart_putc('>');
 	} else if (strcmp(command, "set") == 0) {
-		if (readString16(name, "=") == 0 && readString16(value, "\r\n ") == 0 && myatoi(value, &iValue) == 0) {
+		if (readString16(name, "=") == 0 && readString16(value, "\r\n ") == 0
+				&& myatoi(value, &iValue) == 0) {
 			uart_puts("$ set\n$ ");
 			uart_puts(name);
 			uart_putc('=');
@@ -228,7 +238,7 @@ uint8_t parseCmd(const char * command) {
 			} else if (strcmp("dip", name) == 0) {
 				debugInterruptPrescaler = iValue;
 			} else if (strcmp("boot0", name) == 0) {
-				if(iValue) {
+				if (iValue) {
 					// output schalten
 					DDRC |= (1 << 2);
 					PORTC |= (1 << 2);
@@ -238,7 +248,7 @@ uint8_t parseCmd(const char * command) {
 					PORTC &= ~(1 << 2);
 				}
 			} else if (strcmp("reset", name) == 0) {
-				if(iValue) {
+				if (iValue) {
 					// output schalten
 					DDRB |= (1 << 5);
 					PORTB &= ~(1 << 5);

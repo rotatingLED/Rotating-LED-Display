@@ -106,10 +106,10 @@ ISR(TIMER1_COMPB_vect)
 {
 	if(timePending) {
 		if(time == syncTime.time) {
-//			uart_puts("!!int!!\n");
+			sendInterrupt();
 			timePending = 0;
 		} else if(time > syncTime.time) {
-//			uart_puts("err SYNC_TIME_TO_SHORT\n");
+			uart_puts("err SYNC_TIME_TO_SHORT\n");
 			timePending = 0;
 		}
 	}
