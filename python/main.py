@@ -45,7 +45,7 @@ class RotatingLed(object):
             print 'Sync board not found!'
 
 
-        if self.init_server():
+        if self.init_server:
             # start server
             HOST, PORT = "localhost", 28900
             self.server = SocketServer.TCPServer((HOST, PORT), TcpServer.MyTCPHandler)
@@ -55,6 +55,13 @@ class RotatingLed(object):
             HOST, PORT = "localhost", 28900
             #self.server = SocketServer.TCPServer((HOST, PORT), TcpServer.MyTCPHandler)
             #self.server.serve_forever()
+        else:
+            # just show a debug picture
+            fh = open('testbild.bin', 'rs')
+            image.image_buffer[0] = fh.read()
+            print 'testbild_size', len(image.image_buffer[0])
+            while(1):
+                time.sleep(1)
 
     def stop(self):
         """ stops the whole program to run an led animation """
@@ -72,19 +79,19 @@ class RotatingLed(object):
 
     def handle_serial_event(self, key, value):
         """ callback function for Syncboard """
-        print key, value
+        #print key, value
 
         #if led.image_current > led.image_pwm_current
         if key == 'rota':
             t = int(value, 16)
-            print t
-            for b in board_threads:
+            #print t
+            for b in self.board_threads:
                 b.send_rotation_time(t)
 
 if __name__ == "__main__":
-    main = RotatingLed()
+    main = RotatingLed(init_server = False)
     try:
-        main.start(init_server = False)
+        main.start()
     except Exception:
         import traceback
         traceback.print_exc()
