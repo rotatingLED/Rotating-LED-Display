@@ -111,6 +111,7 @@ int main(void) {
   register uint16_t temp = 0;
   uint32_t now = 0;
 
+  SerialPrintf("config done\r\n");
   /*
   int i = 0;
   uint32_t time_per_column = 500 << 16;
@@ -134,7 +135,21 @@ int main(void) {
   }
   */
   time_per_pixel = 15 << 16;
-//#define DEBUG
+  /*while (1) {
+    synchro_enable = 0;
+      if (start_frame_interrupt == 1){
+        start_frame_interrupt = 0;
+        GPIOB->ODR = (1 << 12); //color: red
+        GPIOD->ODR = 0xFFFF;
+        GPIOE->ODR = 0xFFFF;
+        GPIOF->ODR = 0xFFFF;
+        GPIOG->ODR = 0xFFFF;
+        sleep(100);
+      }
+      GPIOB->ODR = (1 << 11); //color: red
+  }
+  */
+
   while (1) {
 #ifdef DEBUG
     sleep(1);
@@ -201,12 +216,11 @@ int main(void) {
         current_led = -1;
         enable_synchronisation();
         asm volatile ("cpsie i");
-        GPIOB->ODR = (1 << 11); GPIOD->ODR = 0xFFFF; sleep(500);
         continue;
       }else{
         // here we have the data, just reset the stuff right
         // -1 because current_led starts negative
-        current_led = mod_multi_frame * MULTI_FRAME_SIZE - 1;
+        current_led = ((current_multi_frame % NUM_MULTI_FRAMES) * MULTI_FRAME_SIZE)/2 - 1;
         current_row = 0;
       }
     }else{
@@ -252,7 +266,7 @@ int main(void) {
       }
     }
   //SerialPrintf("start=\r\n");
-    GPIOB->ODR = (1 << 10); //color: blue
+    GPIOB->ODR = (1 << 11); //color: red
 
     // int32 
     //temp  = frame_buffer[i] && (1 >> 0);
@@ -267,24 +281,9 @@ int main(void) {
     GPIOF->ODR = frame_buffer[++current_led];
     GPIOG->ODR = frame_buffer[++current_led];
 
-    GPIOD->ODR = 0;
-    GPIOE->ODR = 0;
-    GPIOF->ODR = 0;
-    GPIOG->ODR = 0;
-
-    GPIOB->ODR = (1 << 11); //color: red
-
-    GPIOD->ODR = frame_buffer[++current_led];
-    GPIOE->ODR = frame_buffer[++current_led];
-    GPIOF->ODR = frame_buffer[++current_led];
-    GPIOG->ODR = frame_buffer[++current_led];
-
-    GPIOD->ODR = frame_buffer[++current_led];
-    GPIOE->ODR = frame_buffer[++current_led];
-    GPIOF->ODR = frame_buffer[++current_led];
-    GPIOG->ODR = frame_buffer[++current_led];
-
-    GPIOC->ODR = 0;
+#ifdef DEBUG
+    sleep(1);
+#endif
     GPIOD->ODR = 0;
     GPIOE->ODR = 0;
     GPIOF->ODR = 0;
@@ -302,6 +301,30 @@ int main(void) {
     GPIOF->ODR = frame_buffer[++current_led];
     GPIOG->ODR = frame_buffer[++current_led];
 
+#ifdef DEBUG
+    sleep(1);
+#endif
+    GPIOC->ODR = 0;
+    GPIOD->ODR = 0;
+    GPIOE->ODR = 0;
+    GPIOF->ODR = 0;
+    GPIOG->ODR = 0;
+
+    GPIOB->ODR = (1 << 10); //color: blue
+
+    GPIOD->ODR = frame_buffer[++current_led];
+    GPIOE->ODR = frame_buffer[++current_led];
+    GPIOF->ODR = frame_buffer[++current_led];
+    GPIOG->ODR = frame_buffer[++current_led];
+
+    GPIOD->ODR = frame_buffer[++current_led];
+    GPIOE->ODR = frame_buffer[++current_led];
+    GPIOF->ODR = frame_buffer[++current_led];
+    GPIOG->ODR = frame_buffer[++current_led];
+
+#ifdef DEBUG
+    sleep(1);
+#endif
     GPIOD->ODR = 0;
     GPIOE->ODR = 0;
     GPIOF->ODR = 0;

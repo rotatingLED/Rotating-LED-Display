@@ -197,7 +197,7 @@ void EP3_OUT_Callback(void)
       current_usb_multi_frame++;
       // check if we have enough space for a new packet (buffer full)
       // underruns may not to be checked here, thats the job of the display loop
-      if (current_usb_multi_frame >= (current_multi_frame + NUM_MULTI_FRAMES)){
+      if (current_usb_multi_frame >= (current_multi_frame + NUM_MULTI_FRAMES - 2)){
         //SetEPRxValid(ENDP3); //must not be here
         // buffer is full -> wait
         endp3_locked = 1;

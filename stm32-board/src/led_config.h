@@ -3,6 +3,9 @@
 
 #include <stdint.h>
 
+//#define DEBUG
+#define TRACE() SerialPrintf("t: %i\r\n", __LINE__);
+
 // CAUTION: the comments with the numbers are not always right anymore!
 //3 Farben, 
 #define PWM_STEPS               2
@@ -18,17 +21,17 @@
 #define FRAME_SIZE              (PWM_STEPS * NUM_COLORS * LEDS_PER_BOARD / 8)
 #define IMAGE_SIZE              (NUM_ROWS * FRAME_SIZE)
 
-#define FRAME_BUFFER_LENGTH     (NUM_FRAMES * FRAME_SIZE / 2) //because of word
+#define FRAME_BUFFER_LENGTH     (NUM_FRAMES * FRAME_SIZE / 2) //because of word: 55296/2
 
 #define NUM_USB_FRAMES          (FRAME_BUFFER_LENGTH * 2 / 64) //old 720 //new value 45 //1024 bytes per usb frame
 
 #define NUM_FRAMES_IN_MULTI_FRAME          8
 
-#define MULTI_FRAME_SIZE        (FRAME_SIZE * NUM_FRAMES_IN_MULTI_FRAME) //old  2880 -> 16 multi frames in buffer
+#define MULTI_FRAME_SIZE        (FRAME_SIZE * NUM_FRAMES_IN_MULTI_FRAME) //384 //old  2880 -> 16 multi frames in buffer
 
 #define NUM_MULTI_FRAMES        (FRAME_BUFFER_LENGTH *2 / MULTI_FRAME_SIZE) //144
 
-#define MULTI_FRAMES_IN_IMAGE   (NUM_ROWS / NUM_FRAMES_IN_MULTI_FRAME)
+#define MULTI_FRAMES_IN_IMAGE   (NUM_ROWS / NUM_FRAMES_IN_MULTI_FRAME)   // 43
 #define NUM_USB_FRAMES_IN_MULTI_FRAME      (MULTI_FRAME_SIZE / 64)       // old 45
 
 void enable_synchronisation();
