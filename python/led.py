@@ -110,7 +110,7 @@ def init(find_all=False):
     return dev
 
 def get_boards(find_all=False):
-    return usb.core.find(idVendor=0xffff, idProduct=0x5740, find_all = find_all)
+    return usb.core.find(idVendor=0xffff, find_all = find_all)
 """
 print 'configs:'
 for cfg in dev:
