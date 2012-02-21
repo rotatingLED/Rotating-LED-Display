@@ -424,6 +424,8 @@ CFLAGS += -MMD -MP -MF $(OUTDIR)/dep/$(@F).d
 #CFLAGS += -fno-dwarf2-cfi-asm
 #CFLAGS += -fno-strict-aliasing -Wno-nested-externs
 
+CFLAGS += -DPRODUCT_ID=${PRODUCT_ID}
+
 # flags only for C
 CONLYFLAGS += -Wnested-externs 
 CONLYFLAGS += $(CSTANDARD)

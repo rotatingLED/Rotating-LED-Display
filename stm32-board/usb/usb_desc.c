@@ -30,7 +30,7 @@ const uint8_t Virtual_Com_Port_DeviceDescriptor[] =
     0x40,   /* bMaxPacketSize0 */
     0xff,
     0xff,   /* idVendor = 0x0483 -> 0xffff added by david halter -> undefined */
-    0x40,
+    PRODUCT_ID, // in make file
     0x57,   /* idProduct = 0x5740 */
     0x00,
     0x02,   /* bcdDevice = 2.00 */
