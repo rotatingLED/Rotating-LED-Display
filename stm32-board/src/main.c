@@ -183,11 +183,18 @@ int main(void) {
 
     // wait for s/nchronisation -> just show 
     if (synchro_enable == 1 || (wait_for_start == 1 && start_frame_interrupt == 0)){
+      /*
       GPIOB->ODR = (1 << 11); //color: red
       GPIOD->ODR = 0xFFFF;
       GPIOE->ODR = 0xFFFF;
       GPIOF->ODR = 0xFFFF;
       GPIOG->ODR = 0xFFFF;
+      GPIOD->ODR = 0x0000;
+      GPIOE->ODR = 0x0000;
+      GPIOF->ODR = 0x0000;
+      GPIOG->ODR = 0x0000;
+      sleep(1);
+      */
       asm volatile ("cpsie i");
       continue;
     }
